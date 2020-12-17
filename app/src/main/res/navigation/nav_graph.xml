@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.ellcom.AuthFragment"
+        android:name="com.example.ellcom.ui.AuthFragment"
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authFragment_to_mainScreenFragment"
@@ -23,14 +23,14 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.ellcom.MainScreenFragment"
+        android:name="com.example.ellcom.ui.MainScreenFragment"
         tools:layout="@layout/fragment_main_screen" />
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.ellcom.RegistrationFragment"
+        android:name="com.example.ellcom.ui.RegistrationFragment"
         tools:layout="@layout/fragment_registration" />
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.ellcom.ForgotPasswordFragment"
+        android:name="com.example.ellcom.ui.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
 </navigation>
