@@ -9,14 +9,11 @@ class AuthBody(user_name: String, password: String, authBy: String) {
     @SerializedName("params")
     val params = Params(user_name, password)
 
-
     class Params(user_name: String, password: String) {
         @SerializedName("login")
         val login: String = user_name
 
         @SerializedName("pswd")
         val pswd: String = password
-
     }
-
 }

@@ -1,116 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registrationLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.RegistrationFragment">
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:backgroundTint="@color/orange"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="14dp"
-        app:cardMaxElevation="36dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="Хотите стать нашим\n абонентом?"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="14dp"
-        app:cardMaxElevation="36dp">
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/orange"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="14dp"
+            app:cardMaxElevation="36dp">
 
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border_radius"
-                android:backgroundTint="@color/edit_text_neutral"
-                android:ems="10"
-                android:hint="Введите логин или номер договора"
-                android:inputType="text"
-                android:padding="6dp"
-                android:textColorHint="@color/text_color" />
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Хотите стать нашим\n абонентом?"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextCompany"
-                android:layout_width="match_parent"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginEnd="90dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="14dp"
+            app:cardMaxElevation="36dp">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border_radius"
-                android:backgroundTint="@color/edit_text_neutral"
-                android:ems="10"
-                android:hint="Введите логин или номер договора"
-                android:inputType="text"
-                android:padding="6dp"
-                android:textColorHint="@color/text_color" />
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Отправьте заявку"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/editTextTel"
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border_radius"
-                android:backgroundTint="@color/edit_text_neutral"
-                android:ems="10"
-                android:hint="Введите логин или номер договора"
-                android:inputType="text"
-                android:padding="6dp"
-                android:textColorHint="@color/text_color" />
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_arrow_bottom" />
 
-            <EditText
-                android:id="@+id/editTextAddress"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="25dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="14dp"
+            app:cardMaxElevation="36dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border_radius"
-                android:backgroundTint="@color/edit_text_neutral"
-                android:ems="10"
-                android:hint="Введите логин или номер договора"
-                android:inputType="text"
-                android:padding="6dp"
-                android:textColorHint="@color/text_color" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <EditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border_radius"
-                android:backgroundTint="@color/edit_text_neutral"
-                android:ems="10"
-                android:hint="Введите логин или номер договора"
-                android:inputType="textEmailAddress"
-                android:padding="6dp"
-                android:textColorHint="@color/text_color" />
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="@color/edit_text_neutral"
+                    android:ems="10"
+                    android:hint="*Ваше имя"
+                    android:inputType="textPersonName"
+                    android:padding="6dp"
+                    android:textColorHint="@color/text_color" />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/editTextCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="@color/edit_text_neutral"
+                    android:ems="10"
+                    android:hint="Название организации"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/text_color" />
 
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                <EditText
+                    android:id="@+id/editTextTel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="@color/edit_text_neutral"
+                    android:ems="10"
+                    android:hint="*Номер телефона"
+                    android:inputType="phone"
+                    android:padding="6dp"
+                    android:textColorHint="@color/text_color" />
+
+                <EditText
+                    android:id="@+id/editTextAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="@color/edit_text_neutral"
+                    android:ems="10"
+                    android:hint="*Адрес места установки"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/text_color" />
+
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="@color/edit_text_neutral"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="6dp"
+                    android:textColorHint="@color/text_color" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Поля содержащие знак * обязательные."
+                    android:textColor="@color/dark_blue" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/darker_gray" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAgreement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Принимаю условия пользовательского соглашение и даю согласия на обработку моих персональных данных"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="25dp"
+            android:backgroundTint="@color/dark_blue"
+            android:text="Отправить заявку"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:backgroundTint="@color/orange"
+            android:text="Договор"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

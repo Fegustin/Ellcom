@@ -15,4 +15,6 @@
     <color name="text_color">#727272</color>
     <color name="edit_text_neutral">#e8e8e8</color>
     <color name="edit_text_warning">#fcfadb</color>
+    <color name="light_blue">#c4cde5</color>
+    <color name="white_smoke">#eeeeee</color>
 </resources>

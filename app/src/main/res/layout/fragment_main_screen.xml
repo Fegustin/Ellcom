@@ -1,14 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreenFragment">
+    android:orientation="vertical"
+    tools:context=".ui.MainScreenFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/ic_notification" />
+
     <TextView
+        android:id="@+id/textViewCompany"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Государственное бюджетное учереждение ОАО Гаспром"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
 
-</FrameLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/dark_blue"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="14dp"
+        app:cardMaxElevation="36dp">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewContactNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Супердоговор"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textViewRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewContactNum"
+                android:layout_marginStart="8dp"
+                android:text="Тариф"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textViewBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewRate"
+                android:layout_marginStart="8dp"
+                android:text="231424"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBalance"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Баланс до 17:34"
+                android:textColor="@color/light_blue" />
+
+            <TextView
+                android:id="@+id/textViewIsActive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="Активный"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="@android:color/white" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/white_smoke"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="14dp"
+        app:cardMaxElevation="36dp">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSubOne"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewContactNumSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Супердоговор"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewRateSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewContactNumSubOne"
+                android:layout_marginStart="8dp"
+                android:text="Тариф"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewBalanceSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewRateSubOne"
+                android:layout_marginStart="8dp"
+                android:text="231424"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewTimeSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBalanceSubOne"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Баланс до 17:34"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewIsActiveSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="Активный"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageViewSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="@color/black" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/white_smoke"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="14dp"
+        app:cardMaxElevation="36dp">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSubTwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewContactNumSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Супердоговор"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewRateSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewContactNumSubTwo"
+                android:layout_marginStart="8dp"
+                android:text="Тариф"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewBalanceSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewRateSubTwo"
+                android:layout_marginStart="8dp"
+                android:text="231424"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewTimeSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBalanceSubTwo"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Баланс до 17:34"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewIsActiveSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="Активный"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageViewSubTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="@color/black" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonShowSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/dark_blue"
+        android:text="Показать все субдоговора"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:cornerRadius="8dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/buttonRadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="8dp"
+        app:contentPadding="6dp"
+        app:strokeColor="@android:color/darker_gray"
+        app:strokeWidth="1dp">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="50dp"
+            android:src="@drawable/europa_plus" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="102.4"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/ic_play_radio" />
+
+        <ProgressBar
+            android:id="@+id/load_radio"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="invisible"/>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
