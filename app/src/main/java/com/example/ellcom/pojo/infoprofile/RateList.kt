@@ -6,4 +6,5 @@ data class RateList(
     @SerializedName("tariffTitle") val tariffTitle: String,
     @SerializedName("dateFrom") val dateFrom: String,
     @SerializedName("dateTo") val dateTo: String,
+    @SerializedName("status") val status: String
 )

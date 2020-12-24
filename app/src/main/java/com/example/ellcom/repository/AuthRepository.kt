@@ -7,8 +7,6 @@ import com.example.ellcom.pojo.auth.AuthResult
 import com.example.ellcom.pojo.auth.OneTimePasswordBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordResult
-import com.example.ellcom.pojo.infoprofile.InfoBody
-import com.example.ellcom.pojo.infoprofile.InfoResult
 
 class AuthRepository {
     private val tag = "Error: class -> AuthRepository: "
@@ -35,15 +33,6 @@ class AuthRepository {
     suspend fun authOneTimePassword(token: String): AuthResult? {
         return try {
             ApiUtils.apiService.authOneTimePassword(OneTimePasswordBody(token))
-        } catch (e: Throwable) {
-            Log.e(tag, e.localizedMessage)
-            null
-        }
-    }
-
-    suspend fun infoProfile(token: String): InfoResult? {
-        return try {
-            ApiUtils.apiService.info(InfoBody(token))
         } catch (e: Throwable) {
             Log.e(tag, e.localizedMessage)
             null

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:cardMaxElevation="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/white_smoke">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSubOne"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewContactNumSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Субдоговор"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewRateSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewContactNumSubOne"
+                android:layout_marginStart="8dp"
+                android:text="Тариф"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewBalanceSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewRateSubOne"
+                android:layout_marginStart="8dp"
+                android:text="Ошибка"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewTimeSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBalanceSubOne"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Баланс до "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewIsActiveSubOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="Ошибка"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageViewSubOne"
+                app:tint="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_right" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

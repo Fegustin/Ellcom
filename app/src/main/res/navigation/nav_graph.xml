@@ -34,7 +34,11 @@
         <fragment
             android:id="@+id/mainScreenFragment"
             android:name="com.example.ellcom.ui.MainScreenFragment"
-            tools:layout="@layout/fragment_main_screen" />
+            tools:layout="@layout/fragment_main_screen" >
+            <action
+                android:id="@+id/action_mainScreenFragment_to_subContractListFragment"
+                app:destination="@id/subContractListFragment" />
+        </fragment>
         <fragment
             android:id="@+id/balanceFragment"
             android:name="com.example.ellcom.ui.BalanceFragment"
@@ -47,5 +51,9 @@
             android:id="@+id/contactFragment"
             android:name="com.example.ellcom.ui.ContactFragment"
             tools:layout="@layout/fragment_contact" />
+        <fragment
+            android:id="@+id/subContractListFragment"
+            android:name="com.example.ellcom.ui.SubContractListFragment"
+            tools:layout="@layout/fragment_sub_contract_list" />
     </navigation>
 </navigation>

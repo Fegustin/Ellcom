@@ -71,6 +71,11 @@ class MainActivity : AppCompatActivity() {
                             .getString("contractNum", "")
                     "№$contractNum"
                 }
+                R.id.subContractListFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+                    "Субдоговора"
+                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)

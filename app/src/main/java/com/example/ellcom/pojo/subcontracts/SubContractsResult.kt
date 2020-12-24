@@ -13,6 +13,7 @@ data class SubContractsResult(
         data class Result(
             @SerializedName("title") val title: String,
             @SerializedName("comment") val comment: String,
+            @SerializedName("status") val status: String,
             @SerializedName("balance") val balance: Double,
             @SerializedName("tariffList") val rateList: List<RateList>,
             )
