@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.ellcom.api.ApiUtils
 import com.example.ellcom.pojo.infoprofile.InfoBody
 import com.example.ellcom.pojo.infoprofile.InfoResult
+import com.example.ellcom.pojo.notification.NotificationListBody
+import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 
@@ -22,6 +24,15 @@ class MainAndSubRepository {
     suspend fun getSubContractsList(token: String): SubContractsResult? {
         return try {
             ApiUtils.apiService.getSubContractsList(SubContractsBody(token))
+        } catch (e: Throwable) {
+            Log.e(tag, e.localizedMessage)
+            null
+        }
+    }
+
+    suspend fun getNotificationList(token: String, notConfirm: Boolean, page: Int): NotificationListResult? {
+        return try {
+            ApiUtils.apiService.getNotificationList(NotificationListBody(token, notConfirm, page))
         } catch (e: Throwable) {
             Log.e(tag, e.localizedMessage)
             null

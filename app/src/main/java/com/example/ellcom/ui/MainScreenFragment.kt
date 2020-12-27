@@ -14,10 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ellcom.R
+import com.example.ellcom.repository.MainAndSubRepository
 import com.example.ellcom.service.RadioService
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.viewmodal.MainAndSubViewModal
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainScreenFragment : Fragment() {
@@ -43,6 +47,8 @@ class MainScreenFragment : Fragment() {
         } else {
             if (token != null) {
                 infoProfile(token)
+
+                notification(token)
             }
         }
 
@@ -72,6 +78,24 @@ class MainScreenFragment : Fragment() {
             }
         }
         return false
+    }
+
+    private fun notification(token: String) {
+        if (Internet().checkInternetConnecting(activity)) {
+            model.getNotificationList(token, true, 0).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    if (it.data.res.size() > 0) {
+                        notificationText.visibility = View.VISIBLE
+                        notificationText.text = it.data.res.size().toString()
+                    } else {
+                        notificationText.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     private fun infoProfile(token: String) {

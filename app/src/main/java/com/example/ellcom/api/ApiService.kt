@@ -7,6 +7,8 @@ import com.example.ellcom.pojo.forgotpassword.ForgotPasswordBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordResult
 import com.example.ellcom.pojo.infoprofile.InfoBody
 import com.example.ellcom.pojo.infoprofile.InfoResult
+import com.example.ellcom.pojo.notification.NotificationListBody
+import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 import retrofit2.Call
@@ -36,6 +38,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileContractService/")
     suspend fun getSubContractsList(@Body body: SubContractsBody): SubContractsResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobilePushService/")
+    suspend fun getNotificationList(@Body body: NotificationListBody): NotificationListResult
 }
 
 object ApiUtils {
