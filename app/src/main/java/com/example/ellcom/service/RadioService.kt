@@ -10,6 +10,8 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
+import android.support.v4.media.session.MediaSessionCompat
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.ellcom.MainActivity
@@ -19,6 +21,11 @@ import java.io.IOException
 class RadioService : Service() {
 
     private val CHANNEL_ID = "ForegroundService Kotlin"
+    private val actionStop = "Stop"
+    private val actionPlay = "Play"
+    private val actionPause = "Pause"
+
+    private val isPlay = false
 
     companion object {
 
@@ -66,23 +73,53 @@ class RadioService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        when(intent?.action) {
+            actionPause -> {
+                mediaPlayer.pause()
+            }
+            actionPlay -> {
+                mediaPlayer.start()
+            }
+            actionStop -> {
+                stopService(this)
+            }
+        }
+
+
         val input = intent?.getStringExtra("inputExtra")
         createNotificationChannel()
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this,
-            0, notificationIntent, 0
+            0,
+            notificationIntent,
+            0
         )
+
+        val mediaSession = MediaSessionCompat(this, "tag")
+
+        val notificationIntentPause = Intent(this, RadioService::class.java).apply {
+            action = actionPause
+        }
+        val notificationIntentPlay = Intent(this, RadioService::class.java).apply {
+            action = actionPlay
+        }
+        val notificationIntentStop = Intent(this, RadioService::class.java).apply {
+            action = actionStop
+        }
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Радио")
             .setContentText(input)
             .setSmallIcon(R.drawable.europa_plus)
             .setContentIntent(pendingIntent)
+            .addAction(R.drawable.ic_radio_pause, "Pause", pendingIntentButton(notificationIntentPause))
+            .addAction(R.drawable.ic_radio_play, "Play", pendingIntentButton(notificationIntentPlay))
+            .addAction(R.drawable.ic_radio_stop, "Stop", pendingIntentButton(notificationIntentStop))
             .setStyle(
-                androidx.media.app.NotificationCompat
-                    .MediaStyle()
-                    .setShowActionsInCompactView()
+                androidx.media.app.NotificationCompat.MediaStyle()
+                    .setShowActionsInCompactView(0)
+                    .setMediaSession(mediaSession.sessionToken)
             )
             .build()
         startForeground(1, notification)
@@ -103,5 +140,14 @@ class RadioService : Service() {
             val manager = getSystemService(NotificationManager::class.java)
             manager!!.createNotificationChannel(serviceChannel)
         }
+    }
+
+    private fun pendingIntentButton (intent: Intent): PendingIntent {
+        return PendingIntent.getService(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
     }
 }

@@ -1,25 +1,23 @@
 package com.example.ellcom.ui
 
+import android.app.ActivityManager
 import android.content.Context
-import android.content.Intent
-import android.media.AudioAttributes
-import android.media.MediaPlayer
+import android.content.Context.ACTIVITY_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.ellcom.MainActivity
 import com.example.ellcom.R
 import com.example.ellcom.service.RadioService
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.viewmodal.MainAndSubViewModal
 import kotlinx.android.synthetic.main.fragment_main_screen.*
-import java.io.IOException
 
 
 class MainScreenFragment : Fragment() {
@@ -51,14 +49,12 @@ class MainScreenFragment : Fragment() {
         }
 
         buttonRadio.setOnClickListener {
-            isStartRadio = if (!isStartRadio) {
+            if (!checkServiceRunning(RadioService::class.java)) {
                 activity?.let { it1 -> RadioService.startService(it1, "EuropePlus") }
                 Toast.makeText(activity, "Запуск радио", Toast.LENGTH_SHORT).show()
-                true
             } else {
                 activity?.let { it1 -> RadioService.stopService(it1) }
                 Toast.makeText(activity, "Остановка радио", Toast.LENGTH_SHORT).show()
-                false
             }
         }
 
@@ -66,6 +62,18 @@ class MainScreenFragment : Fragment() {
             findNavController()
                 .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSubContractListFragment())
         }
+    }
+
+    private fun checkServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager = context?.getSystemService(ACTIVITY_SERVICE) as ActivityManager?
+        if (manager != null) {
+            for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+                if (serviceClass.name == service.service.className) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     private fun infoProfile(token: String) {
