@@ -11,7 +11,6 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.ellcom.MainActivity
@@ -20,12 +19,11 @@ import java.io.IOException
 
 class RadioService : Service() {
 
-    private val CHANNEL_ID = "ForegroundService Kotlin"
+    private val channelID = "ForegroundService Kotlin"
+
     private val actionStop = "Stop"
     private val actionPlay = "Play"
     private val actionPause = "Pause"
-
-    private val isPlay = false
 
     companion object {
 
@@ -98,24 +96,14 @@ class RadioService : Service() {
 
         val mediaSession = MediaSessionCompat(this, "tag")
 
-        val notificationIntentPause = Intent(this, RadioService::class.java).apply {
-            action = actionPause
-        }
-        val notificationIntentPlay = Intent(this, RadioService::class.java).apply {
-            action = actionPlay
-        }
-        val notificationIntentStop = Intent(this, RadioService::class.java).apply {
-            action = actionStop
-        }
-
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("Радио")
             .setContentText(input)
             .setSmallIcon(R.drawable.europa_plus)
             .setContentIntent(pendingIntent)
-            .addAction(R.drawable.ic_radio_pause, "Pause", pendingIntentButton(notificationIntentPause))
-            .addAction(R.drawable.ic_radio_play, "Play", pendingIntentButton(notificationIntentPlay))
-            .addAction(R.drawable.ic_radio_stop, "Stop", pendingIntentButton(notificationIntentStop))
+            .addAction(R.drawable.ic_radio_pause, "Pause", pendingIntentButton(actionPause))
+            .addAction(R.drawable.ic_radio_play, "Play", pendingIntentButton(actionPlay))
+            .addAction(R.drawable.ic_radio_stop, "Stop", pendingIntentButton(actionStop))
             .setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
                     .setShowActionsInCompactView(0)
@@ -134,7 +122,7 @@ class RadioService : Service() {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
-                CHANNEL_ID, "Foreground Service Channel",
+                channelID, "Foreground Service Channel",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             val manager = getSystemService(NotificationManager::class.java)
@@ -142,11 +130,14 @@ class RadioService : Service() {
         }
     }
 
-    private fun pendingIntentButton (intent: Intent): PendingIntent {
+    private fun pendingIntentButton (buttonAction: String): PendingIntent {
+        val notificationIntentStop = Intent(this, RadioService::class.java).apply {
+            action = buttonAction
+        }
         return PendingIntent.getService(
             this,
             0,
-            intent,
+            notificationIntentStop,
             PendingIntent.FLAG_CANCEL_CURRENT
         )
     }

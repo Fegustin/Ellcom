@@ -24,8 +24,6 @@ class MainScreenFragment : Fragment() {
 
     private val model: MainAndSubViewModal by activityViewModels()
 
-    private var isStartRadio = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

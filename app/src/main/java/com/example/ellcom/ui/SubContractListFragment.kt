@@ -62,10 +62,6 @@ class SubContractListFragment : Fragment() {
 
                     for (i in it.data.res) {
                         adapter.add(SubContractItem(requireContext(), i))
-                        adapter.add(SubContractItem(requireContext(), i))
-                        adapter.add(SubContractItem(requireContext(), i))
-                        adapter.add(SubContractItem(requireContext(), i))
-                        adapter.add(SubContractItem(requireContext(), i))
                     }
 
                     recyclerViewSubList.adapter = adapter
