@@ -34,7 +34,7 @@ class RadioService : Service() {
             startIntent.putExtra("inputExtra", message)
             ContextCompat.startForegroundService(context, startIntent)
 
-            val url = "http://ep256.streamr.ru"
+            val url = "http://77.232.167.247:1024/"
 
             mediaPlayer.setAudioAttributes(
                 AudioAttributes.Builder()
@@ -130,7 +130,7 @@ class RadioService : Service() {
         }
     }
 
-    private fun pendingIntentButton (buttonAction: String): PendingIntent {
+    private fun pendingIntentButton(buttonAction: String): PendingIntent {
         val notificationIntentStop = Intent(this, RadioService::class.java).apply {
             action = buttonAction
         }
