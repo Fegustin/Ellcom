@@ -56,4 +56,9 @@
             android:name="com.example.ellcom.ui.SubContractListFragment"
             tools:layout="@layout/fragment_sub_contract_list" />
     </navigation>
+    <action
+        android:id="@+id/action_global_authFragment"
+        app:destination="@id/authFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 </navigation>

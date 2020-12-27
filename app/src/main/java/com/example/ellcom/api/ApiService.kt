@@ -3,6 +3,7 @@ package com.example.ellcom.api
 import com.example.ellcom.pojo.auth.AuthBody
 import com.example.ellcom.pojo.auth.AuthResult
 import com.example.ellcom.pojo.auth.OneTimePasswordBody
+import com.example.ellcom.pojo.balance.ContractBalanceBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordResult
 import com.example.ellcom.pojo.infoprofile.InfoBody
@@ -42,6 +43,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobilePushService/")
     suspend fun getNotificationList(@Body body: NotificationListBody): NotificationListResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileBalanceService/")
+    suspend fun getBalance(@Body body: ContractBalanceBody): NotificationListResult
 }
 
 object ApiUtils {

@@ -1,14 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".ui.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textViewCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Организация"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/dark_blue"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="14dp"
+            app:cardMaxElevation="36dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewRateUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:gravity="center"
+                    android:text="Тариф"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewRateDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewRateUp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/dark_blue"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="14dp"
+            app:cardMaxElevation="36dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewBalanceUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:gravity="center"
+                    android:text="Баланс"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewBalanceDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewBalanceUp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Смена договора"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_change_of_contract"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Смена пароля"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_change_password"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Email адреса"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_email"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Сессии"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_session"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Трафик"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_rate"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Выход"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_exit"
+            app:iconTint="@color/dark_blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/darker_gray" />
+
+    </LinearLayout>
+
+</ScrollView>
