@@ -38,6 +38,10 @@ android {
 }
 
 dependencies {
+    // PDF viewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    // ---------
+
     // Groupie
     def groupie_version = "2.8.1"
     implementation "com.xwray:groupie:$groupie_version"

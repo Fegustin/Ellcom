@@ -12,10 +12,11 @@ import com.example.ellcom.pojo.notification.NotificationListBody
 import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
+import com.google.gson.JsonObject
+import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.Response
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -47,10 +48,24 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
     suspend fun getBalance(@Body body: ContractBalanceBody): NotificationListResult
+
+
+    // Registration
+    @POST("47_zayavka_na_podklyuchenie_yur_lits/l2mvkj/")
+    @FormUrlEncoded
+    suspend fun registration(
+        @Field("LEAD_NAME") name: String,
+        @Field("LEAD_COMPANY_TITLE") nameCompany: String,
+        @Field("LEAD_UF_CRM_1487053251") phone: String,
+        @Field("LEAD_UF_CRM_1436947672") address: String,
+        @Field("LEAD_EMAIL") email: String
+    ): Response<JsonObject>
 }
 
 object ApiUtils {
     private const val BASE_URL = "https://bill.ellcom.ru/bgbilling/ellcommobile/ru.ellcom.mobile/"
+    private const val REGISTRATION_URL = "https://bitrix24.ellcom.ru/pub/form/"
 
     val apiService: ApiService get() = RetrofitClient.getClient(BASE_URL)
+    val apiRegistration: ApiService get() = RetrofitClient.getClient(REGISTRATION_URL)
 }

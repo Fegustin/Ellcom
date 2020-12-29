@@ -88,8 +88,9 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/border_radius"
                     android:backgroundTint="@color/edit_text_neutral"
+                    android:drawableEnd="@drawable/ic_star"
                     android:ems="10"
-                    android:hint="*Ваше имя"
+                    android:hint="Ваше имя"
                     android:inputType="textPersonName"
                     android:padding="6dp"
                     android:textColorHint="@color/text_color" />
@@ -114,8 +115,9 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/border_radius"
                     android:backgroundTint="@color/edit_text_neutral"
+                    android:drawableEnd="@drawable/ic_star"
                     android:ems="10"
-                    android:hint="*Номер телефона"
+                    android:hint="Номер телефона"
                     android:inputType="phone"
                     android:padding="6dp"
                     android:textColorHint="@color/text_color" />
@@ -127,8 +129,9 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/border_radius"
                     android:backgroundTint="@color/edit_text_neutral"
+                    android:drawableEnd="@drawable/ic_star"
                     android:ems="10"
-                    android:hint="*Адрес места установки"
+                    android:hint="Адрес места установки"
                     android:inputType="text"
                     android:padding="6dp"
                     android:textColorHint="@color/text_color" />
@@ -188,8 +191,16 @@
             android:textSize="15sp"
             app:cornerRadius="8dp" />
 
+
+        <ProgressBar
+            android:id="@+id/progressBarSend"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonRegistration"
+            android:id="@+id/buttonRead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
