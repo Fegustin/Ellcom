@@ -3,25 +3,23 @@ package com.example.ellcom.ui
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ellcom.R
-import com.example.ellcom.repository.MainAndSubRepository
 import com.example.ellcom.service.RadioService
 import com.example.ellcom.utils.Internet
+import com.example.ellcom.utils.timerForWatchingMainContent
 import com.example.ellcom.viewmodal.MainAndSubViewModal
 import kotlinx.android.synthetic.main.fragment_main_screen.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class MainScreenFragment : Fragment() {
@@ -37,6 +35,8 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        timerForWatchingMainContent(progressBar, layoutContent)
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
@@ -55,10 +55,10 @@ class MainScreenFragment : Fragment() {
         buttonRadio.setOnClickListener {
             if (!checkServiceRunning(RadioService::class.java)) {
                 activity?.let { it1 -> RadioService.startService(it1, "EuropePlus") }
-                Toast.makeText(activity, "Запуск радио", Toast.LENGTH_SHORT).show()
+                animationRadioIcon(R.drawable.anim_play_pause)
             } else {
                 activity?.let { it1 -> RadioService.stopService(it1) }
-                Toast.makeText(activity, "Остановка радио", Toast.LENGTH_SHORT).show()
+                animationRadioIcon(R.drawable.anim_pause_play)
             }
         }
 
@@ -66,6 +66,11 @@ class MainScreenFragment : Fragment() {
             findNavController()
                 .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSubContractListFragment())
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(activity, "pause", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkServiceRunning(serviceClass: Class<*>): Boolean {
@@ -78,6 +83,14 @@ class MainScreenFragment : Fragment() {
             }
         }
         return false
+    }
+
+    private fun animationRadioIcon(anim: Int) {
+        imageViewAnim.setImageResource(anim)
+        val d: Drawable = imageViewAnim.drawable
+        if (d is AnimatedVectorDrawable) {
+            d.start()
+        }
     }
 
     private fun notification(token: String) {

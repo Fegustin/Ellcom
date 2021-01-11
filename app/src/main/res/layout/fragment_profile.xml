@@ -11,228 +11,245 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewCompany"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Организация"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:layout_marginTop="30dp"
+            android:visibility="visible" />
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
+            android:id="@+id/layoutContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="35dp"
-            android:backgroundTint="@color/dark_blue"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="14dp"
-            app:cardMaxElevation="36dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/textViewCompany"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Организация"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/textViewRateUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_thin"
-                    android:gravity="center"
-                    android:text="Тариф"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/textViewRateDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewRateUp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
-
-            </RelativeLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="35dp"
-            android:backgroundTint="@color/dark_blue"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="14dp"
-            app:cardMaxElevation="36dp">
-
-            <RelativeLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="@color/dark_blue"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="14dp"
+                app:cardMaxElevation="36dp">
 
-                <TextView
-                    android:id="@+id/textViewBalanceUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_thin"
-                    android:gravity="center"
-                    android:text="Баланс"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textViewBalanceDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewBalanceUp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
+                    <TextView
+                        android:id="@+id/textViewRateUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_thin"
+                        android:gravity="center"
+                        android:text="Тариф"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textViewRateDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewRateUp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Смена договора"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_change_of_contract"
-            app:iconTint="@color/dark_blue" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="@color/dark_blue"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="14dp"
+                app:cardMaxElevation="36dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:background="@android:color/darker_gray" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Смена пароля"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_change_password"
-            app:iconTint="@color/dark_blue" />
+                    <TextView
+                        android:id="@+id/textViewBalanceUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_thin"
+                        android:gravity="center"
+                        android:text="Баланс"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:background="@android:color/darker_gray" />
+                    <TextView
+                        android:id="@+id/textViewBalanceDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewBalanceUp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Email адреса"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_email"
-            app:iconTint="@color/dark_blue" />
+                </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:background="@android:color/darker_gray" />
+            </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Сессии"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_session"
-            app:iconTint="@color/dark_blue" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Смена договора"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_change_of_contract"
+                app:iconTint="@color/dark_blue" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Трафик"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_rate"
-            app:iconTint="@color/dark_blue" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Смена пароля"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_change_password"
+                app:iconTint="@color/dark_blue" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonExit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|center"
-            android:text="Выход"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:icon="@drawable/ic_exit"
-            app:iconTint="@color/dark_blue" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Email адреса"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_email"
+                app:iconTint="@color/dark_blue" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:layout_marginBottom="12dp"
-            android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:background="@android:color/darker_gray" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Сессии"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_session"
+                app:iconTint="@color/dark_blue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:background="@android:color/darker_gray" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Трафик"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_rate"
+                app:iconTint="@color/dark_blue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:background="@android:color/darker_gray" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonExit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start|center"
+                android:text="Выход"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_exit"
+                app:iconTint="@color/dark_blue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:layout_marginBottom="12dp"
+                android:background="@android:color/darker_gray" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

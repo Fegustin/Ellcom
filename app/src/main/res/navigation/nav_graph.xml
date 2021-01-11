@@ -11,23 +11,39 @@
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_authFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_authFragment_to_navigationToMainContent"
             app:destination="@id/navigationToMainContent"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.ellcom.ui.RegistrationFragment"
-        tools:layout="@layout/fragment_registration" >
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_readerPDFFragment"
-            app:destination="@id/readerPDFFragment" />
+            app:destination="@id/readerPDFFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -37,15 +53,20 @@
         android:id="@+id/readerPDFFragment"
         android:name="com.example.ellcom.ui.ReaderPDFFragment"
         tools:layout="@layout/fragment_reader_p_d_f" />
-    <navigation android:id="@+id/navigationToMainContent"
+    <navigation
+        android:id="@+id/navigationToMainContent"
         app:startDestination="@id/mainScreenFragment">
         <fragment
             android:id="@+id/mainScreenFragment"
             android:name="com.example.ellcom.ui.MainScreenFragment"
-            tools:layout="@layout/fragment_main_screen" >
+            tools:layout="@layout/fragment_main_screen">
             <action
                 android:id="@+id/action_mainScreenFragment_to_subContractListFragment"
-                app:destination="@id/subContractListFragment" />
+                app:destination="@id/subContractListFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
@@ -67,6 +88,10 @@
     <action
         android:id="@+id/action_global_authFragment"
         app:destination="@id/authFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
 </navigation>

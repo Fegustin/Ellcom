@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import com.example.ellcom.R
 import com.example.ellcom.repository.BalanceRepository
 import com.example.ellcom.utils.Internet
+import com.example.ellcom.utils.timerForWatchingMainContent
+import kotlinx.android.synthetic.main.fragment_main_screen.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +34,8 @@ class BalanceFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        timerForWatchingMainContent(progressBar, layoutContent)
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
