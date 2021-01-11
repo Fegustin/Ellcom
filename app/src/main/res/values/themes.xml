@@ -12,9 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-    </style>
 
-<!--    <style name="Theme.MyFancyTheme" parent="android:Theme.Holo">-->
-<!--        <item name="android:homeAsUpIndicator"></item>-->
-<!--    </style>-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
