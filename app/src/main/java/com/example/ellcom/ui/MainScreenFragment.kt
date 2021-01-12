@@ -68,11 +68,6 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Toast.makeText(activity, "pause", Toast.LENGTH_SHORT).show()
-    }
-
     private fun checkServiceRunning(serviceClass: Class<*>): Boolean {
         val manager = context?.getSystemService(ACTIVITY_SERVICE) as ActivityManager?
         if (manager != null) {
