@@ -15,10 +15,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ellcom.R
+import com.example.ellcom.adapter.SubContractItem
 import com.example.ellcom.service.RadioService
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.utils.timerForWatchingMainContent
 import com.example.ellcom.viewmodal.MainAndSubViewModal
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_main_screen.*
 
 
@@ -133,20 +136,12 @@ class MainScreenFragment : Fragment() {
                         it.data.res.status
                     )
 
-                    initTextSubOne(
-                        it.data.res.subMobileContract[0].title,
-                        it.data.res.subMobileContract[0].rateList[0].tariffTitle.substringBefore("("),
-                        it.data.res.subMobileContract[0].balance.toString(),
-                        it.data.res.subMobileContract[0].rateList[0].dateTo,
-                        it.data.res.subMobileContract[0].status
-                    )
-                    initTextSubTwo(
-                        it.data.res.subMobileContract[1].title,
-                        it.data.res.subMobileContract[1].rateList[0].tariffTitle.substringBefore("("),
-                        it.data.res.subMobileContract[1].balance.toString(),
-                        it.data.res.subMobileContract[1].rateList[0].dateTo,
-                        it.data.res.subMobileContract[1].status
-                    )
+                    // Fill subContract
+                    val adapter = GroupAdapter<GroupieViewHolder>()
+                    for (i in it.data.res.subMobileContract) {
+                        adapter.add(SubContractItem(requireContext(), i))
+                    }
+                    recyclerViewSubList.adapter = adapter
 
                     buttonShowSub.visibility = View.VISIBLE
                 } else {
@@ -186,50 +181,6 @@ class MainScreenFragment : Fragment() {
         textViewIsActive.text = status
         if (status != "Активен") {
             textViewIsActive.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
-        }
-    }
-
-    private fun initTextSubOne(
-        number: String,
-        rate: String,
-        balance: String,
-        time: String,
-        status: String
-    ) {
-        textViewContactNumSubOne.text = "Субдоговор: №$number"
-        textViewRateSubOne.text = "Тариф: $rate"
-        textViewBalanceSubOne.text = "$balance ₽"
-        textViewTimeSubOne.text = "Хватит до $time"
-        textViewIsActiveSubOne.text = status
-        if (status != "Активен") {
-            textViewIsActiveSubOne.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.red
-                )
-            )
-        }
-    }
-
-    private fun initTextSubTwo(
-        number: String,
-        rate: String,
-        balance: String,
-        time: String,
-        status: String
-    ) {
-        textViewContactNumSubTwo.text = "Субдоговор: №$number"
-        textViewRateSubTwo.text = "Тариф: $rate"
-        textViewBalanceSubTwo.text = "$balance ₽"
-        textViewTimeSubTwo.text = "Хватит до $time"
-        textViewIsActiveSubTwo.text = status
-        if (status != "Активен") {
-            textViewIsActiveSubTwo.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.red
-                )
-            )
         }
     }
 }
