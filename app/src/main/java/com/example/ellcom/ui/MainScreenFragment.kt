@@ -36,8 +36,6 @@ class MainScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        timerForWatchingMainContent(progressBar, layoutContent)
-
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
@@ -52,6 +50,8 @@ class MainScreenFragment : Fragment() {
             }
         }
 
+        timerForWatchingMainContent(progressBar, layoutContent)
+
         buttonRadio.setOnClickListener {
             if (!checkServiceRunning(RadioService::class.java)) {
                 activity?.let { it1 -> RadioService.startService(it1, "EuropePlus") }
@@ -65,6 +65,15 @@ class MainScreenFragment : Fragment() {
         buttonShowSub.setOnClickListener {
             findNavController()
                 .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSubContractListFragment())
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!checkServiceRunning(RadioService::class.java)) {
+            imageViewAnim.setImageResource(R.drawable.anim_play_pause)
+        } else {
+            imageViewAnim.setImageResource(R.drawable.anim_pause_play)
         }
     }
 
