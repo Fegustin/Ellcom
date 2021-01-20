@@ -61,7 +61,7 @@ class SubContractListFragment : Fragment() {
                     val adapter = GroupAdapter<GroupieViewHolder>()
 
                     for (i in it.data.res) {
-                        adapter.add(SubContractItem(requireContext(), i))
+                        adapter.add(SubContractItem(requireContext(), i, this))
                     }
 
                     recyclerViewSubList.adapter = adapter

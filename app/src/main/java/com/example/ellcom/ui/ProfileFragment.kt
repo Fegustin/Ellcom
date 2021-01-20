@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.ellcom.R
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.utils.timerForWatchingMainContent
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileFragment : Fragment() {
 
     private val model: MainAndSubViewModal by activityViewModels()
+    private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +43,8 @@ class ProfileFragment : Fragment() {
                 .show()
         } else {
             if (token != null) {
-                infoProfile(token)
+                if (args.isSubContract) setMainText(args.companyName, args.rate, args.balance)
+                else getInfoMainProfile(token)
 
                 buttonExit.setOnClickListener {
                     exit()
@@ -50,18 +53,22 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun infoProfile(token: String) {
+    private fun getInfoMainProfile(token: String) {
         model.infoProfile(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
                 val rate = it.data.res.rateList[0].tariffTitle
                     .substringAfter("\"")
                     .substringBefore("\"")
 
-                textViewCompany.text = it.data.res.name
-                textViewRateDown.text = rate
-                textViewBalanceDown.text = "${it.data.res.balance}₽"
+                setMainText(it.data.res.name, rate, "${it.data.res.balance}₽")
             }
         }
+    }
+
+    private fun setMainText(company: String, rate: String, balance: String) {
+        textViewCompany.text = company
+        textViewRateDown.text = rate
+        textViewBalanceDown.text = balance
     }
 
     private fun exit() {

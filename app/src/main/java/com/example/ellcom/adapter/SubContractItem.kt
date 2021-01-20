@@ -3,28 +3,43 @@ package com.example.ellcom.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.example.ellcom.R
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
+import com.example.ellcom.ui.MainScreenFragment
+import com.example.ellcom.ui.MainScreenFragmentDirections
+import com.example.ellcom.ui.SubContractListFragment
+import com.example.ellcom.ui.SubContractListFragmentDirections
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_subcontract.*
 
 class SubContractItem(
     private val context: Context,
-    private val item: SubContractsResult.Data.Result
+    private val item: SubContractsResult.Data.Result,
+    private val fragment: Fragment
 ) : Item() {
     @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        val itemSub = item
 
-        viewHolder.textViewContactNumSubOne.text = "Субдоговор: №${itemSub.title}"
+        initText(viewHolder, item)
+
+        viewHolder.layoutSubContract.setOnClickListener { goToProfilePage(item) }
+    }
+
+    override fun getLayout(): Int = R.layout.item_subcontract
+
+    private fun initText(viewHolder: GroupieViewHolder, item: SubContractsResult.Data.Result) {
+        viewHolder.textViewContactNumSubOne.text = "Субдоговор: №${item.title}"
         viewHolder.textViewRateSubOne.text =
-            "Тариф: ${itemSub.rateList[0].tariffTitle.substringBefore("(")}"
-        viewHolder.textViewBalanceSubOne.text = "${itemSub.balance} ₽"
-        viewHolder.textViewTimeSubOne.text = "Хватит до ${itemSub.rateList[0].dateTo}"
-        viewHolder.textViewIsActiveSubOne.text = itemSub.rateList[0].status
+            "Тариф: ${item.rateList[0].tariffTitle.substringBefore("(")}"
+        viewHolder.textViewBalanceSubOne.text = "${item.balance} ₽"
+        viewHolder.textViewTimeSubOne.text = "Хватит до ${item.rateList[0].dateTo}"
+        viewHolder.textViewIsActiveSubOne.text = item.rateList[0].status
 
-        if (itemSub.rateList[0].status != "Активен") {
+        if (item.rateList[0].status != "Активен") {
             viewHolder.textViewIsActiveSubOne.setTextColor(
                 ContextCompat.getColor(
                     context,
@@ -34,5 +49,26 @@ class SubContractItem(
         }
     }
 
-    override fun getLayout(): Int = R.layout.item_subcontract
+    private fun goToProfilePage(item: SubContractsResult.Data.Result) {
+        val action: NavDirections
+        if (fragment::class.java == MainScreenFragment::class.java) {
+            fragment as MainScreenFragment
+            action = MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment2(
+                true,
+                item.comment,
+                item.rateList[0].tariffTitle.substringBefore("("),
+                item.balance.toString()
+            )
+        } else {
+            fragment as SubContractListFragment
+            action =
+                SubContractListFragmentDirections.actionSubContractListFragmentToProfileFragment2(
+                    true,
+                    item.comment,
+                    item.rateList[0].tariffTitle.substringBefore("("),
+                    item.balance.toString()
+                )
+        }
+        fragment.findNavController().navigate(action)
+    }
 }

@@ -41,6 +41,7 @@ android {
 dependencies {
     // PDF viewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     // ---------
 
     // Groupie

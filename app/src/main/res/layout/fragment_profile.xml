@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/textViewCompany"
@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:text="Организация"
                 android:textColor="@color/black"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -127,6 +127,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Смена договора"
                 android:textAllCaps="false"
@@ -148,6 +149,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Смена пароля"
                 android:textAllCaps="false"
@@ -169,6 +171,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Email адреса"
                 android:textAllCaps="false"
@@ -190,6 +193,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Сессии"
                 android:textAllCaps="false"
@@ -211,6 +215,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Трафик"
                 android:textAllCaps="false"
@@ -233,6 +238,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start|center"
                 android:text="Выход"
                 android:textAllCaps="false"

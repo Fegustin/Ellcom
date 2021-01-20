@@ -4,6 +4,8 @@ import com.example.ellcom.pojo.auth.AuthBody
 import com.example.ellcom.pojo.auth.AuthResult
 import com.example.ellcom.pojo.auth.OneTimePasswordBody
 import com.example.ellcom.pojo.balance.ContractBalanceBody
+import com.example.ellcom.pojo.contacts.MobileContactBody
+import com.example.ellcom.pojo.contacts.MobileContactResult
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordBody
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordResult
 import com.example.ellcom.pojo.infoprofile.InfoBody
@@ -13,8 +15,6 @@ import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 import com.google.gson.JsonObject
-import org.json.JSONObject
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -48,6 +48,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
     suspend fun getBalance(@Body body: ContractBalanceBody): NotificationListResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileContractParameterService/")
+    suspend fun getMobileContact(@Body body: MobileContactBody): MobileContactResult
 
 
     // Registration

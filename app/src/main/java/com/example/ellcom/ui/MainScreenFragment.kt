@@ -65,6 +65,18 @@ class MainScreenFragment : Fragment() {
             }
         }
 
+        mainContract.setOnClickListener {
+            findNavController()
+                .navigate(
+                    MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment2(
+                        false,
+                        "",
+                        "",
+                        ""
+                    )
+                )
+        }
+
         buttonShowSub.setOnClickListener {
             findNavController()
                 .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSubContractListFragment())
@@ -139,9 +151,10 @@ class MainScreenFragment : Fragment() {
                     // Fill subContract
                     val adapter = GroupAdapter<GroupieViewHolder>()
                     for (i in it.data.res.subMobileContract) {
-                        adapter.add(SubContractItem(requireContext(), i))
+                        adapter.add(SubContractItem(requireContext(), i, this))
                     }
                     recyclerViewSubList.adapter = adapter
+                    recyclerViewSubList.isNestedScrollingEnabled = false
 
                     buttonShowSub.visibility = View.VISIBLE
                 } else {

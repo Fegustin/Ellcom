@@ -67,6 +67,9 @@
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
                 app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_mainScreenFragment_to_profileFragment2"
+                app:destination="@id/profileFragment" />
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
@@ -75,7 +78,31 @@
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.example.ellcom.ui.ProfileFragment"
-            tools:layout="@layout/fragment_profile" />
+            tools:layout="@layout/fragment_profile" >
+            <action
+                android:id="@+id/action_profileFragment_to_changePasswordFragment"
+                app:destination="@id/changePasswordFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
+            <argument
+                android:name="isSubContract"
+                app:argType="boolean"
+                android:defaultValue="false" />
+            <argument
+                android:name="companyName"
+                app:argType="string"
+                android:defaultValue="Ошибка" />
+            <argument
+                android:name="rate"
+                app:argType="string"
+                android:defaultValue="Ошибка" />
+            <argument
+                android:name="balance"
+                app:argType="string"
+                android:defaultValue="Ошибка" />
+        </fragment>
         <fragment
             android:id="@+id/contactFragment"
             android:name="com.example.ellcom.ui.ContactFragment"
@@ -83,7 +110,15 @@
         <fragment
             android:id="@+id/subContractListFragment"
             android:name="com.example.ellcom.ui.SubContractListFragment"
-            tools:layout="@layout/fragment_sub_contract_list" />
+            tools:layout="@layout/fragment_sub_contract_list" >
+            <action
+                android:id="@+id/action_subContractListFragment_to_profileFragment2"
+                app:destination="@id/profileFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/changePasswordFragment"
+            android:name="com.example.ellcom.ui.ChangePasswordFragment"
+            tools:layout="@layout/fragment_change_password" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"
