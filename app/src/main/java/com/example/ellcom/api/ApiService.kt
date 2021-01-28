@@ -4,8 +4,9 @@ import com.example.ellcom.pojo.auth.AuthBody
 import com.example.ellcom.pojo.auth.AuthResult
 import com.example.ellcom.pojo.auth.OneTimePasswordBody
 import com.example.ellcom.pojo.balance.ContractBalanceBody
-import com.example.ellcom.pojo.changepassword.ChangePasswordBody
 import com.example.ellcom.pojo.changepassword.ChangePasswordResult
+import com.example.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
+import com.example.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
 import com.example.ellcom.pojo.changepassword.inet.ServiceInternetBody
 import com.example.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import com.example.ellcom.pojo.contacts.MobileContactBody
@@ -59,7 +60,11 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileContractService/")
-    suspend fun passwordReset(@Body body: ChangePasswordBody): ChangePasswordResult
+    suspend fun passwordChangeContract(@Body bodyContract: ContractChangePasswordBody): ChangePasswordResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileInetService/")
+    suspend fun passwordChangeInternet(@Body bodyContract: InternetChangePasswordBody): ChangePasswordResult
 
     @Headers("Content-Type: application/json")
     @POST("MobileInetService/")

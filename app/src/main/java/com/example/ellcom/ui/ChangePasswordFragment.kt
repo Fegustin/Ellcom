@@ -59,7 +59,7 @@ class ChangePasswordFragment : Fragment() {
             if (it.status == "ok") {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
-                    adapter.add(ServiceInternetItem(i))
+                    adapter.add(ServiceInternetItem(i, this))
                 }
                 recyclerViewInternet.adapter = adapter
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()

@@ -33,7 +33,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/imageView6"
             android:gravity="center"
-            android:text="Логин:"
+            android:text="Логин: "
             android:textColor="@color/black"
             android:textSize="18sp" />
 

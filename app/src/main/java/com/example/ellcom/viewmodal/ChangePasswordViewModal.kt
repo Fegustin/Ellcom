@@ -15,11 +15,21 @@ class ChangePasswordViewModal : ViewModel() {
     fun passwordChange(
         token: String,
         oldPassword: String,
-        newPassword: String
+        newPassword: String,
+        isContract: Boolean,
+        servId: Int
     ): LiveData<ChangePasswordResult> {
         val result = MutableLiveData<ChangePasswordResult>()
         viewModelScope.launch {
-            result.postValue(repository.passwordChange(token, oldPassword, newPassword))
+            result.postValue(
+                repository.passwordChange(
+                    token,
+                    oldPassword,
+                    newPassword,
+                    isContract,
+                    servId
+                )
+            )
         }
         return result
     }

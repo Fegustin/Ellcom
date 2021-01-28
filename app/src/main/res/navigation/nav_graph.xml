@@ -130,7 +130,16 @@
         <fragment
             android:id="@+id/changePasswordContractAndInternetFragment"
             android:name="com.example.ellcom.ui.ChangePasswordContractAndInternetFragment"
-            tools:layout="@layout/fragment_change_password_contract_and_internet" />
+            tools:layout="@layout/fragment_change_password_contract_and_internet" >
+            <argument
+                android:name="isContract"
+                app:argType="boolean"
+                android:defaultValue="true" />
+            <argument
+                android:name="servId"
+                app:argType="integer"
+                android:defaultValue="0" />
+        </fragment>
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"

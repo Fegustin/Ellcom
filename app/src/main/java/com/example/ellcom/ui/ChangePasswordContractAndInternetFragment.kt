@@ -9,6 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.ellcom.R
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.utils.validation
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_change_password_contract_and_inte
 class ChangePasswordContractAndInternetFragment : Fragment() {
 
     private val model: ChangePasswordViewModal by activityViewModels()
+    private val args: ChangePasswordContractAndInternetFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +48,7 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            setTitleToolbar(true)
+            setTitleToolbar(args.isContract)
 
             buttonEnter.setOnClickListener {
                 var error = 0
@@ -68,17 +71,31 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
                     passwordChange(
                         it1,
                         oldPassword.text.toString(),
-                        newPassword.text.toString()
+                        newPassword.text.toString(),
+                        args.isContract,
+                        args.servId
                     )
                 }
             }
         }
     }
 
-    private fun passwordChange(token: String, oldPassword: String, newPassword: String) {
-        model.passwordChange(token, oldPassword, newPassword).observe(viewLifecycleOwner) {
-            if (it.status != "ok") Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-        }
+    private fun passwordChange(
+        token: String,
+        oldPassword: String,
+        newPassword: String,
+        isContract: Boolean,
+        servId: Int
+    ) {
+        model.passwordChange(token, oldPassword, newPassword, isContract, servId)
+            .observe(viewLifecycleOwner) {
+                if (it.status != "ok") {
+                    Toast.makeText(activity, "Вы успешно сменили пароль", Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(ChangePasswordFragmentDirections.actionGlobalAuthFragment())
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT)
+                    .show()
+            }
     }
 
     private fun setTitleToolbar(isContract: Boolean) {

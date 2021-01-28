@@ -1,10 +1,10 @@
-package com.example.ellcom.pojo.changepassword
+package com.example.ellcom.pojo.changepassword.contract
 
 import com.google.gson.annotations.SerializedName
 
-class ChangePasswordBody(token: String, oldPassword: String, newPassword: String) {
+class ContractChangePasswordBody(token: String, oldPassword: String, newPassword: String) {
     @SerializedName("method")
-    private val method = "getMobileContacts"
+    private val method = "passwordChange"
 
     @SerializedName("params")
     private val param = Param(token, oldPassword, newPassword)
