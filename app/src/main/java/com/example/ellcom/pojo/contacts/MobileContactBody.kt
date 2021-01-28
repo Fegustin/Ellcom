@@ -8,7 +8,7 @@ class MobileContactBody(token: String) {
     private val method = "getMobileContacts"
 
     @SerializedName("params")
-    val params = Params(token)
+    private val params = Params(token)
 
     class Params(token: String) {
         @SerializedName("token")

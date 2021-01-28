@@ -49,6 +49,11 @@ class ProfileFragment : Fragment() {
                 buttonExit.setOnClickListener {
                     exit()
                 }
+
+                changePassword.setOnClickListener {
+                    findNavController()
+                        .navigate(ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment())
+                }
             }
         }
     }

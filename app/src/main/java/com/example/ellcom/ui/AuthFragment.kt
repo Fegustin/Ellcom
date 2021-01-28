@@ -1,10 +1,8 @@
 package com.example.ellcom.ui
 
-import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +10,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.ellcom.MainActivity
 import com.example.ellcom.R
 import com.example.ellcom.utils.Internet
 import com.example.ellcom.viewmodal.AuthViewModal
 import kotlinx.android.synthetic.main.fragment_auth.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class AuthFragment : Fragment() {

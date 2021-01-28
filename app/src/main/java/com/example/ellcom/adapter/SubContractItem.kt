@@ -24,14 +24,14 @@ class SubContractItem(
     @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
-        initText(viewHolder, item)
+        init(viewHolder, item)
 
         viewHolder.layoutSubContract.setOnClickListener { goToProfilePage(item) }
     }
 
     override fun getLayout(): Int = R.layout.item_subcontract
 
-    private fun initText(viewHolder: GroupieViewHolder, item: SubContractsResult.Data.Result) {
+    private fun init(viewHolder: GroupieViewHolder, item: SubContractsResult.Data.Result) {
         viewHolder.textViewContactNumSubOne.text = "Субдоговор: №${item.title}"
         viewHolder.textViewRateSubOne.text =
             "Тариф: ${item.rateList[0].tariffTitle.substringBefore("(")}"

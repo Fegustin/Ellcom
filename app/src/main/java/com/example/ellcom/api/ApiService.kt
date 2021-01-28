@@ -4,6 +4,10 @@ import com.example.ellcom.pojo.auth.AuthBody
 import com.example.ellcom.pojo.auth.AuthResult
 import com.example.ellcom.pojo.auth.OneTimePasswordBody
 import com.example.ellcom.pojo.balance.ContractBalanceBody
+import com.example.ellcom.pojo.changepassword.ChangePasswordBody
+import com.example.ellcom.pojo.changepassword.ChangePasswordResult
+import com.example.ellcom.pojo.changepassword.inet.ServiceInternetBody
+import com.example.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import com.example.ellcom.pojo.contacts.MobileContactBody
 import com.example.ellcom.pojo.contacts.MobileContactResult
 import com.example.ellcom.pojo.forgotpassword.ForgotPasswordBody
@@ -52,6 +56,14 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileContractParameterService/")
     suspend fun getMobileContact(@Body body: MobileContactBody): MobileContactResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileContractService/")
+    suspend fun passwordReset(@Body body: ChangePasswordBody): ChangePasswordResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileInetService/")
+    suspend fun getServiceInternet(@Body body: ServiceInternetBody): ServiceInternetResult
 
 
     // Registration

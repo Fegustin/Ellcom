@@ -133,6 +133,12 @@ class MainScreenFragment : Fragment() {
     private fun infoProfile(token: String) {
         model.infoProfile(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
+
+                activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {
+                    putString("login", it.data.res.contract_num)
+                    apply()
+                }
+
                 val rate = it.data.res.rateList[0].tariffTitle
                     .substringAfter("\"")
                     .substringBefore("\"")

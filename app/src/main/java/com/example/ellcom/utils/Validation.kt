@@ -34,3 +34,13 @@ fun EditText.validationEmail(): Boolean {
         true
     }
 }
+
+fun EditText.validationConfirmPassword(password: String): Boolean {
+    return if (text.toString() != password) {
+        backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_warning)
+        false
+    } else {
+        backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_neutral)
+        true
+    }
+}

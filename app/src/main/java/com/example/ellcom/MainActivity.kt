@@ -79,6 +79,16 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Субдоговора"
                 }
+                R.id.changePasswordFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+                    "Смена договора"
+                }
+//                R.id.changePasswordContractAndInternetFragment -> {
+//                    toolbar.visibility = View.VISIBLE
+//                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+//                    "Смена договора"
+//                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
@@ -95,5 +105,9 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment)
                 .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
         }
+    }
+
+    fun setTitle(text: String) {
+        textViewTitle.text = text
     }
 }
