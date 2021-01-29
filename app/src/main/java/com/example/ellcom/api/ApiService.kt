@@ -17,6 +17,7 @@ import com.example.ellcom.pojo.infoprofile.InfoBody
 import com.example.ellcom.pojo.infoprofile.InfoResult
 import com.example.ellcom.pojo.notification.NotificationListBody
 import com.example.ellcom.pojo.notification.NotificationListResult
+import com.example.ellcom.pojo.session.ActiveSessionBody
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 import com.google.gson.JsonObject
@@ -69,6 +70,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileInetService/")
     suspend fun getServiceInternet(@Body body: ServiceInternetBody): ServiceInternetResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileInetService/")
+    suspend fun getActiveSession(@Body body: ActiveSessionBody): JsonObject
 
 
     // Registration

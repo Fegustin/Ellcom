@@ -43,12 +43,16 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
+        val isSuperContract =
+            activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getBoolean("isSuperContract", true)
 
         if (!Internet().checkInternetConnecting(activity)) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            setTitleToolbar(args.isContract)
+            if (isSuperContract != null) {
+                setTitleToolbar(args.isContract, isSuperContract)
+            }
 
             buttonEnter.setOnClickListener {
                 var error = 0
@@ -98,9 +102,9 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
             }
     }
 
-    private fun setTitleToolbar(isContract: Boolean) {
+    private fun setTitleToolbar(isContract: Boolean, isSuperContract: Boolean) {
         val title = activity?.findViewById<TextView>(R.id.textViewTitle)
-        if (isContract) title?.text = "Смена пароля (договор)"
+        if (isContract || !isSuperContract) title?.text = "Смена пароля (договор)"
         else title?.text = "Смена пароля (Internet)"
     }
 }

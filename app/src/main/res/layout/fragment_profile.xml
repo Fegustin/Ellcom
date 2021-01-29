@@ -139,8 +139,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
@@ -162,8 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
@@ -184,11 +184,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSession"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -206,8 +207,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
@@ -228,8 +229,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
@@ -251,8 +252,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="end"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="12dp"
                 android:background="@android:color/darker_gray" />
 

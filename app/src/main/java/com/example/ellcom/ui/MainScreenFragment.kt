@@ -146,29 +146,40 @@ class MainScreenFragment : Fragment() {
                 textViewCompany.text = it.data.res.name
 
                 if (it.data.res.subMobileContract.isNotEmpty()) {
-                    initTextSuper(
+                    activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {
+                        putBoolean("isSuperContract", true)
+                        apply()
+                    }
+
+                    initTextContract(
                         "Супердоговор: №${it.data.res.contract_num}",
                         rate,
                         it.data.res.balance.toString(),
-                        it.data.res.rateList[0].dateTo,
+                        it.data.res.daysCount.toString(),
                         it.data.res.status
                     )
 
-                    // Fill subContract
+                    // Заполнение recyclerView
                     val adapter = GroupAdapter<GroupieViewHolder>()
                     for (i in it.data.res.subMobileContract) {
                         adapter.add(SubContractItem(requireContext(), i, this))
                     }
                     recyclerViewSubList.adapter = adapter
                     recyclerViewSubList.isNestedScrollingEnabled = false
+                    // -------
 
                     buttonShowSub.visibility = View.VISIBLE
                 } else {
-                    initTextSuper(
+                    activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {
+                        putBoolean("isSuperContract", false)
+                        apply()
+                    }
+
+                    initTextContract(
                         "Субдоговор: №${it.data.res.contract_num}",
                         rate,
                         it.data.res.balance.toString(),
-                        it.data.res.rateList[0].dateTo,
+                        it.data.res.daysCount.toString(),
                         it.data.res.status
                     )
 
@@ -186,7 +197,7 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun initTextSuper(
+    private fun initTextContract(
         number: String,
         rate: String,
         balance: String,
@@ -196,7 +207,7 @@ class MainScreenFragment : Fragment() {
         textViewContactNum.text = number
         textViewRate.text = "Тариф: $rate"
         textViewBalance.text = "$balance ₽"
-        textViewTime.text = "Хватит до $time"
+        textViewTime.text = "Осталось $time дня(ей)"
         textViewIsActive.text = status
         if (status != "Активен") {
             textViewIsActive.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))

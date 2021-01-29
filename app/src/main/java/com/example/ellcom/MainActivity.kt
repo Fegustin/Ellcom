@@ -3,7 +3,6 @@ package com.example.ellcom
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -45,6 +44,16 @@ class MainActivity : AppCompatActivity() {
         title = ""
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            // На каких страницах будет отображаться нижняя навигация
+            when (destination.id) {
+                R.id.mainScreenFragment,
+                R.id.balanceFragment,
+                R.id.profileFragment,
+                R.id.contactFragment -> bottom_nav.visibility = View.VISIBLE
+                else -> bottom_nav.visibility = View.GONE
+            }
+            // ---------
+
             textViewTitle.text = when (destination.id) {
                 R.id.authFragment -> {
                     toolbar.visibility = View.GONE
@@ -53,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.mainScreenFragment -> {
                     toolbar.visibility = View.GONE
-                    bottom_nav.visibility = View.VISIBLE
                     ""
                 }
                 R.id.balanceFragment -> {
@@ -84,11 +92,11 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Смена договора"
                 }
-//                R.id.changePasswordContractAndInternetFragment -> {
-//                    toolbar.visibility = View.VISIBLE
-//                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
-//                    "Смена договора"
-//                }
+                R.id.sessionFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+                    "Экран сессии"
+                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
@@ -105,9 +113,5 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment)
                 .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
         }
-    }
-
-    fun setTitle(text: String) {
-        textViewTitle.text = text
     }
 }

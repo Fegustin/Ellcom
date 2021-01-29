@@ -51,8 +51,22 @@ class ProfileFragment : Fragment() {
                 }
 
                 changePassword.setOnClickListener {
+                    if (args.isSubContract) {
+                        findNavController().navigate(
+                            ProfileFragmentDirections.actionProfileFragmentToChangePasswordContractAndInternetFragment(
+                                false,
+                                args.servId
+                            )
+                        )
+                    } else {
+                        findNavController()
+                            .navigate(ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment())
+                    }
+                }
+
+                buttonSession.setOnClickListener {
                     findNavController()
-                        .navigate(ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment())
+                        .navigate(ProfileFragmentDirections.actionProfileFragmentToSessionFragment2())
                 }
             }
         }

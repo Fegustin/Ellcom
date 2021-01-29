@@ -42,7 +42,7 @@ class ChangePasswordFragment : Fragment() {
                 .show()
         } else {
             if (token != null) {
-                getListServiceInternet(token)
+                setInRecyclerViewItems(token)
             }
 
             if (login != null) textViewLogin.text = "Логин: $login"
@@ -54,14 +54,17 @@ class ChangePasswordFragment : Fragment() {
         }
     }
 
-    private fun getListServiceInternet(token: String) {
+    private fun setInRecyclerViewItems(token: String) {
         model.getListServiceInternet(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
                     adapter.add(ServiceInternetItem(i, this))
                 }
+
+                progressBarInternet.visibility = View.GONE
                 recyclerViewInternet.adapter = adapter
+                recyclerViewInternet.visibility = View.VISIBLE
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }

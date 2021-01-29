@@ -57,7 +57,8 @@ class SubContractItem(
                 true,
                 item.comment,
                 item.rateList[0].tariffTitle.substringBefore("("),
-                item.balance.toString()
+                item.balance.toString(),
+                item.id
             )
         } else {
             fragment as SubContractListFragment
@@ -66,8 +67,13 @@ class SubContractItem(
                     true,
                     item.comment,
                     item.rateList[0].tariffTitle.substringBefore("("),
-                    item.balance.toString()
+                    item.balance.toString(),
+                    item.id
                 )
+        }
+        context.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {
+            putBoolean("isSuperContract", false)
+            apply()
         }
         fragment.findNavController().navigate(action)
     }

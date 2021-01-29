@@ -11,6 +11,7 @@ data class SubContractsResult(
     data class Data(@SerializedName("return") val res: List<Result>) {
 
         data class Result(
+            @SerializedName("id") val id: Int,
             @SerializedName("title") val title: String,
             @SerializedName("comment") val comment: String,
             @SerializedName("status") val status: String,

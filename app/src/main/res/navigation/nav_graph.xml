@@ -102,6 +102,20 @@
                 android:name="balance"
                 app:argType="string"
                 android:defaultValue="Ошибка" />
+            <action
+                android:id="@+id/action_profileFragment_to_changePasswordContractAndInternetFragment"
+                app:destination="@id/changePasswordContractAndInternetFragment" />
+            <argument
+                android:name="servId"
+                app:argType="integer"
+                android:defaultValue="0" />
+            <action
+                android:id="@+id/action_profileFragment_to_sessionFragment2"
+                app:destination="@id/sessionFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/contactFragment"
@@ -140,6 +154,10 @@
                 app:argType="integer"
                 android:defaultValue="0" />
         </fragment>
+        <fragment
+            android:id="@+id/sessionFragment"
+            android:name="com.example.ellcom.ui.SessionFragment"
+            tools:layout="@layout/fragment_session" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"
