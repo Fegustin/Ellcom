@@ -5,23 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ellcom.R
-import com.example.ellcom.repository.SessionRepository
+import com.example.ellcom.adapter.SessionItem
 import com.example.ellcom.utils.Internet
-import com.example.ellcom.viewmodal.MainAndSubViewModal
+import com.example.ellcom.viewmodal.ChangePasswordViewModal
+import com.example.ellcom.viewmodal.SessionViewModal
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_session.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class SessionFragment : Fragment() {
 
-    private val model: MainAndSubViewModal by activityViewModels()
+    private val sessionViewModal: SessionViewModal by activityViewModels()
+    private val model: ChangePasswordViewModal by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,8 @@ class SessionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var isHistorySession = false
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
@@ -44,30 +48,65 @@ class SessionFragment : Fragment() {
                 .show()
         } else {
             if (token != null && isSuperContract != null) {
-                getContract(token, isSuperContract)
+                setContactInSpinner(token)
+
+                buttonGroupSession.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                    if (isChecked) {
+                        when (checkedId) {
+                            R.id.buttonActive -> {
+                                isHistorySession = false
+                                getActiveSession(
+                                    token,
+                                    spinnerLogin.selectedItem.toString().substringAfter("№")
+                                )
+                            }
+                            R.id.buttonHistory -> {
+                                isHistorySession = true
+                                getHistorySession(
+                                    token,
+                                    spinnerLogin.selectedItem.toString().substringAfter("№"),
+                                    "2000-01-25",
+                                    "2021-01-01"
+                                )
+                            }
+                        }
+                    }
+                }
+
+                spinnerLogin?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        if (isHistorySession) {
+                            getHistorySession(
+                                token,
+                                spinnerLogin.selectedItem.toString().substringAfter("№"),
+                                "2000-01-25",
+                                "2021-01-01"
+                            )
+                        } else {
+                            getActiveSession(
+                                token,
+                                spinnerLogin.selectedItem.toString().substringAfter("№")
+                            )
+                        }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
             }
         }
     }
 
-    private fun getContract(token: String, isSuperContract: Boolean) {
+    private fun setContactInSpinner(token: String) {
         val array = mutableListOf<String>()
-        model.infoProfile(token).observe(viewLifecycleOwner) {
+        model.getListServiceInternet(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
-                array.add(it.data.res.id.toString())
-
-                if (isSuperContract) {
-                    model.getSubContractsList(token).observe(viewLifecycleOwner) { it2 ->
-                        if (it2.status == "ok") {
-                            for (i in it2.data.res) array.add(i.id.toString())
-                            fillSpinner(array)
-                            getActiveSession(token, spinnerLogin.selectedItem.toString())
-                        } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    fillSpinner(array)
-                    getActiveSession(token, spinnerLogin.selectedItem.toString())
-                }
-
+                for (i in it.data.res) array.add(i.id.toString())
+                fillSpinner(array)
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -79,11 +118,26 @@ class SessionFragment : Fragment() {
     }
 
     private fun getActiveSession(token: String, servId: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            SessionRepository().getActiveSession(
-                token,
-                servId.toInt()
-            )
+        sessionViewModal.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
+            if (it.status == "ok") {
+                val adapter = GroupAdapter<GroupieViewHolder>()
+                for (i in it.data.res) {
+                    adapter.add(SessionItem(i))
+                    adapter.add(SessionItem(i))
+                    adapter.add(SessionItem(i))
+                    adapter.add(SessionItem(i))
+                    adapter.add(SessionItem(i))
+                }
+                recyclerViewSession.adapter = adapter
+            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
+        sessionViewModal.getHistorySession(token, servId.toInt(), dateFrom, dateTo)
+            .observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
     }
 }

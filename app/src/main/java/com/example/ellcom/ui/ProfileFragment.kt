@@ -68,6 +68,11 @@ class ProfileFragment : Fragment() {
                     findNavController()
                         .navigate(ProfileFragmentDirections.actionProfileFragmentToSessionFragment2())
                 }
+
+                bottonTraffic.setOnClickListener {
+                    findNavController()
+                        .navigate(ProfileFragmentDirections.actionProfileFragmentToTrafficFragment())
+                }
             }
         }
     }

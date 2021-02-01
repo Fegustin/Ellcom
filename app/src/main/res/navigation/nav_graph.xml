@@ -116,6 +116,13 @@
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
                 app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_profileFragment_to_trafficFragment"
+                app:destination="@id/trafficFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/contactFragment"
@@ -158,6 +165,10 @@
             android:id="@+id/sessionFragment"
             android:name="com.example.ellcom.ui.SessionFragment"
             tools:layout="@layout/fragment_session" />
+        <fragment
+            android:id="@+id/trafficFragment"
+            android:name="com.example.ellcom.ui.TrafficFragment"
+            tools:layout="@layout/fragment_traffic" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"

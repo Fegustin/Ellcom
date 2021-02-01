@@ -18,6 +18,8 @@ import com.example.ellcom.pojo.infoprofile.InfoResult
 import com.example.ellcom.pojo.notification.NotificationListBody
 import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.session.ActiveSessionBody
+import com.example.ellcom.pojo.session.HistorySessionBody
+import com.example.ellcom.pojo.session.SessionResult
 import com.example.ellcom.pojo.subcontracts.SubContractsBody
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 import com.google.gson.JsonObject
@@ -25,7 +27,6 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-
     //Billing
     @Headers("Content-Type: application/json")
     @POST("MobileAuthService/")
@@ -73,7 +74,11 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileInetService/")
-    suspend fun getActiveSession(@Body body: ActiveSessionBody): JsonObject
+    suspend fun getActiveSession(@Body body: ActiveSessionBody): SessionResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileInetService/")
+    suspend fun getHistorySession(@Body body: HistorySessionBody): SessionResult
 
 
     // Registration
