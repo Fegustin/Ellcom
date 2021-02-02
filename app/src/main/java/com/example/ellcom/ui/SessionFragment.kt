@@ -18,6 +18,8 @@ import com.example.ellcom.viewmodal.SessionViewModal
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_session.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SessionFragment : Fragment() {
@@ -55,6 +57,7 @@ class SessionFragment : Fragment() {
                         when (checkedId) {
                             R.id.buttonActive -> {
                                 isHistorySession = false
+
                                 getActiveSession(
                                     token,
                                     spinnerLogin.selectedItem.toString().substringAfter("№")
@@ -62,18 +65,17 @@ class SessionFragment : Fragment() {
                             }
                             R.id.buttonHistory -> {
                                 isHistorySession = true
+
                                 getHistorySession(
                                     token,
                                     spinnerLogin.selectedItem.toString().substringAfter("№"),
-                                    "2000-01-25",
-                                    "2021-01-01"
                                 )
                             }
                         }
                     }
                 }
 
-                spinnerLogin?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                spinnerLogin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: AdapterView<*>?,
                         view: View?,
@@ -83,9 +85,7 @@ class SessionFragment : Fragment() {
                         if (isHistorySession) {
                             getHistorySession(
                                 token,
-                                spinnerLogin.selectedItem.toString().substringAfter("№"),
-                                "2000-01-25",
-                                "2021-01-01"
+                                spinnerLogin.selectedItem.toString().substringAfter("№")
                             )
                         } else {
                             getActiveSession(
@@ -105,7 +105,7 @@ class SessionFragment : Fragment() {
         val array = mutableListOf<String>()
         model.getListServiceInternet(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
-                for (i in it.data.res) array.add(i.id.toString())
+                for (i in it.data.res) array.add("Логин: №" + i.id.toString())
                 fillSpinner(array)
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
@@ -123,21 +123,28 @@ class SessionFragment : Fragment() {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
                     adapter.add(SessionItem(i))
-                    adapter.add(SessionItem(i))
-                    adapter.add(SessionItem(i))
-                    adapter.add(SessionItem(i))
-                    adapter.add(SessionItem(i))
                 }
                 recyclerViewSession.adapter = adapter
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
-        sessionViewModal.getHistorySession(token, servId.toInt(), dateFrom, dateTo)
+    private fun getHistorySession(token: String, servId: String) {
+        sessionViewModal.getHistorySession(token, servId.toInt(), "2000-01-01", getDateNow())
             .observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
+                    val adapter = GroupAdapter<GroupieViewHolder>()
+                    for (i in it.data.res) {
+                        adapter.add(SessionItem(i))
+                    }
+                    recyclerViewSession.adapter = adapter
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun getDateNow(): String {
+        val date = Calendar.getInstance().time
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        return format.format(date)
     }
 }
