@@ -130,7 +130,12 @@ class SessionFragment : Fragment() {
     }
 
     private fun getHistorySession(token: String, servId: String) {
-        sessionViewModal.getHistorySession(token, servId.toInt(), "2000-01-01", getDateNow())
+        sessionViewModal.getHistorySession(
+            token,
+            servId.toInt(),
+            "${getDateNow("yyyy")}-${getDateNow("MM")}-01",
+            getDateNow("yyyy-MM-dd")
+        )
             .observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
                     val adapter = GroupAdapter<GroupieViewHolder>()
@@ -142,9 +147,9 @@ class SessionFragment : Fragment() {
             }
     }
 
-    private fun getDateNow(): String {
+    private fun getDateNow(pattern: String): String {
         val date = Calendar.getInstance().time
-        val format = SimpleDateFormat("yyyy-MM-dd")
+        val format = SimpleDateFormat(pattern)
         return format.format(date)
     }
 }
