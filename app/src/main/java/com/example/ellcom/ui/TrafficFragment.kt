@@ -10,14 +10,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ellcom.R
+import com.example.ellcom.adapter.SessionItem
 import com.example.ellcom.utils.Internet
+import com.example.ellcom.viewmodal.ChangePasswordViewModal
 import com.example.ellcom.viewmodal.MainAndSubViewModal
+import com.example.ellcom.viewmodal.SessionViewModal
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_session.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TrafficFragment : Fragment() {
 
-    private val mainAndSubViewModal: MainAndSubViewModal by activityViewModels()
+    private val sessionViewModal: SessionViewModal by activityViewModels()
+    private val model: ChangePasswordViewModal by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,30 +47,18 @@ class TrafficFragment : Fragment() {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            if (token != null && isSuperContract != null) {
-                setContactInSpinner(token, isSuperContract)
+            if (token != null) {
+                setContactInSpinner(token)
             }
         }
     }
 
-    private fun setContactInSpinner(token: String, isSuperContract: Boolean) {
+    private fun setContactInSpinner(token: String) {
         val array = mutableListOf<String>()
-        mainAndSubViewModal.infoProfile(token).observe(viewLifecycleOwner) {
+        model.getListServiceInternet(token).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
-                array.add("Логин: №" + it.data.res.id.toString())
-
-                if (isSuperContract) {
-                    mainAndSubViewModal.getSubContractsList(token)
-                        .observe(viewLifecycleOwner) { it2 ->
-                            if (it2.status == "ok") {
-                                for (i in it2.data.res) array.add("Логин: №" + i.id.toString())
-                                fillSpinner(array)
-                            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-                        }
-                } else {
-                    fillSpinner(array)
-                }
-
+                for (i in it.data.res) array.add("Логин: №" + i.id.toString())
+                fillSpinner(array)
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -71,5 +67,29 @@ class TrafficFragment : Fragment() {
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, array)
         spinnerLogin.adapter = adapter
+    }
+
+    private fun getHistorySession(token: String, servId: String) {
+        sessionViewModal.getHistorySession(
+            token,
+            servId.toInt(),
+            "${getDateNow("yyyy")}-${getDateNow("MM")}-01",
+            getDateNow("yyyy-MM-dd")
+        )
+            .observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    val adapter = GroupAdapter<GroupieViewHolder>()
+                    for (i in it.data.res) {
+                        adapter.add(SessionItem(i))
+                    }
+                    recyclerViewSession.adapter = adapter
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun getDateNow(pattern: String): String {
+        val date = Calendar.getInstance().time
+        val format = SimpleDateFormat(pattern)
+        return format.format(date)
     }
 }

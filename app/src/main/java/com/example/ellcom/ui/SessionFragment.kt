@@ -49,7 +49,7 @@ class SessionFragment : Fragment() {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            if (token != null && isSuperContract != null) {
+            if (token != null) {
                 setContactInSpinner(token)
 
                 buttonGroupSession.addOnButtonCheckedListener { _, checkedId, isChecked ->
