@@ -21,6 +21,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_session.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
 
 
 class SessionFragment : Fragment() {
@@ -88,11 +89,18 @@ class SessionFragment : Fragment() {
     }
 
     private fun getActiveSession(token: String, servId: String) {
+        textViewInputTraffic.text = ""
+        textViewOutputTraffic.text = ""
         sessionViewModal.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
                     adapter.add(SessionItem(i))
+
+                    textViewInputTraffic.text =
+                        String.format("%.1f", i.incomingTraffic * 0.00000762939453125)
+                    textViewOutputTraffic.text =
+                        String.format("%.1f", i.outgoingTraffic * 0.00000762939453125)
                 }
                 recyclerViewSessionActive.adapter = adapter
                 recyclerViewSessionActive.isNestedScrollingEnabled = false

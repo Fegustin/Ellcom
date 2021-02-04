@@ -1,9 +1,6 @@
 package com.example.ellcom.adapter
 
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import com.example.ellcom.R
 import com.example.ellcom.pojo.session.SessionResult
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -19,6 +16,10 @@ class SessionItem(private val item: SessionResult.Data.Return) : Item() {
         viewHolder.textViewConnectionStart.text = item.connectionStart.substringBefore(" ")
         viewHolder.textViewIP.text = item.ipAddress
         viewHolder.textViewMac.text = item.callingStationId
+        viewHolder.textViewInputTraffic.text =
+            String.format("%.1f", item.incomingTraffic * 0.00000762939453125)
+        viewHolder.textViewOutPutTraffic.text =
+            String.format("%.1f", item.outgoingTraffic * 0.00000762939453125)
     }
 
     override fun getLayout(): Int = R.layout.item_session
