@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ellcom.pojo.contacts.MobileContactResult
 import com.example.ellcom.repository.ContactRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -14,7 +15,7 @@ class ContactViewModal : ViewModel() {
 
     fun getMobileContact(token: String): LiveData<MobileContactResult> {
         val result = MutableLiveData<MobileContactResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getMobileContact(token))
         }
         return result

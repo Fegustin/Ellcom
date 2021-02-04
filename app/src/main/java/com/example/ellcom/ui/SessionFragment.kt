@@ -1,5 +1,6 @@
 package com.example.ellcom.ui
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,6 +28,8 @@ class SessionFragment : Fragment() {
     private val sessionViewModal: SessionViewModal by activityViewModels()
     private val model: ChangePasswordViewModal by activityViewModels()
 
+    private var textDate = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,13 +40,8 @@ class SessionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var isHistorySession = false
-
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
-        val isSuperContract =
-            activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
-                ?.getBoolean("isSuperContract", true)
 
         if (!Internet().checkInternetConnecting(activity)) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
@@ -52,29 +50,6 @@ class SessionFragment : Fragment() {
             if (token != null) {
                 setContactInSpinner(token)
 
-                buttonGroupSession.addOnButtonCheckedListener { _, checkedId, isChecked ->
-                    if (isChecked) {
-                        when (checkedId) {
-                            R.id.buttonActive -> {
-                                isHistorySession = false
-
-                                getActiveSession(
-                                    token,
-                                    spinnerLogin.selectedItem.toString().substringAfter("№")
-                                )
-                            }
-                            R.id.buttonHistory -> {
-                                isHistorySession = true
-
-                                getHistorySession(
-                                    token,
-                                    spinnerLogin.selectedItem.toString().substringAfter("№"),
-                                )
-                            }
-                        }
-                    }
-                }
-
                 spinnerLogin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: AdapterView<*>?,
@@ -82,21 +57,16 @@ class SessionFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        if (isHistorySession) {
-                            getHistorySession(
-                                token,
-                                spinnerLogin.selectedItem.toString().substringAfter("№")
-                            )
-                        } else {
-                            getActiveSession(
-                                token,
-                                spinnerLogin.selectedItem.toString().substringAfter("№")
-                            )
-                        }
+                        getActiveSession(
+                            token,
+                            spinnerLogin.selectedItem.toString().substringAfter("№")
+                        )
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
+
+                layoutDate.setOnClickListener { dateDialogPikerFrom(token) }
             }
         }
     }
@@ -124,17 +94,18 @@ class SessionFragment : Fragment() {
                 for (i in it.data.res) {
                     adapter.add(SessionItem(i))
                 }
-                recyclerViewSession.adapter = adapter
+                recyclerViewSessionActive.adapter = adapter
+                recyclerViewSessionActive.isNestedScrollingEnabled = false
             } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getHistorySession(token: String, servId: String) {
+    private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
         sessionViewModal.getHistorySession(
             token,
             servId.toInt(),
-            "${getDateNow("yyyy")}-${getDateNow("MM")}-01",
-            getDateNow("yyyy-MM-dd")
+            dateFrom,
+            dateTo
         )
             .observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
@@ -142,14 +113,87 @@ class SessionFragment : Fragment() {
                     for (i in it.data.res) {
                         adapter.add(SessionItem(i))
                     }
-                    recyclerViewSession.adapter = adapter
+                    recyclerViewSessionHistory.adapter = adapter
+                    recyclerViewSessionHistory.isNestedScrollingEnabled = false
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun getDateNow(pattern: String): String {
-        val date = Calendar.getInstance().time
-        val format = SimpleDateFormat(pattern)
-        return format.format(date)
+    private fun dateDialogPikerFrom(token: String) {
+        textDate = ""
+        textViewDate.text = "_________"
+
+        val c = Calendar.getInstance()
+        val years = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val pickerDialog = DatePickerDialog(
+            requireContext(), { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                var calendarTo = Calendar.getInstance()
+                calendar.set(year, monthOfYear, dayOfMonth)
+
+                if (monthOfYear == Calendar.getInstance().get(Calendar.MONTH)) {
+                    calendarTo = c
+                } else {
+                    calendarTo.set(
+                        year,
+                        monthOfYear,
+                        calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+                    )
+                }
+                textDate += "От " + dateFormat(year, monthOfYear, dayOfMonth, "MMM dd")
+                dateDialogPikerTo(
+                    token,
+                    calendar.time.time,
+                    calendarTo.time.time,
+                    dateFormat(year, monthOfYear, dayOfMonth, "yyyy-MM-dd")
+                )
+            },
+            years,
+            month,
+            day
+        )
+        pickerDialog.setTitle("С какого числа")
+        pickerDialog.datePicker.maxDate = c.time.time
+        pickerDialog.show()
+    }
+
+    private fun dateDialogPikerTo(token: String, minDate: Long, maxDate: Long, dateFrom: String) {
+        val c = Calendar.getInstance()
+        val years = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val pickerDialog = DatePickerDialog(
+            requireContext(), { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(year, monthOfYear, dayOfMonth)
+
+                textDate += "  До " + dateFormat(year, monthOfYear, dayOfMonth, "MMM dd")
+                textViewDate.text = textDate
+                getHistorySession(
+                    token,
+                    spinnerLogin.selectedItem.toString().substringAfter("№"),
+                    dateFrom,
+                    dateFormat(year, monthOfYear, dayOfMonth, "yyyy-MM-dd")
+                )
+            },
+            years,
+            month,
+            day
+        )
+
+        pickerDialog.setTitle("До какого числа")
+        pickerDialog.datePicker.minDate = minDate
+        pickerDialog.datePicker.maxDate = maxDate
+        pickerDialog.show()
+    }
+
+    private fun dateFormat(year: Int, monthOfYear: Int, dayOfMonth: Int, pattern: String): String {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, monthOfYear, dayOfMonth)
+        return SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.time)
     }
 }

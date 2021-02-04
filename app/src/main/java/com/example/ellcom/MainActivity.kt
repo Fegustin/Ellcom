@@ -97,11 +97,6 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Экран сессии"
                 }
-                R.id.trafficFragment -> {
-                    toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
-                    "Экран трафика"
-                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)

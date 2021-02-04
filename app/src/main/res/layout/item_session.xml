@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:shrinkColumns="4">
+    android:minWidth="800dp"
+    android:orientation="vertical">
 
     <TableRow
         android:id="@+id/tableRowTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
@@ -45,6 +47,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="IP\nАдрес"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="MAC\nАдрес"
             android:textColor="@color/black" />
     </TableRow>
 
@@ -90,11 +101,20 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="" />
+
+        <TextView
+            android:id="@+id/textViewMac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="" />
     </TableRow>
 
     <View
-        android:background="@color/text_color"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:background="@color/text_color" />
 
-</TableLayout>
+</LinearLayout>

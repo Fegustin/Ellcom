@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ellcom.pojo.changepassword.ChangePasswordResult
 import com.example.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import com.example.ellcom.repository.ChangePasswordRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ChangePasswordViewModal : ViewModel() {
@@ -20,7 +21,7 @@ class ChangePasswordViewModal : ViewModel() {
         servId: Int
     ): LiveData<ChangePasswordResult> {
         val result = MutableLiveData<ChangePasswordResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 repository.passwordChange(
                     token,
@@ -38,7 +39,7 @@ class ChangePasswordViewModal : ViewModel() {
         token: String
     ): LiveData<ServiceInternetResult> {
         val result = MutableLiveData<ServiceInternetResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getListServiceInternet(token))
         }
         return result

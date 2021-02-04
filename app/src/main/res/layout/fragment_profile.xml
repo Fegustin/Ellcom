@@ -212,29 +212,6 @@
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bottonTraffic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="start|center"
-                android:text="Трафик"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                app:icon="@drawable/ic_rate"
-                app:iconTint="@color/dark_blue" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="end"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="60dp"
-                android:background="@android:color/darker_gray" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonExit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

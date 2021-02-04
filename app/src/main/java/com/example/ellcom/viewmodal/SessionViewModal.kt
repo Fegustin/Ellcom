@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ellcom.pojo.session.SessionResult
 import com.example.ellcom.repository.SessionRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SessionViewModal : ViewModel() {
@@ -16,7 +17,7 @@ class SessionViewModal : ViewModel() {
         servId: Int
     ): LiveData<SessionResult> {
         val result = MutableLiveData<SessionResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getActiveSession(token, servId))
         }
         return result
@@ -29,7 +30,7 @@ class SessionViewModal : ViewModel() {
         dateTo: String
     ): LiveData<SessionResult> {
         val result = MutableLiveData<SessionResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getHistorySession(token, servId, dateFrom, dateTo))
         }
         return result

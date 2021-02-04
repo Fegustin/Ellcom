@@ -9,6 +9,7 @@ import com.example.ellcom.pojo.notification.NotificationListBody
 import com.example.ellcom.pojo.notification.NotificationListResult
 import com.example.ellcom.pojo.subcontracts.SubContractsResult
 import com.example.ellcom.repository.MainAndSubRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainAndSubViewModal : ViewModel() {
@@ -16,7 +17,7 @@ class MainAndSubViewModal : ViewModel() {
 
     fun infoProfile(token: String): LiveData<InfoResult> {
         val result = MutableLiveData<InfoResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.infoProfile(token))
         }
         return result
@@ -24,7 +25,7 @@ class MainAndSubViewModal : ViewModel() {
 
     fun getSubContractsList(token: String): LiveData<SubContractsResult> {
         val result = MutableLiveData<SubContractsResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getSubContractsList(token))
         }
         return result
@@ -32,7 +33,7 @@ class MainAndSubViewModal : ViewModel() {
 
     fun getNotificationList(token: String, notConfirm: Boolean, page: Int): LiveData<NotificationListResult> {
         val result = MutableLiveData<NotificationListResult>()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getNotificationList(token, notConfirm, page))
         }
         return result
