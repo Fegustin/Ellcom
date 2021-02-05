@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "117815246975",
+    "project_id": "my-ellcom",
+    "storage_bucket": "my-ellcom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117815246975:android:66f30f9b474ab8edac3f4a",
+        "android_client_info": {
+          "package_name": "ru.steilsouth.ellcom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117815246975-sanpkgv8s28lc02u2qqcs0c4lftigm8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoW4255S4CCMvDKYSc9h9kQo93RK_THds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117815246975-sanpkgv8s28lc02u2qqcs0c4lftigm8a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117815246975-858c6elu0b5bbvops3skcon6tb8g432g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ellco.myEllcom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

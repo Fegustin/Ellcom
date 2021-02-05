@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.ellcom.ui.AuthFragment"
+        android:name="ru.steilsouth.ellcom.ui.AuthFragment"
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authFragment_to_registrationFragment"
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.ellcom.ui.RegistrationFragment"
+        android:name="ru.steilsouth.ellcom.ui.RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_readerPDFFragment"
@@ -47,18 +47,18 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.ellcom.ui.ForgotPasswordFragment"
+        android:name="ru.steilsouth.ellcom.ui.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/readerPDFFragment"
-        android:name="com.example.ellcom.ui.ReaderPDFFragment"
+        android:name="ru.steilsouth.ellcom.ui.ReaderPDFFragment"
         tools:layout="@layout/fragment_reader_p_d_f" />
     <navigation
         android:id="@+id/navigationToMainContent"
         app:startDestination="@id/mainScreenFragment">
         <fragment
             android:id="@+id/mainScreenFragment"
-            android:name="com.example.ellcom.ui.MainScreenFragment"
+            android:name="ru.steilsouth.ellcom.ui.MainScreenFragment"
             tools:layout="@layout/fragment_main_screen">
             <action
                 android:id="@+id/action_mainScreenFragment_to_subContractListFragment"
@@ -73,11 +73,11 @@
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
-            android:name="com.example.ellcom.ui.BalanceFragment"
+            android:name="ru.steilsouth.ellcom.ui.BalanceFragment"
             tools:layout="@layout/fragment_balance" />
         <fragment
             android:id="@+id/profileFragment"
-            android:name="com.example.ellcom.ui.ProfileFragment"
+            android:name="ru.steilsouth.ellcom.ui.ProfileFragment"
             tools:layout="@layout/fragment_profile" >
             <action
                 android:id="@+id/action_profileFragment_to_changePasswordFragment"
@@ -119,11 +119,11 @@
         </fragment>
         <fragment
             android:id="@+id/contactFragment"
-            android:name="com.example.ellcom.ui.ContactFragment"
+            android:name="ru.steilsouth.ellcom.ui.ContactFragment"
             tools:layout="@layout/fragment_contact" />
         <fragment
             android:id="@+id/subContractListFragment"
-            android:name="com.example.ellcom.ui.SubContractListFragment"
+            android:name="ru.steilsouth.ellcom.ui.SubContractListFragment"
             tools:layout="@layout/fragment_sub_contract_list" >
             <action
                 android:id="@+id/action_subContractListFragment_to_profileFragment2"
@@ -131,7 +131,7 @@
         </fragment>
         <fragment
             android:id="@+id/changePasswordFragment"
-            android:name="com.example.ellcom.ui.ChangePasswordFragment"
+            android:name="ru.steilsouth.ellcom.ui.ChangePasswordFragment"
             tools:layout="@layout/fragment_change_password" >
             <action
                 android:id="@+id/action_changePasswordFragment_to_changePasswordContractAndInternetFragment"
@@ -143,7 +143,7 @@
         </fragment>
         <fragment
             android:id="@+id/changePasswordContractAndInternetFragment"
-            android:name="com.example.ellcom.ui.ChangePasswordContractAndInternetFragment"
+            android:name="ru.steilsouth.ellcom.ui.ChangePasswordContractAndInternetFragment"
             tools:layout="@layout/fragment_change_password_contract_and_internet" >
             <argument
                 android:name="isContract"
@@ -156,7 +156,7 @@
         </fragment>
         <fragment
             android:id="@+id/sessionFragment"
-            android:name="com.example.ellcom.ui.SessionFragment"
+            android:name="ru.steilsouth.ellcom.ui.SessionFragment"
             tools:layout="@layout/fragment_session" />
     </navigation>
     <action
