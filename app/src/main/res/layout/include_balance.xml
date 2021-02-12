@@ -18,7 +18,10 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -27,6 +30,7 @@
                 android:text="Входящий остаток на начало месяца" />
 
             <TextView
+                android:id="@+id/textViewInputRemainder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />
@@ -44,10 +48,22 @@
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewComingBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
         <TableRow
+            android:id="@+id/layoutComingBalance"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,6 +72,7 @@
                 android:text="Приход за месяц(всего)" />
 
             <TextView
+                android:id="@+id/layoutComingBalanceSum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />
@@ -73,10 +90,22 @@
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewConsumptionBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
         <TableRow
+            android:id="@+id/layoutConsumptionBalance"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,6 +114,7 @@
                 android:text="Расход за месяц(всего)" />
 
             <TextView
+                android:id="@+id/layoutConsumptionBalanceSum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />
@@ -102,10 +132,22 @@
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewOperatingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
         <TableRow
+            android:id="@+id/layoutOperatingTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,37 +156,11 @@
                 android:text="Наработка за месяц(всего)" />
 
             <TextView
+                android:id="@+id/layoutOperatingTimeSum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />
         </TableRow>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="@color/dark_gray"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp"
-            app:cardMaxElevation="6dp">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="2dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="________________" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="---------" />
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -161,7 +177,10 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -170,6 +189,7 @@
                 android:text="Исходящий остаток на конец месяца" />
 
             <TextView
+                android:id="@+id/textViewOutputRemainder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />
@@ -191,7 +211,10 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp">
+            android:paddingStart="2dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,6 +223,7 @@
                 android:text="Лимит" />
 
             <TextView
+                android:id="@+id/textViewLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---------" />

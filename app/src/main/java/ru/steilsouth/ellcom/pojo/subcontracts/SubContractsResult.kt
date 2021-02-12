@@ -4,19 +4,20 @@ import com.google.gson.annotations.SerializedName
 import ru.steilsouth.ellcom.pojo.infoprofile.RateList
 
 data class SubContractsResult(
-    @SerializedName("status") val status: String,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val data: Data
+    val status: String,
+    val message: String,
+    val data: Data
 ) {
     data class Data(@SerializedName("return") val res: List<Result>) {
 
         data class Result(
-            @SerializedName("id") val id: Int,
-            @SerializedName("title") val title: String,
-            @SerializedName("comment") val comment: String,
-            @SerializedName("status") val status: String,
-            @SerializedName("balance") val balance: Double,
-            @SerializedName("tariffList") val rateList: List<RateList>,
+            val id: Int,
+            val title: String,
+            val comment: String,
+            val status: String,
+            val token: String,
+            val balance: Double,
+            @SerializedName("tariffList") val rateList: List<RateList>
         )
     }
 }

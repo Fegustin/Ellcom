@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.steilsouth.ellcom.pojo.notification.NotificationListResult
+import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.repository.BalanceRepository
 
 class BalanceViewModal : ViewModel() {
@@ -15,8 +15,8 @@ class BalanceViewModal : ViewModel() {
     fun getBalance(
         token: String,
         data: String
-    ): LiveData<NotificationListResult> {
-        val result = MutableLiveData<NotificationListResult>()
+    ): LiveData<BalanceResult> {
+        val result = MutableLiveData<BalanceResult>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getBalance(token, data))
         }

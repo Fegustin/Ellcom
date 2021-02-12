@@ -6,6 +6,7 @@ import retrofit2.http.*
 import ru.steilsouth.ellcom.pojo.auth.AuthBody
 import ru.steilsouth.ellcom.pojo.auth.AuthResult
 import ru.steilsouth.ellcom.pojo.auth.OneTimePasswordBody
+import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.pojo.balance.ContractBalanceBody
 import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
@@ -54,7 +55,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
-    suspend fun getBalance(@Body body: ContractBalanceBody): NotificationListResult
+    suspend fun getBalance(@Body body: ContractBalanceBody): BalanceResult
 
     @Headers("Content-Type: application/json")
     @POST("MobileContractParameterService/")

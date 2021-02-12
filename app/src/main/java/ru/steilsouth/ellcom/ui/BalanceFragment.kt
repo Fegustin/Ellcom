@@ -3,31 +3,42 @@ package ru.steilsouth.ellcom.ui
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.RecyclerView
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_balance.*
-import kotlinx.android.synthetic.main.fragment_balance.spinnerLogin
 import kotlinx.android.synthetic.main.fragment_main_screen.layoutContent
 import kotlinx.android.synthetic.main.fragment_main_screen.progressBar
-import kotlinx.android.synthetic.main.fragment_session.*
+import kotlinx.android.synthetic.main.include_balance.*
 import ru.steilsouth.ellcom.R
+import ru.steilsouth.ellcom.adapter.BalanceItem
+import ru.steilsouth.ellcom.pojo.balance.BalanceList
 import ru.steilsouth.ellcom.utils.Internet
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.BalanceViewModal
-import ru.steilsouth.ellcom.viewmodal.ChangePasswordViewModal
+import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class BalanceFragment : Fragment() {
 
-    private val model: BalanceViewModal by activityViewModels()
-    private val modelLogin: ChangePasswordViewModal by activityViewModels()
+    private val modelBalance: BalanceViewModal by activityViewModels()
+    private val modelMainAndSub: MainAndSubViewModal by activityViewModels()
+
+    private val subToken = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,26 +54,107 @@ class BalanceFragment : Fragment() {
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
+        val isSuperContract = activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+            ?.getBoolean("isSuperContract", false)
 
         if (!Internet().checkInternetConnecting(activity)) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            if (token != null) {
-                setContactInSpinner(token)
+            if (token != null && isSuperContract != null) {
+                clickChangeMonth()
+
+                setContactInSpinner(token, isSuperContract)
 
                 changeMonth()
+
+                getBalance(token, getDate("02"))
             }
         }
     }
 
-    private fun setContactInSpinner(token: String) {
+    private fun clickChangeMonth() {
+        var isOpenClickComing = false
+        var isOpenClickConsumption = false
+        var isOpenOperatingTime = false
+
+        layoutComingBalance?.setOnClickListener {
+            if (isOpenClickComing) {
+                isOpenClickComing = false
+                animationDropDownInfoMonth(recyclerViewComingBalance, 0f, 100, 20)
+            } else {
+                isOpenClickComing = true
+                animationDropDownInfoMonth(recyclerViewComingBalance, 1f, 60, 100)
+            }
+        }
+
+        layoutConsumptionBalance?.setOnClickListener {
+            if (isOpenClickConsumption) {
+                isOpenClickConsumption = false
+                animationDropDownInfoMonth(recyclerViewConsumptionBalance, 0f, 100, 20)
+            } else {
+                isOpenClickConsumption = true
+                animationDropDownInfoMonth(recyclerViewConsumptionBalance, 1f, 60, 100)
+            }
+        }
+
+        layoutOperatingTime?.setOnClickListener {
+            if (isOpenOperatingTime) {
+                isOpenOperatingTime = false
+                animationDropDownInfoMonth(recyclerViewOperatingTime, 0f, 100, 50)
+            } else {
+                isOpenOperatingTime = true
+                animationDropDownInfoMonth(recyclerViewOperatingTime, 1f, 60, 100)
+            }
+        }
+    }
+
+    private fun animationDropDownInfoMonth(
+        view: View,
+        valueAlpha: Float,
+        vararg valuesMargin: Int
+    ) {
+        // Margin Anim
+        ValueAnimator.ofInt(*valuesMargin).apply {
+            duration = 150
+            addUpdateListener {
+                if (valueAlpha == 1f) view.visibility = View.VISIBLE
+                val lp = view.layoutParams as FrameLayout.LayoutParams
+                lp.setMargins(0, (it.animatedValue as Int), 0, 0)
+                view.layoutParams = lp
+            }
+            start()
+        }
+        // Alpha anim
+        view.animate().apply {
+            interpolator = LinearInterpolator()
+            duration = 100
+            alpha(valueAlpha)
+            start()
+            setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    if (valueAlpha == 0f) view.visibility = View.GONE
+                }
+            })
+        }
+    }
+
+    private fun setContactInSpinner(token: String, isSuperContract: Boolean) {
         val array = mutableListOf<String>()
-        modelLogin.getListServiceInternet(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                for (i in it.data.res) array.add("Логин: №" + i.id.toString())
-                fillSpinner(array)
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+        modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) { infoResult ->
+            if (infoResult.status == "ok") {
+                array.add("Логин: №" + infoResult.data.res.contract_num)
+
+                if (isSuperContract) {
+                    modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
+                        if (it.status == "ok") {
+                            for (i in it.data.res) array.add("Логин: №" + i.id.toString())
+                            fillSpinner(array)
+                        } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                } else fillSpinner(array)
+            } else Toast.makeText(activity, infoResult.message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -72,13 +164,42 @@ class BalanceFragment : Fragment() {
         spinnerLogin.adapter = adapter
     }
 
-    private fun getBalance(token: String, date: String) {
-        model.getBalance(token, date).observe(viewLifecycleOwner) {
+    private fun getBalance(token: String, month: String) {
+        val year = getDate("yyyy")
+        val day = getDate("dd")
+        modelBalance.getBalance(token, "${year}-${month}-${day}").observe(viewLifecycleOwner) {
+            if (it.status == "ok") {
+                val response = it.data.res
+                textViewInputRemainder.text = response.incomingSaldo.toString()
+                layoutComingBalanceSum.text = response.accounts.toString()
+                layoutConsumptionBalanceSum.text = response.payments.toString()
+                layoutOperatingTimeSum.text = response.charges.toString()
+                textViewOutputRemainder.text = response.outgoingSaldo.toString()
+                textViewLimit.text = response.limit.toString()
 
+                fillRecyclerViews(recyclerViewComingBalance, response.accountList)
+                fillRecyclerViews(recyclerViewConsumptionBalance, response.paymentList)
+                fillRecyclerViews(recyclerViewOperatingTime, response.chargeList)
+            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun arrowButtonAnimation(button: View, vararg values: Float) {
+    private fun fillRecyclerViews(recycler: RecyclerView, array: List<BalanceList>) {
+        val adapter = GroupAdapter<GroupieViewHolder>()
+        for (i in array) {
+            adapter.add(BalanceItem(i))
+            adapter.add(BalanceItem(i))
+            adapter.add(BalanceItem(i))
+            adapter.add(BalanceItem(i))
+        }
+        recycler.adapter = adapter
+        recycler.isNestedScrollingEnabled = false
+    }
+
+    private fun buttonAnimation(
+        button: View,
+        vararg values: Float
+    ) {
         val animator = ObjectAnimator.ofFloat(button, View.TRANSLATION_X, *values)
         animator.duration = 200
         animator.addListener(object : AnimatorListenerAdapter() {
@@ -102,15 +223,15 @@ class BalanceFragment : Fragment() {
         val arrayMonth = resources.getStringArray(R.array.month)
 
         var currentIndex = 0
-        var isFirstSlide = true
+        var isFirstTimeClicked = true
 
         imageButtonArrowRight.setOnClickListener {
-            arrowButtonAnimation(it, 0f, 30f, 0f)
+            buttonAnimation(it, 0f, 30f, 0f)
 
             initAnimTextSwitcher(R.anim.slide_in_right, R.anim.slide_out_left)
 
-            if (isFirstSlide) {
-                isFirstSlide = false
+            if (isFirstTimeClicked) {
+                isFirstTimeClicked = false
                 currentIndex = 0
             }
 
@@ -121,12 +242,12 @@ class BalanceFragment : Fragment() {
         }
 
         imageButtonArrowLeft.setOnClickListener {
-            arrowButtonAnimation(it, 0f, -30f, 0f)
+            buttonAnimation(it, 0f, -30f, 0f)
 
             initAnimTextSwitcher(R.anim.slide_in_left, R.anim.slide_out_right)
 
-            if (isFirstSlide) {
-                isFirstSlide = false
+            if (isFirstTimeClicked) {
+                isFirstTimeClicked = false
                 currentIndex = arrayMonth.size - 1
             }
 
@@ -135,5 +256,10 @@ class BalanceFragment : Fragment() {
 
             textSwitcherMonth.setText(arrayMonth[currentIndex]);
         }
+    }
+
+    private fun getDate(pattern: String): String {
+        val calendar = Calendar.getInstance().time
+        return SimpleDateFormat(pattern, Locale.getDefault()).format(calendar)
     }
 }
