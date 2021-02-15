@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -67,7 +68,19 @@ class BalanceFragment : Fragment() {
 
                 changeMonth(token, isSuperContract)
 
-                if (!isSuperContract) buttonDistributeFunds.visibility = View.GONE
+                buttonTopUpAccount.setOnClickListener {
+                    findNavController()
+                        .navigate(BalanceFragmentDirections.actionBalanceFragmentToTopUpAccountFragment())
+                }
+
+                if (!isSuperContract) {
+                    buttonDistributeFunds.visibility = View.GONE
+                }
+
+                buttonDistributeFunds?.setOnClickListener {
+                    findNavController()
+                        .navigate(BalanceFragmentDirections.actionBalanceFragmentToDistributeFundsFragment())
+                }
 
                 spinnerLogin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(

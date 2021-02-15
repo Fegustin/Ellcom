@@ -68,6 +68,11 @@ class ProfileFragment : Fragment() {
                     findNavController()
                         .navigate(ProfileFragmentDirections.actionProfileFragmentToSessionFragment2())
                 }
+
+                buttonEmail.setOnClickListener {
+                    findNavController()
+                        .navigate(ProfileFragmentDirections.actionProfileFragmentToEmailListFragment())
+                }
             }
         }
     }

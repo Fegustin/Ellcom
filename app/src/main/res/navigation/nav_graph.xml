@@ -69,12 +69,31 @@
                 app:popExitAnim="@android:anim/slide_out_right" />
             <action
                 android:id="@+id/action_mainScreenFragment_to_profileFragment2"
-                app:destination="@id/profileFragment" />
+                app:destination="@id/profileFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
             android:name="ru.steilsouth.ellcom.ui.BalanceFragment"
-            tools:layout="@layout/fragment_balance" />
+            tools:layout="@layout/fragment_balance" >
+            <action
+                android:id="@+id/action_balanceFragment_to_topUpAccountFragment"
+                app:destination="@id/topUpAccountFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_balanceFragment_to_distributeFundsFragment"
+                app:destination="@id/distributeFundsFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
+        </fragment>
         <fragment
             android:id="@+id/profileFragment"
             android:name="ru.steilsouth.ellcom.ui.ProfileFragment"
@@ -104,7 +123,11 @@
                 android:defaultValue="Ошибка" />
             <action
                 android:id="@+id/action_profileFragment_to_changePasswordContractAndInternetFragment"
-                app:destination="@id/changePasswordContractAndInternetFragment" />
+                app:destination="@id/changePasswordContractAndInternetFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
             <argument
                 android:name="servId"
                 app:argType="integer"
@@ -112,6 +135,13 @@
             <action
                 android:id="@+id/action_profileFragment_to_sessionFragment2"
                 app:destination="@id/sessionFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_profileFragment_to_emailListFragment"
+                app:destination="@id/emailListFragment"
                 app:enterAnim="@android:anim/slide_in_left"
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
@@ -127,7 +157,11 @@
             tools:layout="@layout/fragment_sub_contract_list" >
             <action
                 android:id="@+id/action_subContractListFragment_to_profileFragment2"
-                app:destination="@id/profileFragment" />
+                app:destination="@id/profileFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/changePasswordFragment"
@@ -158,6 +192,18 @@
             android:id="@+id/sessionFragment"
             android:name="ru.steilsouth.ellcom.ui.SessionFragment"
             tools:layout="@layout/fragment_session" />
+        <fragment
+            android:id="@+id/topUpAccountFragment"
+            android:name="ru.steilsouth.ellcom.ui.TopUpAccountFragment"
+            tools:layout="@layout/fragment_top_up_account" />
+        <fragment
+            android:id="@+id/distributeFundsFragment"
+            android:name="ru.steilsouth.ellcom.ui.DistributeFundsFragment"
+            tools:layout="@layout/fragment_distribute_funds" />
+        <fragment
+            android:id="@+id/emailListFragment"
+            android:name="ru.steilsouth.ellcom.ui.EmailListFragment"
+            tools:layout="@layout/fragment_email_list" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"
