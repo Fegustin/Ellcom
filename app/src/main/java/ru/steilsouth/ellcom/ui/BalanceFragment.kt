@@ -10,9 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.ArrayAdapter
-import android.widget.FrameLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +24,7 @@ import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.BalanceItem
 import ru.steilsouth.ellcom.pojo.balance.BalanceList
 import ru.steilsouth.ellcom.utils.Internet
+import ru.steilsouth.ellcom.utils.Month
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.BalanceViewModal
 import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
@@ -38,7 +37,7 @@ class BalanceFragment : Fragment() {
     private val modelBalance: BalanceViewModal by activityViewModels()
     private val modelMainAndSub: MainAndSubViewModal by activityViewModels()
 
-    private val subToken = ""
+    private val subTokenMap = mutableMapOf<String, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,10 +65,54 @@ class BalanceFragment : Fragment() {
 
                 setContactInSpinner(token, isSuperContract)
 
-                changeMonth()
+                changeMonth(token, isSuperContract)
 
-                getBalance(token, getDate("02"))
+                if (!isSuperContract) buttonDistributeFunds.visibility = View.GONE
+
+                spinnerLogin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
+                        initBalance(
+                            token,
+                            getMonthNumber(textViewMonth.text.toString()),
+                            isSuperContract
+                        )
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
             }
+        }
+    }
+
+    private fun initBalance(token: String, month: String, isSuperContract: Boolean) {
+        if (isSuperContract) {
+            val localToken = subTokenMap[spinnerLogin?.selectedItem.toString().substringAfter("№")]
+            localToken?.let { setBalance(it, month) }
+        } else {
+            setBalance(token, month)
+        }
+    }
+
+    private fun getMonthNumber(month: String): String {
+        return when (month) {
+            Month.January.rusName -> Month.January.number
+            Month.February.rusName -> Month.February.number
+            Month.March.rusName -> Month.March.number
+            Month.April.rusName -> Month.April.number
+            Month.May.rusName -> Month.May.number
+            Month.June.rusName -> Month.June.number
+            Month.July.rusName -> Month.July.number
+            Month.August.rusName -> Month.August.number
+            Month.September.rusName -> Month.September.number
+            Month.October.rusName -> Month.October.number
+            Month.November.rusName -> Month.November.number
+            else -> Month.December.number
         }
     }
 
@@ -144,12 +187,16 @@ class BalanceFragment : Fragment() {
         val array = mutableListOf<String>()
         modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) { infoResult ->
             if (infoResult.status == "ok") {
+                subTokenMap[infoResult.data.res.contract_num] = token
                 array.add("Логин: №" + infoResult.data.res.contract_num)
 
                 if (isSuperContract) {
                     modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
                         if (it.status == "ok") {
-                            for (i in it.data.res) array.add("Логин: №" + i.id.toString())
+                            for (i in it.data.res) {
+                                subTokenMap[i.id.toString()] = i.token
+                                array.add("Логин: №" + i.id.toString())
+                            }
                             fillSpinner(array)
                         } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                     }
@@ -164,7 +211,7 @@ class BalanceFragment : Fragment() {
         spinnerLogin.adapter = adapter
     }
 
-    private fun getBalance(token: String, month: String) {
+    private fun setBalance(token: String, month: String) {
         val year = getDate("yyyy")
         val day = getDate("dd")
         modelBalance.getBalance(token, "${year}-${month}-${day}").observe(viewLifecycleOwner) {
@@ -188,15 +235,12 @@ class BalanceFragment : Fragment() {
         val adapter = GroupAdapter<GroupieViewHolder>()
         for (i in array) {
             adapter.add(BalanceItem(i))
-            adapter.add(BalanceItem(i))
-            adapter.add(BalanceItem(i))
-            adapter.add(BalanceItem(i))
         }
         recycler.adapter = adapter
         recycler.isNestedScrollingEnabled = false
     }
 
-    private fun buttonAnimation(
+    private fun buttonAnimationHorizontal(
         button: View,
         vararg values: Float
     ) {
@@ -219,14 +263,14 @@ class BalanceFragment : Fragment() {
         textSwitcherMonth.setOutAnimation(context, animOut)
     }
 
-    private fun changeMonth() {
+    private fun changeMonth(token: String, isSuperContract: Boolean) {
         val arrayMonth = resources.getStringArray(R.array.month)
 
         var currentIndex = 0
         var isFirstTimeClicked = true
 
         imageButtonArrowRight.setOnClickListener {
-            buttonAnimation(it, 0f, 30f, 0f)
+            buttonAnimationHorizontal(it, 0f, 30f, 0f)
 
             initAnimTextSwitcher(R.anim.slide_in_right, R.anim.slide_out_left)
 
@@ -239,10 +283,12 @@ class BalanceFragment : Fragment() {
             if (currentIndex == arrayMonth.size) currentIndex = 0
 
             textSwitcherMonth.setText(arrayMonth[currentIndex])
+            val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
+            initBalance(token, getMonthNumber(textViewMonth.text.toString()), isSuperContract)
         }
 
         imageButtonArrowLeft.setOnClickListener {
-            buttonAnimation(it, 0f, -30f, 0f)
+            buttonAnimationHorizontal(it, 0f, -30f, 0f)
 
             initAnimTextSwitcher(R.anim.slide_in_left, R.anim.slide_out_right)
 
@@ -254,7 +300,9 @@ class BalanceFragment : Fragment() {
             if (currentIndex == 0) currentIndex = arrayMonth.size
             currentIndex--
 
-            textSwitcherMonth.setText(arrayMonth[currentIndex]);
+            textSwitcherMonth.setText(arrayMonth[currentIndex])
+            val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
+            initBalance(token, getMonthNumber(textViewMonth.text.toString()), isSuperContract)
         }
     }
 
