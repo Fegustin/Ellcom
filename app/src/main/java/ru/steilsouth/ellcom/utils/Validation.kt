@@ -15,6 +15,10 @@ fun EditText.validation(): Boolean {
     }
 }
 
+fun EditText.validationReallocation(): Boolean {
+    return !text.isNullOrEmpty()
+}
+
 fun EditText.validationPhone(): Boolean {
     return if (text.length < 18) {
         backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_warning)

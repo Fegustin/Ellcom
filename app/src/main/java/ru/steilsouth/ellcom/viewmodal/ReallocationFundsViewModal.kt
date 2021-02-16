@@ -15,6 +15,12 @@ import java.math.BigDecimal
 class ReallocationFundsViewModal : ViewModel() {
     private val repository = ReallocationFundsRepository()
 
+    val selected = MutableLiveData<Double>()
+
+    fun select(item: Double) {
+        selected.value = item
+    }
+
     fun reallocationOfFunds(token: String, id: Int, amount: BigDecimal): LiveData<ChangePasswordResult> {
         val result = MutableLiveData<ChangePasswordResult>()
         viewModelScope.launch(Dispatchers.IO) {

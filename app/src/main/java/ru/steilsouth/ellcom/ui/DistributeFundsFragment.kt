@@ -47,6 +47,12 @@ class DistributeFundsFragment : Fragment() {
 
                 fillRecyclerView(token)
 
+                modelReallocationFunds.selected.observe(viewLifecycleOwner) {
+                    if (it != null && textViewBalance.text.isNotBlank()) {
+                        textViewBalance.text = (textViewBalance.text.toString().toDouble() - it).toString()
+                    }
+                }
+
                 swipeRefresh.setOnRefreshListener {
                     if (Internet().checkInternetConnecting(activity)) {
                         fillRecyclerView(token)
@@ -62,7 +68,14 @@ class DistributeFundsFragment : Fragment() {
                 swipeRefresh?.isRefreshing = false
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
-                    adapter.add(ReallocationFundsItem(i))
+                    adapter.add(
+                        ReallocationFundsItem(
+                            requireContext(),
+                            viewLifecycleOwner,
+                            i,
+                            modelReallocationFunds
+                        )
+                    )
                 }
                 recyclerViewSubList.adapter = adapter
             } else {
