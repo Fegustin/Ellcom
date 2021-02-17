@@ -10,7 +10,7 @@ import ru.steilsouth.ellcom.pojo.contacts.MobileContactResult
 import ru.steilsouth.ellcom.repository.ContactRepository
 
 
-class ContactViewModal : ViewModel() {
+class ContactVM : ViewModel() {
     private val repository: ContactRepository = ContactRepository()
 
     fun getMobileContact(token: String): LiveData<MobileContactResult> {

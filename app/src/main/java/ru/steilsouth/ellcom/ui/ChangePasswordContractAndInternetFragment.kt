@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_change_password_contract_and_internet.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
+import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.validation
 import ru.steilsouth.ellcom.utils.validationConfirmPassword
-import ru.steilsouth.ellcom.viewmodal.ChangePasswordViewModal
+import ru.steilsouth.ellcom.viewmodal.ChangePasswordVM
 
 
 /**
@@ -26,7 +26,7 @@ import ru.steilsouth.ellcom.viewmodal.ChangePasswordViewModal
  */
 class ChangePasswordContractAndInternetFragment : Fragment() {
 
-    private val model: ChangePasswordViewModal by activityViewModels()
+    private val model: ChangePasswordVM by activityViewModels()
     private val args: ChangePasswordContractAndInternetFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
                 ?.getBoolean("isSuperContract", true)
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {

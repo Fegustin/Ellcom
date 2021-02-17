@@ -14,13 +14,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_auth.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.AuthViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.AuthVM
 
 
 class AuthFragment : Fragment() {
 
-    private val model: AuthViewModal by activityViewModels()
+    private val model: AuthVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +31,7 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -54,7 +54,7 @@ class AuthFragment : Fragment() {
         }
 
         buttonEnter.setOnClickListener {
-            if (!Internet().checkInternetConnecting(activity)) {
+            if (!isOnline(requireContext())) {
                 Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener

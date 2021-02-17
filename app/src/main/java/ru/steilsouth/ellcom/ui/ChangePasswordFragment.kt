@@ -14,13 +14,13 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_change_password.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.ServiceInternetItem
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.ChangePasswordViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.ChangePasswordVM
 
 
 class ChangePasswordFragment : Fragment() {
 
-    private val model: ChangePasswordViewModal by activityViewModels()
+    private val model: ChangePasswordVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,7 @@ class ChangePasswordFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {

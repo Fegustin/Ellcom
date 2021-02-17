@@ -10,7 +10,7 @@ import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
 import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import ru.steilsouth.ellcom.repository.ChangePasswordRepository
 
-class ChangePasswordViewModal : ViewModel() {
+class ChangePasswordVM : ViewModel() {
     private val repository: ChangePasswordRepository = ChangePasswordRepository()
 
     fun passwordChange(

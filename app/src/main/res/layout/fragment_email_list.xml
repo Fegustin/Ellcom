@@ -5,23 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp"
     tools:context=".ui.EmailListFragment">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewNoItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="12dp"
         android:text="У вас не привязана почта"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEmailList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -29,7 +31,9 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -37,6 +41,9 @@
         android:id="@+id/buttonEnter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/orange"
         android:text="Добавить почту"
         android:textAllCaps="false"

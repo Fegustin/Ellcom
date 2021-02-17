@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.repository.BalanceRepository
 
-class BalanceViewModal : ViewModel() {
+class BalanceVM : ViewModel() {
     private val repository: BalanceRepository = BalanceRepository()
 
     fun getBalance(

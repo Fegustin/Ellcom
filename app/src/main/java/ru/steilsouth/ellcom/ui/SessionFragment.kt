@@ -16,17 +16,17 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_session.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SessionItem
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.ChangePasswordViewModal
-import ru.steilsouth.ellcom.viewmodal.SessionViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.ChangePasswordVM
+import ru.steilsouth.ellcom.viewmodal.SessionVM
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class SessionFragment : Fragment() {
 
-    private val sessionViewModal: SessionViewModal by activityViewModels()
-    private val model: ChangePasswordViewModal by activityViewModels()
+    private val sessionVM: SessionVM by activityViewModels()
+    private val model: ChangePasswordVM by activityViewModels()
 
     private var textDate = ""
 
@@ -43,7 +43,7 @@ class SessionFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
@@ -90,7 +90,7 @@ class SessionFragment : Fragment() {
     private fun getActiveSession(token: String, servId: String) {
         textViewInputTraffic.text = ""
         textViewOutputTraffic.text = ""
-        sessionViewModal.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
+        sessionVM.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
             if (it.status == "ok") {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for (i in it.data.res) {
@@ -108,7 +108,7 @@ class SessionFragment : Fragment() {
     }
 
     private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
-        sessionViewModal.getHistorySession(
+        sessionVM.getHistorySession(
             token,
             servId.toInt(),
             dateFrom,

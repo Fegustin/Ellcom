@@ -3,7 +3,7 @@ package ru.steilsouth.ellcom.pojo.infoprofile
 import com.google.gson.annotations.SerializedName
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
 
-class InfoResult(
+data class InfoResult(
     val status: String,
     val message: String,
     val data: Data

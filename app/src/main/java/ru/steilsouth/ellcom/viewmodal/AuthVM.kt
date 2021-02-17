@@ -10,7 +10,7 @@ import ru.steilsouth.ellcom.pojo.auth.AuthResult
 import ru.steilsouth.ellcom.pojo.forgotpassword.ForgotPasswordResult
 import ru.steilsouth.ellcom.repository.AuthRepository
 
-class AuthViewModal : ViewModel() {
+class AuthVM : ViewModel() {
     private val repository: AuthRepository = AuthRepository()
 
     fun auth(username: String, password: String, type: Boolean): LiveData<AuthResult> {

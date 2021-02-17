@@ -14,11 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.utils.validation
-import ru.steilsouth.ellcom.utils.validationEmail
-import ru.steilsouth.ellcom.utils.validationPhone
-import ru.steilsouth.ellcom.viewmodal.RegistrationViewModel
+import ru.steilsouth.ellcom.utils.*
+import ru.steilsouth.ellcom.viewmodal.RegistrationVM
 
 
 /**
@@ -28,7 +25,7 @@ import ru.steilsouth.ellcom.viewmodal.RegistrationViewModel
  */
 class RegistrationFragment : Fragment() {
 
-    private val model: RegistrationViewModel by activityViewModels()
+    private val model: RegistrationVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +36,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -56,7 +53,7 @@ class RegistrationFragment : Fragment() {
         }
 
         buttonSend.setOnClickListener {
-            if (!Internet().checkInternetConnecting(activity)) {
+            if (!isOnline(requireContext())) {
                 Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener

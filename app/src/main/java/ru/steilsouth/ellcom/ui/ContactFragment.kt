@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.fragment_main_screen.layoutContent
 import kotlinx.android.synthetic.main.fragment_main_screen.progressBar
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
+import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
-import ru.steilsouth.ellcom.viewmodal.ContactViewModal
+import ru.steilsouth.ellcom.viewmodal.ContactVM
 
 
 class ContactFragment : Fragment(), OnMapReadyCallback {
 
-    private val model: ContactViewModal by activityViewModels()
+    private val model: ContactVM by activityViewModels()
     private lateinit var mMap: GoogleMap
 
     private val vk = "https://vk.com/ellco"
@@ -47,7 +47,7 @@ class ContactFragment : Fragment(), OnMapReadyCallback {
 
         timerForWatchingMainContent(progressBar, layoutContent)
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {

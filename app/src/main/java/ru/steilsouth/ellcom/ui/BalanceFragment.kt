@@ -24,19 +24,19 @@ import kotlinx.android.synthetic.main.include_balance.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.BalanceItem
 import ru.steilsouth.ellcom.pojo.balance.BalanceList
-import ru.steilsouth.ellcom.utils.Internet
 import ru.steilsouth.ellcom.utils.Month
+import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
-import ru.steilsouth.ellcom.viewmodal.BalanceViewModal
-import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
+import ru.steilsouth.ellcom.viewmodal.BalanceVM
+import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class BalanceFragment : Fragment() {
 
-    private val modelBalance: BalanceViewModal by activityViewModels()
-    private val modelMainAndSub: MainAndSubViewModal by activityViewModels()
+    private val modelBalance: BalanceVM by activityViewModels()
+    private val modelMainAndSub: MainAndSubVM by activityViewModels()
 
     private val subTokenMap = mutableMapOf<String, String>()
 
@@ -57,7 +57,7 @@ class BalanceFragment : Fragment() {
         val isSuperContract = activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
             ?.getBoolean("isSuperContract", false)
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {

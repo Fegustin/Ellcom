@@ -13,13 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import kotlinx.android.synthetic.main.fragment_forgot_password.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.AuthViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.AuthVM
 
 
 class ForgotPasswordFragment : Fragment() {
 
-    private val model: AuthViewModal by activityViewModels()
+    private val model: AuthVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -45,7 +45,7 @@ class ForgotPasswordFragment : Fragment() {
         }
 
         buttonSend.setOnClickListener {
-            if (!Internet().checkInternetConnecting(activity)) {
+            if (!isOnline(requireContext())) {
                 Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener

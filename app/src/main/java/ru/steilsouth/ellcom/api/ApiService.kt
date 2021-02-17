@@ -16,6 +16,9 @@ import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import ru.steilsouth.ellcom.pojo.contacts.MobileContactBody
 import ru.steilsouth.ellcom.pojo.contacts.MobileContactResult
 import ru.steilsouth.ellcom.pojo.distributefunds.ReallocationFundsBody
+import ru.steilsouth.ellcom.pojo.email.get.EmailAddressResult
+import ru.steilsouth.ellcom.pojo.email.get.GetEmailListBody
+import ru.steilsouth.ellcom.pojo.email.update.UpdateEmailListBody
 import ru.steilsouth.ellcom.pojo.forgotpassword.ForgotPasswordBody
 import ru.steilsouth.ellcom.pojo.forgotpassword.ForgotPasswordResult
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoBody
@@ -85,6 +88,14 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
     suspend fun reallocationOfFunds(@Body body: ReallocationFundsBody): ChangePasswordResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileContractParameterService/")
+    suspend fun getEmailList(@Body bodyGet: GetEmailListBody): EmailAddressResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobileContractParameterService/")
+    suspend fun updateEmailList(@Body body: UpdateEmailListBody): ChangePasswordResult
 
 
     // Registration

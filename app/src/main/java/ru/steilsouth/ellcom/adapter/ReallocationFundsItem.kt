@@ -10,9 +10,8 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_distribute_funds.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
-import ru.steilsouth.ellcom.utils.hideKeyboard
-import ru.steilsouth.ellcom.utils.validationReallocation
-import ru.steilsouth.ellcom.viewmodal.ReallocationFundsViewModal
+import ru.steilsouth.ellcom.utils.*
+import ru.steilsouth.ellcom.viewmodal.ReallocationFundsVM
 import java.math.BigDecimal
 
 
@@ -21,7 +20,7 @@ class ReallocationFundsItem(
     private val context: Context,
     private val viewLifecycleOwner: LifecycleOwner,
     private val item: SubContractsResult.Data.Result,
-    private val model: ReallocationFundsViewModal
+    private val model: ReallocationFundsVM
 ) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         val ruble = Html.fromHtml(" &#x20bd", 0)
@@ -39,14 +38,19 @@ class ReallocationFundsItem(
                     return@setOnKeyListener false
                 }
 
-                val numberRedistribute = viewHolder.editTextSum.text.toString()
+                if (!isOnline(context)) {
+                    v.hideKeyboard()
+                    return@setOnKeyListener false
+                }
 
                 v.hideKeyboard()
+                val numberRedistribute = viewHolder.editTextSum.text.toString()
 
                 redistribute(item.id, numberRedistribute.toBigDecimal())
 
                 val newBalance =
-                    viewHolder.textViewBalance.text.toString().substringBefore(ruble.toString())
+                    viewHolder.textViewBalance.text.toString()
+                        .substringBefore(ruble.toString())
                         .toDouble() + numberRedistribute.toDouble()
                 viewHolder.textViewBalance.text = newBalance.toString() + ruble
 
@@ -64,7 +68,6 @@ class ReallocationFundsItem(
     private fun redistribute(id: Int, amount: BigDecimal) {
         val token =
             context.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
-
         if (token != null) {
             model.reallocationOfFunds(token, id, amount).observe(viewLifecycleOwner) {
                 if (it.status != "ok") {

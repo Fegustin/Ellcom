@@ -11,7 +11,7 @@ import ru.steilsouth.ellcom.pojo.notification.NotificationListResult
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
 import ru.steilsouth.ellcom.repository.MainAndSubRepository
 
-class MainAndSubViewModal : ViewModel() {
+class MainAndSubVM : ViewModel() {
     private val repository = MainAndSubRepository()
 
     fun infoProfile(token: String): LiveData<InfoResult> {

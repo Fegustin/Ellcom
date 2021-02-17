@@ -39,6 +39,10 @@ fun EditText.validationEmail(): Boolean {
     }
 }
 
+fun EditText.validationEmailList(): Boolean {
+    return Patterns.EMAIL_ADDRESS.matcher(text).matches()
+}
+
 fun EditText.validationConfirmPassword(password: String): Boolean {
     return if (text.toString() != password) {
         backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_warning)

@@ -13,12 +13,12 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_sub_contract_list.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SubContractItem
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
 class SubContractListFragment : Fragment() {
-    private val model: MainAndSubViewModal by activityViewModels()
+    private val model: MainAndSubVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +35,7 @@ class SubContractListFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
@@ -43,7 +43,7 @@ class SubContractListFragment : Fragment() {
                 fillAdapter(token)
 
                 swipeRefreshSub.setOnRefreshListener {
-                    if (Internet().checkInternetConnecting(activity)) {
+                    if (isOnline(requireContext())) {
                         fillAdapter(token)
                     }
                 }
@@ -52,7 +52,7 @@ class SubContractListFragment : Fragment() {
     }
 
     private fun fillAdapter(token: String) {
-        if (Internet().checkInternetConnecting(activity)) {
+        if (isOnline(requireContext())) {
             model.getSubContractsList(token).observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
                     swipeRefreshSub.isRefreshing = false

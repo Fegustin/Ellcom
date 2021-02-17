@@ -20,14 +20,14 @@ import kotlinx.android.synthetic.main.fragment_main_screen.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SubContractItem
 import ru.steilsouth.ellcom.service.RadioService
-import ru.steilsouth.ellcom.utils.Internet
+import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
-import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
+import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
 class MainScreenFragment : Fragment() {
 
-    private val model: MainAndSubViewModal by activityViewModels()
+    private val model: MainAndSubVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class MainScreenFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
@@ -113,7 +113,7 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun notification(token: String) {
-        if (Internet().checkInternetConnecting(activity)) {
+        if (isOnline(requireContext())) {
             model.getNotificationList(token, true, 0).observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
                     if (it.data.res.size() > 0) {

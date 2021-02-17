@@ -14,15 +14,15 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_distribute_funds.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.ReallocationFundsItem
-import ru.steilsouth.ellcom.utils.Internet
-import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
-import ru.steilsouth.ellcom.viewmodal.ReallocationFundsViewModal
+import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
+import ru.steilsouth.ellcom.viewmodal.ReallocationFundsVM
 
 
 class DistributeFundsFragment : Fragment() {
 
-    private val modelMainAndSub: MainAndSubViewModal by activityViewModels()
-    private val modelReallocationFunds: ReallocationFundsViewModal by activityViewModels()
+    private val modelMainAndSub: MainAndSubVM by activityViewModels()
+    private val modelReallocationFunds: ReallocationFundsVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,7 @@ class DistributeFundsFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {
@@ -49,12 +49,13 @@ class DistributeFundsFragment : Fragment() {
 
                 modelReallocationFunds.selected.observe(viewLifecycleOwner) {
                     if (it != null && textViewBalance.text.isNotBlank()) {
-                        textViewBalance.text = (textViewBalance.text.toString().toDouble() - it).toString()
+                        textViewBalance.text =
+                            (textViewBalance.text.toString().toDouble() - it).toString()
                     }
                 }
 
                 swipeRefresh.setOnRefreshListener {
-                    if (Internet().checkInternetConnecting(activity)) {
+                    if (isOnline(requireContext())) {
                         fillRecyclerView(token)
                     }
                 }

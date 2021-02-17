@@ -12,7 +12,7 @@ import ru.steilsouth.ellcom.repository.ReallocationFundsRepository
 import java.math.BigDecimal
 
 
-class ReallocationFundsViewModal : ViewModel() {
+class ReallocationFundsVM : ViewModel() {
     private val repository = ReallocationFundsRepository()
 
     val selected = MutableLiveData<Double>()

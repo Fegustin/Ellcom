@@ -13,14 +13,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.Internet
+import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
-import ru.steilsouth.ellcom.viewmodal.MainAndSubViewModal
+import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
 class ProfileFragment : Fragment() {
 
-    private val model: MainAndSubViewModal by activityViewModels()
+    private val model: MainAndSubVM by activityViewModels()
     private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!Internet().checkInternetConnecting(activity)) {
+        if (!isOnline(requireContext())) {
             Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
                 .show()
         } else {

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import ru.steilsouth.ellcom.pojo.session.SessionResult
 import ru.steilsouth.ellcom.repository.SessionRepository
 
-class SessionViewModal : ViewModel() {
+class SessionVM : ViewModel() {
     private val repository: SessionRepository = SessionRepository()
 
     fun getActiveSession(

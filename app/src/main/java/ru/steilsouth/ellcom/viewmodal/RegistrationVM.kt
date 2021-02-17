@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import ru.steilsouth.ellcom.repository.RegistrationRepository
 
-class RegistrationViewModel : ViewModel() {
+class RegistrationVM : ViewModel() {
     private val repository: RegistrationRepository = RegistrationRepository()
 
     fun registration(
