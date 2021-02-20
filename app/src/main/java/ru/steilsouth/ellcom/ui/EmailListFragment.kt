@@ -23,19 +23,12 @@ import ru.steilsouth.ellcom.utils.validationEmailList
 import ru.steilsouth.ellcom.viewmodal.EmailListVM
 
 /* Используется экстеншен функция hideKeyboard() расширяющая View */
-class EmailListFragment : Fragment() {
+class EmailListFragment : Fragment(R.layout.fragment_email_list) {
 
     private val modelEmailList: EmailListVM by activityViewModels()
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
     private val emailList = mutableListOf<EmailAddress>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_email_list, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,8 +77,7 @@ class EmailListFragment : Fragment() {
                     isEmptyEmail()
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
-        } else Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-            .show()
+        }
     }
 
     private fun updateEmailList(token: String, email: MutableList<EmailAddress>) {
@@ -98,8 +90,7 @@ class EmailListFragment : Fragment() {
                 ).show()
                 else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
-        } else Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-            .show()
+        }
     }
 
     private fun itemTouchHelperCallback() =

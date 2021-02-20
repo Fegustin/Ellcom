@@ -17,23 +17,13 @@ import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.AuthVM
 
 
-class ForgotPasswordFragment : Fragment() {
+class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
     private val model: AuthVM by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        }
+        isOnline(requireContext())
 
         forgotPasswordLayout.setOnClickListener {
             val inputManager =
@@ -61,21 +51,23 @@ class ForgotPasswordFragment : Fragment() {
     }
 
     private fun requestOneTimePassword(number: String, email: String) {
-        model.forgotPassword(number, email).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                loginComplete()
+        if (isOnline(requireContext())) {
+            model.forgotPassword(number, email).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    loginComplete()
 
-                Toast.makeText(
-                    activity,
-                    "На почту $email было высланно письмо для входа",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else loginError(
-                it.message,
-                R.color.edit_text_warning,
-                R.color.edit_text_warning
-            )
+                    Toast.makeText(
+                        activity,
+                        "На почту $email было высланно письмо для входа",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else loginError(
+                    it.message,
+                    R.color.edit_text_warning,
+                    R.color.edit_text_warning
+                )
 
+            }
         }
     }
 

@@ -74,6 +74,13 @@
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
                 app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_mainScreenFragment_to_notificationFragment"
+                app:destination="@id/notificationFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
@@ -204,6 +211,10 @@
             android:id="@+id/emailListFragment"
             android:name="ru.steilsouth.ellcom.ui.EmailListFragment"
             tools:layout="@layout/fragment_email_list" />
+        <fragment
+            android:id="@+id/notificationFragment"
+            android:name="ru.steilsouth.ellcom.ui.NotificationFragment"
+            tools:layout="@layout/fragment_notification" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"

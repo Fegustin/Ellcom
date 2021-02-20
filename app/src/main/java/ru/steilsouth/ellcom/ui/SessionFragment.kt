@@ -23,19 +23,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class SessionFragment : Fragment() {
+class SessionFragment : Fragment(R.layout.fragment_session) {
 
-    private val sessionVM: SessionVM by activityViewModels()
+    private val modelSession: SessionVM by activityViewModels()
     private val model: ChangePasswordVM by activityViewModels()
 
     private var textDate = ""
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_session, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,10 +36,7 @@ class SessionFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (token != null) {
                 setContactInSpinner(token)
 
@@ -72,12 +62,14 @@ class SessionFragment : Fragment() {
     }
 
     private fun setContactInSpinner(token: String) {
-        val array = mutableListOf<String>()
-        model.getListServiceInternet(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                for (i in it.data.res) array.add("Логин: №" + i.id.toString())
-                fillSpinner(array)
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+        if (isOnline(requireContext())) {
+            val array = mutableListOf<String>()
+            model.getListServiceInternet(token).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    for (i in it.data.res) array.add("Логин: №" + i.id.toString())
+                    fillSpinner(array)
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -88,42 +80,46 @@ class SessionFragment : Fragment() {
     }
 
     private fun getActiveSession(token: String, servId: String) {
-        textViewInputTraffic.text = ""
-        textViewOutputTraffic.text = ""
-        sessionVM.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                val adapter = GroupAdapter<GroupieViewHolder>()
-                for (i in it.data.res) {
-                    adapter.add(SessionItem(i))
-
-                    textViewInputTraffic.text =
-                        String.format("%.1f", i.incomingTraffic * 0.00000762939453125)
-                    textViewOutputTraffic.text =
-                        String.format("%.1f", i.outgoingTraffic * 0.00000762939453125)
-                }
-                recyclerViewSessionActive.adapter = adapter
-                recyclerViewSessionActive.isNestedScrollingEnabled = false
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
-        sessionVM.getHistorySession(
-            token,
-            servId.toInt(),
-            dateFrom,
-            dateTo
-        )
-            .observe(viewLifecycleOwner) {
+        if (isOnline(requireContext())) {
+            textViewInputTraffic.text = ""
+            textViewOutputTraffic.text = ""
+            modelSession.getActiveSession(token, servId.toInt()).observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
                     val adapter = GroupAdapter<GroupieViewHolder>()
                     for (i in it.data.res) {
                         adapter.add(SessionItem(i))
+
+                        textViewInputTraffic.text =
+                            String.format("%.1f", i.incomingTraffic * 0.00000762939453125)
+                        textViewOutputTraffic.text =
+                            String.format("%.1f", i.outgoingTraffic * 0.00000762939453125)
                     }
-                    recyclerViewSessionHistory.adapter = adapter
-                    recyclerViewSessionHistory.isNestedScrollingEnabled = false
+                    recyclerViewSessionActive.adapter = adapter
+                    recyclerViewSessionActive.isNestedScrollingEnabled = false
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun getHistorySession(token: String, servId: String, dateFrom: String, dateTo: String) {
+        if (isOnline(requireContext())) {
+            modelSession.getHistorySession(
+                token,
+                servId.toInt(),
+                dateFrom,
+                dateTo
+            )
+                .observe(viewLifecycleOwner) {
+                    if (it.status == "ok") {
+                        val adapter = GroupAdapter<GroupieViewHolder>()
+                        for (i in it.data.res) {
+                            adapter.add(SessionItem(i))
+                        }
+                        recyclerViewSessionHistory.adapter = adapter
+                        recyclerViewSessionHistory.isNestedScrollingEnabled = false
+                    } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun dateDialogPikerFrom(token: String) {

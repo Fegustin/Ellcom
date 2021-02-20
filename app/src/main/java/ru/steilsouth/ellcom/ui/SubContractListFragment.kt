@@ -17,15 +17,8 @@ import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
-class SubContractListFragment : Fragment() {
+class SubContractListFragment : Fragment(R.layout.fragment_sub_contract_list) {
     private val model: MainAndSubVM by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sub_contract_list, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,10 +28,7 @@ class SubContractListFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (token != null) {
                 fillAdapter(token)
 
@@ -69,8 +59,6 @@ class SubContractListFragment : Fragment() {
                 }
             }
         } else {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
             swipeRefreshSub.isRefreshing = false
         }
     }

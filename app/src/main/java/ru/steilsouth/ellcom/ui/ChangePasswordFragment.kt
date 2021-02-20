@@ -18,16 +18,9 @@ import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.ChangePasswordVM
 
 
-class ChangePasswordFragment : Fragment() {
+class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) {
 
     private val model: ChangePasswordVM by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_change_password, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,10 +30,7 @@ class ChangePasswordFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (token != null) {
                 setInRecyclerViewItems(token)
             }
@@ -55,17 +45,19 @@ class ChangePasswordFragment : Fragment() {
     }
 
     private fun setInRecyclerViewItems(token: String) {
-        model.getListServiceInternet(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                val adapter = GroupAdapter<GroupieViewHolder>()
-                for (i in it.data.res) {
-                    adapter.add(ServiceInternetItem(i, this))
-                }
+        if (isOnline(requireContext())) {
+            model.getListServiceInternet(token).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    val adapter = GroupAdapter<GroupieViewHolder>()
+                    for (i in it.data.res) {
+                        adapter.add(ServiceInternetItem(i, this))
+                    }
 
-                progressBarInternet.visibility = View.GONE
-                recyclerViewInternet.adapter = adapter
-                recyclerViewInternet.visibility = View.VISIBLE
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    progressBarInternet.visibility = View.GONE
+                    recyclerViewInternet.adapter = adapter
+                    recyclerViewInternet.visibility = View.VISIBLE
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

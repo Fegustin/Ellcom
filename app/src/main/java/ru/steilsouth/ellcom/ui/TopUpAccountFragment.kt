@@ -8,13 +8,7 @@ import androidx.fragment.app.Fragment
 import ru.steilsouth.ellcom.R
 
 
-class TopUpAccountFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_top_up_account, container, false)
-    }
+class TopUpAccountFragment : Fragment(R.layout.fragment_top_up_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

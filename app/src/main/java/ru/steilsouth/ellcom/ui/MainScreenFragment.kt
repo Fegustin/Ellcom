@@ -21,20 +21,14 @@ import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SubContractItem
 import ru.steilsouth.ellcom.service.RadioService
 import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.utils.subscribeNotification
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
-class MainScreenFragment : Fragment() {
+class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
     private val model: MainAndSubVM by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,12 +36,11 @@ class MainScreenFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if(isOnline(requireContext())) {
             if (token != null) {
                 infoProfile(token)
+
+                subscribeNotification(requireContext(), true)
 
                 notification(token)
             }
@@ -80,6 +73,11 @@ class MainScreenFragment : Fragment() {
         buttonShowSub.setOnClickListener {
             findNavController()
                 .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSubContractListFragment())
+        }
+
+        layoutNotification.setOnClickListener {
+            findNavController()
+                .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToNotificationFragment())
         }
     }
 
@@ -116,17 +114,14 @@ class MainScreenFragment : Fragment() {
         if (isOnline(requireContext())) {
             model.getNotificationList(token, true, 0).observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
-                    if (it.data.res.size() > 0) {
+                    if (it.data.res.isNotEmpty()) {
                         notificationText.visibility = View.VISIBLE
-                        notificationText.text = it.data.res.size().toString()
+                        notificationText.text = it.data.res.size.toString()
                     } else {
                         notificationText.visibility = View.INVISIBLE
                     }
                 }
             }
-        } else {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
         }
     }
 

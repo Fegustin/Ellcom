@@ -10,15 +10,8 @@ import kotlinx.android.synthetic.main.fragment_reader_p_d_f.*
 import ru.steilsouth.ellcom.R
 
 
-class ReaderPDFFragment : Fragment() {
+class ReaderPDFFragment : Fragment(R.layout.fragment_reader_p_d_f) {
     private val pdfName = "dogovor.pdf"
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_reader_p_d_f, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

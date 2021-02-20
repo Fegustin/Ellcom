@@ -24,20 +24,13 @@ import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.ContactVM
 
 
-class ContactFragment : Fragment(), OnMapReadyCallback {
+class ContactFragment : Fragment(R.layout.fragment_contact), OnMapReadyCallback {
 
     private val model: ContactVM by activityViewModels()
     private lateinit var mMap: GoogleMap
 
     private val vk = "https://vk.com/ellco"
     private val inst = "https://www.instagram.com/ellco.ru"
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_contact, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,10 +40,7 @@ class ContactFragment : Fragment(), OnMapReadyCallback {
 
         timerForWatchingMainContent(progressBar, layoutContent)
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             initMap()
             if (token != null) {
                 getContact(token)
@@ -93,12 +83,14 @@ class ContactFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun getContact(token: String) {
-        model.getMobileContact(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                managerName.text = it.data.res.manager
-                managerPhone.text = it.data.res.managerPhoneList[0].phone
-                accountantName.text = it.data.res.accountant
-                accountantPhone.text = it.data.res.accountantPhoneList[0].phone
+        if (isOnline(requireContext())) {
+            model.getMobileContact(token).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    managerName.text = it.data.res.manager
+                    managerPhone.text = it.data.res.managerPhoneList[0].phone
+                    accountantName.text = it.data.res.accountant
+                    accountantPhone.text = it.data.res.accountantPhoneList[0].phone
+                }
             }
         }
     }

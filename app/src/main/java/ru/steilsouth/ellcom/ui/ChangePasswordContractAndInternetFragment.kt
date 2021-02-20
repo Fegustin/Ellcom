@@ -24,19 +24,10 @@ import ru.steilsouth.ellcom.viewmodal.ChangePasswordVM
  * validation(), validationConfirmPassword()
  * они из файла Validation в папке utils
  */
-class ChangePasswordContractAndInternetFragment : Fragment() {
+class ChangePasswordContractAndInternetFragment : Fragment(R.layout.fragment_change_password_contract_and_internet) {
 
     private val model: ChangePasswordVM by activityViewModels()
     private val args: ChangePasswordContractAndInternetFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(
-            R.layout.fragment_change_password_contract_and_internet, container, false
-        )
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,10 +38,7 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
                 ?.getBoolean("isSuperContract", true)
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (isSuperContract != null) {
                 setTitleToolbar(args.isContract, isSuperContract)
             }
@@ -92,15 +80,17 @@ class ChangePasswordContractAndInternetFragment : Fragment() {
         isContract: Boolean,
         servId: Int
     ) {
-        model.passwordChange(token, oldPassword, newPassword, isContract, servId)
-            .observe(viewLifecycleOwner) {
-                if (it.status != "ok") {
-                    Toast.makeText(activity, "Вы успешно сменили пароль", Toast.LENGTH_SHORT)
+        if (isOnline(requireContext())) {
+            model.passwordChange(token, oldPassword, newPassword, isContract, servId)
+                .observe(viewLifecycleOwner) {
+                    if (it.status != "ok") {
+                        Toast.makeText(activity, "Вы успешно сменили пароль", Toast.LENGTH_SHORT)
+                            .show()
+                        findNavController().navigate(ChangePasswordFragmentDirections.actionGlobalAuthFragment())
+                    } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT)
                         .show()
-                    findNavController().navigate(ChangePasswordFragmentDirections.actionGlobalAuthFragment())
-                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT)
-                    .show()
-            }
+                }
+        }
     }
 
     private fun setTitleToolbar(isContract: Boolean, isSuperContract: Boolean) {

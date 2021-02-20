@@ -18,23 +18,12 @@ import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.AuthVM
 
 
-class AuthFragment : Fragment() {
+class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     private val model: AuthVM by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        }
 
         // Вход по одноразовому паролю
         val data: Uri? = activity?.intent?.data
@@ -82,34 +71,38 @@ class AuthFragment : Fragment() {
     }
 
     private fun auth(login: String, password: String, type: Boolean) {
-        model.auth(login, password, type)
-            .observe(
-                requireActivity()
-            ) {
-                if (it.status == "ok") {
-                    loginComplete()
+        if (isOnline(requireContext())) {
+            model.auth(login, password, type)
+                .observe(
+                    requireActivity()
+                ) {
+                    if (it.status == "ok") {
+                        loginComplete()
 
-                    initSharedPreferencesForAuth(it.data.res.token, false)
+                        initSharedPreferencesForAuth(it.data.res.token, false)
 
-                    findNavController()
-                        .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
+                        findNavController()
+                            .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
 
-                } else loginError(
-                    it.message,
-                    R.color.edit_text_warning,
-                    R.color.edit_text_warning
-                )
-            }
+                    } else loginError(
+                        it.message,
+                        R.color.edit_text_warning,
+                        R.color.edit_text_warning
+                    )
+                }
+        }
     }
 
     private fun loginWithOneTimePassword(token: String) {
-        model.authOneTimePassword(token).observe(requireActivity()) {
-            if (it.status == "ok") {
-                initSharedPreferencesForAuth(it.data.res.token, true)
+        if (isOnline(requireContext())) {
+            model.authOneTimePassword(token).observe(requireActivity()) {
+                if (it.status == "ok") {
+                    initSharedPreferencesForAuth(it.data.res.token, true)
 
-                findNavController()
-                    .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    findNavController()
+                        .navigate(AuthFragmentDirections.actionAuthFragmentToNavigationToMainContent())
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

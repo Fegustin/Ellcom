@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoResult
 import ru.steilsouth.ellcom.pojo.notification.NotificationListResult
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
@@ -38,6 +39,28 @@ class MainAndSubVM : ViewModel() {
         val result = MutableLiveData<NotificationListResult>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.getNotificationList(token, notConfirm, page))
+        }
+        return result
+    }
+
+    fun readNotification(
+        token: String,
+        notificationsIds: String
+    ): LiveData<ChangePasswordResult> {
+        val result = MutableLiveData<ChangePasswordResult>()
+        viewModelScope.launch(Dispatchers.IO) {
+            result.postValue(repository.readNotification(token, notificationsIds))
+        }
+        return result
+    }
+
+    fun deleteNotification(
+        token: String,
+        notificationsIds: Int
+    ): LiveData<ChangePasswordResult> {
+        val result = MutableLiveData<ChangePasswordResult>()
+        viewModelScope.launch(Dispatchers.IO) {
+            result.postValue(repository.deleteNotification(token, notificationsIds))
         }
         return result
     }

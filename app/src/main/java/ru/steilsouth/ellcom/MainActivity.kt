@@ -102,6 +102,11 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Почта"
                 }
+                R.id.notificationFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+                    ""
+                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)

@@ -25,6 +25,9 @@ import ru.steilsouth.ellcom.pojo.infoprofile.InfoBody
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoResult
 import ru.steilsouth.ellcom.pojo.notification.NotificationListBody
 import ru.steilsouth.ellcom.pojo.notification.NotificationListResult
+import ru.steilsouth.ellcom.pojo.notification.delete.DeleteNotificationBody
+import ru.steilsouth.ellcom.pojo.notification.read.ReadNotificationBody
+import ru.steilsouth.ellcom.pojo.notification.subscribe.SubscribeNotificationsBody
 import ru.steilsouth.ellcom.pojo.session.ActiveSessionBody
 import ru.steilsouth.ellcom.pojo.session.HistorySessionBody
 import ru.steilsouth.ellcom.pojo.session.SessionResult
@@ -56,6 +59,18 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("MobilePushService/")
     suspend fun getNotificationList(@Body body: NotificationListBody): NotificationListResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobilePushService/")
+    suspend fun subscribeNotification(@Body body: SubscribeNotificationsBody): ChangePasswordResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobilePushService/")
+    suspend fun readNotification(@Body body: ReadNotificationBody): ChangePasswordResult
+
+    @Headers("Content-Type: application/json")
+    @POST("MobilePushService/")
+    suspend fun deleteNotification(@Body body: DeleteNotificationBody): ChangePasswordResult
 
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")

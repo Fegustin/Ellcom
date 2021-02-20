@@ -17,7 +17,7 @@ class NotificationListBody(token: String, notConfirm: Boolean, index: Int) {
         val notConfirm: Boolean = notConfirm
 
         @SerializedName("pageRow")
-        val page: Page = Page(10, index)
+        val page: Page = Page(20, index)
 
 
         class Page(size: Int, index: Int) {

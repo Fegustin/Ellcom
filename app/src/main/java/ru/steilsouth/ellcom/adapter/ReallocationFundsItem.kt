@@ -54,7 +54,7 @@ class ReallocationFundsItem(
                         .toDouble() + numberRedistribute.toDouble()
                 viewHolder.textViewBalance.text = newBalance.toString() + ruble
 
-                model.select(numberRedistribute.toDouble())
+                model.selectBalance(numberRedistribute.toDouble())
 
                 viewHolder.editTextSum.setText("")
                 return@setOnKeyListener true

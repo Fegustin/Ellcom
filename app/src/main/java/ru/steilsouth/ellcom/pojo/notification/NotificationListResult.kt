@@ -1,23 +1,30 @@
 package ru.steilsouth.ellcom.pojo.notification
 
-import com.google.gson.JsonArray
 import com.google.gson.annotations.SerializedName
 
 data class NotificationListResult(
-    @SerializedName("status") val status: String,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val data: Data
+    val status: String,
+    val message: String,
+    val data: Data
 ) {
     data class Data(
-        @SerializedName("return") val res: JsonArray,
-        @SerializedName("rowCount") val rowCount: RowCount
-        ) {
-
-        data class RowCount(
-            @SerializedName("from") val from: Int,
-            @SerializedName("count") val count: Int,
-            @SerializedName("rowCount") val rowCount: Int
-        )
-
-    }
+        @SerializedName("return") val res: List<MessageNotification>,
+        val rowCount: RowCount
+    )
 }
+
+data class MessageNotification(
+    val id: Int,
+    val contractId: Int,
+    val title: String,
+    val text: String,
+    val status: String,
+    val storable: Boolean,
+    val dateSend: Long
+)
+
+data class RowCount(
+    val from: Int,
+    val count: Int,
+    val rowCount: Int
+)

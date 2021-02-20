@@ -19,17 +19,10 @@ import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 import ru.steilsouth.ellcom.viewmodal.ReallocationFundsVM
 
 
-class DistributeFundsFragment : Fragment() {
+class DistributeFundsFragment : Fragment(R.layout.fragment_distribute_funds) {
 
     private val modelMainAndSub: MainAndSubVM by activityViewModels()
     private val modelReallocationFunds: ReallocationFundsVM by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_distribute_funds, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,17 +30,14 @@ class DistributeFundsFragment : Fragment() {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (token != null) {
 
                 infoProfile(token)
 
                 fillRecyclerView(token)
 
-                modelReallocationFunds.selected.observe(viewLifecycleOwner) {
+                modelReallocationFunds.balance.observe(viewLifecycleOwner) {
                     if (it != null && textViewBalance.text.isNotBlank()) {
                         textViewBalance.text =
                             (textViewBalance.text.toString().toDouble() - it).toString()
@@ -64,33 +54,37 @@ class DistributeFundsFragment : Fragment() {
     }
 
     private fun fillRecyclerView(token: String) {
-        modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                swipeRefresh?.isRefreshing = false
-                val adapter = GroupAdapter<GroupieViewHolder>()
-                for (i in it.data.res) {
-                    adapter.add(
-                        ReallocationFundsItem(
-                            requireContext(),
-                            viewLifecycleOwner,
-                            i,
-                            modelReallocationFunds
+        if (isOnline(requireContext())) {
+            modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    swipeRefresh?.isRefreshing = false
+                    val adapter = GroupAdapter<GroupieViewHolder>()
+                    for (i in it.data.res) {
+                        adapter.add(
+                            ReallocationFundsItem(
+                                requireContext(),
+                                viewLifecycleOwner,
+                                i,
+                                modelReallocationFunds
+                            )
                         )
-                    )
+                    }
+                    recyclerViewSubList.adapter = adapter
+                } else {
+                    Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    swipeRefresh?.isRefreshing = false
                 }
-                recyclerViewSubList.adapter = adapter
-            } else {
-                Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-                swipeRefresh?.isRefreshing = false
             }
         }
     }
 
     private fun infoProfile(token: String) {
-        modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                setTitle(it.data.res.name)
-                textViewBalance.text = it.data.res.balance.toString()
+        if (isOnline(requireContext())) {
+            modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    setTitle(it.data.res.name)
+                    textViewBalance.text = it.data.res.balance.toString()
+                }
             }
         }
     }

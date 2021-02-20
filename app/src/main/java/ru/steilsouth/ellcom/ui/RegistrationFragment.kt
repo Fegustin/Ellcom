@@ -23,23 +23,13 @@ import ru.steilsouth.ellcom.viewmodal.RegistrationVM
  * validation(), validationPhone() и validationEmail()
  * они из файла Validation в папке utils
  */
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private val model: RegistrationVM by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_registration, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        }
+        isOnline(requireContext())
 
         setFormatPhone()
 
@@ -54,8 +44,6 @@ class RegistrationFragment : Fragment() {
 
         buttonSend.setOnClickListener {
             if (!isOnline(requireContext())) {
-                Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                    .show()
                 return@setOnClickListener
             }
 
@@ -115,22 +103,25 @@ class RegistrationFragment : Fragment() {
         address: String,
         email: String = ""
     ) {
-        model.registration(name, nameCompany, phone, address, email).observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                if (it.body()?.get("error")?.asBoolean == false) {
-                    Toast.makeText(
-                        activity,
-                        "Ваша заявка успешно отправлена",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        activity,
-                        it.body()?.get("text").toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
+        if (isOnline(requireContext())) {
+            model.registration(name, nameCompany, phone, address, email)
+                .observe(viewLifecycleOwner) {
+                    if (it.isSuccessful) {
+                        if (it.body()?.get("error")?.asBoolean == false) {
+                            Toast.makeText(
+                                activity,
+                                "Ваша заявка успешно отправлена",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                it.body()?.get("text").toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
-            }
         }
     }
 

@@ -33,19 +33,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BalanceFragment : Fragment() {
+class BalanceFragment : Fragment(R.layout.fragment_balance) {
 
     private val modelBalance: BalanceVM by activityViewModels()
     private val modelMainAndSub: MainAndSubVM by activityViewModels()
 
     private val subTokenMap = mutableMapOf<String, String>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_balance, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,10 +50,7 @@ class BalanceFragment : Fragment() {
         val isSuperContract = activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
             ?.getBoolean("isSuperContract", false)
 
-        if (!isOnline(requireContext())) {
-            Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
-                .show()
-        } else {
+        if (isOnline(requireContext())) {
             if (token != null && isSuperContract != null) {
                 clickChangeMonth()
 
@@ -197,24 +187,26 @@ class BalanceFragment : Fragment() {
     }
 
     private fun setContactInSpinner(token: String, isSuperContract: Boolean) {
-        val array = mutableListOf<String>()
-        modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) { infoResult ->
-            if (infoResult.status == "ok") {
-                subTokenMap[infoResult.data.res.contract_num] = token
-                array.add("Логин: №" + infoResult.data.res.contract_num)
+        if (isOnline(requireContext())) {
+            val array = mutableListOf<String>()
+            modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) { infoResult ->
+                if (infoResult.status == "ok") {
+                    subTokenMap[infoResult.data.res.contract_num] = token
+                    array.add("Логин: №" + infoResult.data.res.contract_num)
 
-                if (isSuperContract) {
-                    modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
-                        if (it.status == "ok") {
-                            for (i in it.data.res) {
-                                subTokenMap[i.id.toString()] = i.token
-                                array.add("Логин: №" + i.id.toString())
-                            }
-                            fillSpinner(array)
-                        } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-                    }
-                } else fillSpinner(array)
-            } else Toast.makeText(activity, infoResult.message, Toast.LENGTH_SHORT).show()
+                    if (isSuperContract) {
+                        modelMainAndSub.getSubContractsList(token).observe(viewLifecycleOwner) {
+                            if (it.status == "ok") {
+                                for (i in it.data.res) {
+                                    subTokenMap[i.id.toString()] = i.token
+                                    array.add("Логин: №" + i.id.toString())
+                                }
+                                fillSpinner(array)
+                            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else fillSpinner(array)
+                } else Toast.makeText(activity, infoResult.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -225,22 +217,24 @@ class BalanceFragment : Fragment() {
     }
 
     private fun setBalance(token: String, month: String) {
-        val year = getDate("yyyy")
-        val day = getDate("dd")
-        modelBalance.getBalance(token, "${year}-${month}-${day}").observe(viewLifecycleOwner) {
-            if (it.status == "ok") {
-                val response = it.data.res
-                textViewInputRemainder.text = response.incomingSaldo.toString()
-                layoutComingBalanceSum.text = response.accounts.toString()
-                layoutConsumptionBalanceSum.text = response.payments.toString()
-                layoutOperatingTimeSum.text = response.charges.toString()
-                textViewOutputRemainder.text = response.outgoingSaldo.toString()
-                textViewLimit.text = response.limit.toString()
+        if (isOnline(requireContext())) {
+            val year = getDate("yyyy")
+            val day = getDate("dd")
+            modelBalance.getBalance(token, "${year}-${month}-${day}").observe(viewLifecycleOwner) {
+                if (it.status == "ok") {
+                    val response = it.data.res
+                    textViewInputRemainder.text = response.incomingSaldo.toString()
+                    layoutComingBalanceSum.text = response.accounts.toString()
+                    layoutConsumptionBalanceSum.text = response.payments.toString()
+                    layoutOperatingTimeSum.text = response.charges.toString()
+                    textViewOutputRemainder.text = response.outgoingSaldo.toString()
+                    textViewLimit.text = response.limit.toString()
 
-                fillRecyclerViews(recyclerViewComingBalance, response.accountList)
-                fillRecyclerViews(recyclerViewConsumptionBalance, response.paymentList)
-                fillRecyclerViews(recyclerViewOperatingTime, response.chargeList)
-            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    fillRecyclerViews(recyclerViewComingBalance, response.accountList)
+                    fillRecyclerViews(recyclerViewConsumptionBalance, response.paymentList)
+                    fillRecyclerViews(recyclerViewOperatingTime, response.chargeList)
+                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

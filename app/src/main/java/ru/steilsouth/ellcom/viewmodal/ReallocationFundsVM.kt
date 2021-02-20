@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
@@ -15,10 +14,10 @@ import java.math.BigDecimal
 class ReallocationFundsVM : ViewModel() {
     private val repository = ReallocationFundsRepository()
 
-    val selected = MutableLiveData<Double>()
+    val balance = MutableLiveData<Double>()
 
-    fun select(item: Double) {
-        selected.value = item
+    fun selectBalance(item: Double) {
+        balance.value = item
     }
 
     fun reallocationOfFunds(token: String, id: Int, amount: BigDecimal): LiveData<ChangePasswordResult> {
