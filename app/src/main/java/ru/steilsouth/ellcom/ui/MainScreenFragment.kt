@@ -1,15 +1,20 @@
 package ru.steilsouth.ellcom.ui
 
 import android.app.ActivityManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
+import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import ru.steilsouth.ellcom.MainActivity
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SubContractItem
 import ru.steilsouth.ellcom.service.RadioService
@@ -36,7 +42,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
-        if(isOnline(requireContext())) {
+        if (isOnline(requireContext())) {
             if (token != null) {
                 infoProfile(token)
 

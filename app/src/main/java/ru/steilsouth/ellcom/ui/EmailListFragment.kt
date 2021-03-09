@@ -2,9 +2,7 @@ package ru.steilsouth.ellcom.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -72,12 +70,15 @@ class EmailListFragment : Fragment(R.layout.fragment_email_list) {
                         emailList.add(i)
                     }
                     recyclerViewEmailList.adapter = adapter
-                    ItemTouchHelper(itemTouchHelperCallback()).attachToRecyclerView(recyclerViewEmailList)
+                    ItemTouchHelper(itemTouchHelperCallback()).attachToRecyclerView(
+                        recyclerViewEmailList
+                    )
 
                     isEmptyEmail()
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
-        }
+        } else Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun updateEmailList(token: String, email: MutableList<EmailAddress>) {
@@ -90,7 +91,8 @@ class EmailListFragment : Fragment(R.layout.fragment_email_list) {
                 ).show()
                 else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
-        }
+        } else Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun itemTouchHelperCallback() =
@@ -103,7 +105,8 @@ class EmailListFragment : Fragment(R.layout.fragment_email_list) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val token =
-                    activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
+                    activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+                        ?.getString("token", "")
 
                 if (token != null) {
                     emailList.removeAt(viewHolder.adapterPosition)

@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_notification.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.NotificationContentItem
 import ru.steilsouth.ellcom.adapter.NotificationHeaderItem
+import ru.steilsouth.ellcom.pojo.notification.MessageNotification
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
@@ -38,45 +39,69 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
         if (token != null) {
             getNotificationList(token, true)
             getNotificationList(token, false)
-        }
-    }
 
-    private fun getNotificationList(token: String, notConfirm: Boolean) {
-        if (isOnline(requireContext())) {
-            model.getNotificationList(token, notConfirm, 0).observe(viewLifecycleOwner) {
-                if (it.status == "ok") {
-                    for (i in it.data.res) {
-                        if (notConfirm) {
-                            divisionIntoSections(
-                                "Новые уведомления",
-                                listOf(NotificationContentItem(i))
-                            )
-                            readNotification(token, i.id.toString())
-                        } else {
-                            divisionIntoSections(
-                                "Прочитанные уведомления",
-                                listOf(NotificationContentItem(i))
-                            )
-                        }
-                    }
-                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            swipeRefresh.setOnRefreshListener {
+                adapter.clear()
+                getNotificationList(token, true)
+                getNotificationList(token, false)
             }
         }
     }
 
+    private fun getNotificationList(token: String, notConfirm: Boolean) {
+        if (!isOnline(requireContext())) {
+            swipeRefresh.isRefreshing = false
+            return
+        }
+        model.getNotificationList(token, notConfirm, 0).observe(viewLifecycleOwner) {
+            if (it.status == "ok") {
+                val listNotificationItem = mutableListOf<NotificationContentItem>()
+                for (i in it.data.res) {
+                    listNotificationItem.add(NotificationContentItem(i))
+                }
+                if (notConfirm) divisionIntoSections("Новые уведомления", listNotificationItem)
+                else {
+                    listNotificationItem.add(
+                        NotificationContentItem(
+                            MessageNotification(
+                                123,
+                                1234,
+                                "sdadsda",
+                                "sdads",
+                                "sdad",
+                                false,
+                                1233334
+                            )
+                        )
+                    )
+                    divisionIntoSections("Прочитанные уведомления", listNotificationItem)
+                }
+            } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            swipeRefresh.isRefreshing = false
+        }
+    }
+
     private fun readNotification(token: String, notificationIds: String) {
+        if (!isOnline(requireContext())) {
+            swipeRefresh.isRefreshing = false
+            return
+        }
         model.readNotification(token, notificationIds).observe(viewLifecycleOwner) {
-            if (it.status != "ok") Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            if (it.status != "ok") {
+                Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
+            swipeRefresh.isRefreshing = false
         }
     }
 
     private fun divisionIntoSections(
         title: String,
         listNotificationItem: List<NotificationContentItem>
-    ) {
-        ExpandableGroup(NotificationHeaderItem(title), true).apply {
+    ): ExpandableGroup {
+        return ExpandableGroup(NotificationHeaderItem(title), true).apply {
             add(Section(listNotificationItem))
             adapter.add(this)
+            adapter.notifyDataSetChanged()
         }
     }
 

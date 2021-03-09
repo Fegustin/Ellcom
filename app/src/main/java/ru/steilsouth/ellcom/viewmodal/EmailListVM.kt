@@ -11,6 +11,7 @@ import ru.steilsouth.ellcom.pojo.email.EmailAddress
 import ru.steilsouth.ellcom.pojo.email.get.EmailAddressResult
 import ru.steilsouth.ellcom.repository.EmailListRepository
 
+
 class EmailListVM : ViewModel() {
     private val repository = EmailListRepository()
 

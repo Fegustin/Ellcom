@@ -18,10 +18,10 @@ class NotificationContentItem(private val item: MessageNotification) : Item() {
     override fun getLayout(): Int = R.layout.item_content_notification
 
     private fun date(date: Long): String {
-        val time = SimpleDateFormat("HH", Locale("ru")).format(Date(date))
+        val time = SimpleDateFormat("H", Locale("ru")).format(Date(date))
         return when {
             time.toInt() <= 1 -> "сейчас"
-            time.toInt() < 8 -> "${time}ч.назад"
+            time.toInt() < 8 -> "$time ч.назад"
             else -> SimpleDateFormat("dd.MM.yyyy", Locale("ru")).format(Date(date))
         }
     }
