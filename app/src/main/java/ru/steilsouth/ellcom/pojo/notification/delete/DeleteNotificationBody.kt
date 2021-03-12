@@ -13,7 +13,7 @@ class DeleteNotificationBody(token: String, notificationsId: Int) {
         @SerializedName("token")
         private val tokenRes = token
 
-        @SerializedName("notificationsIds")
+        @SerializedName("notificationId")
         private val notificationsIdsRes = notificationsId
     }
 }

@@ -1,17 +1,14 @@
-package ru.steilsouth.ellcom.adapter
+package ru.steilsouth.ellcom.adapter.notification
 
-import com.xwray.groupie.ExpandableGroup
-import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_header_notification.*
 import ru.steilsouth.ellcom.R
 
-class NotificationHeaderItem(private val title: String) : Item(), ExpandableItem {
+class NotificationHeaderItem(private val title: String) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.textViewContent.text = title
     }
 
     override fun getLayout(): Int = R.layout.item_header_notification
-    override fun setExpandableGroup(onToggleListener: ExpandableGroup) {}
 }

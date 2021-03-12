@@ -1,14 +1,22 @@
-package ru.steilsouth.ellcom.adapter
+package ru.steilsouth.ellcom.adapter.notification
 
+import android.util.Log
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_content_notification.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.pojo.notification.MessageNotification
+import ru.steilsouth.ellcom.repository.MainAndSubRepository
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationContentItem(private val item: MessageNotification) : Item() {
+
+open class NotificationContentItem(
+    private val item: MessageNotification
+) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.textViewTitle.text = item.title
         viewHolder.textViewDate.text = date(item.dateSend)

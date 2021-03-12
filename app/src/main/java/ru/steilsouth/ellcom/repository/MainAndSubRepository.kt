@@ -1,7 +1,6 @@
 package ru.steilsouth.ellcom.repository
 
 import android.util.Log
-import com.google.gson.JsonObject
 import ru.steilsouth.ellcom.api.ApiUtils
 import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoBody
