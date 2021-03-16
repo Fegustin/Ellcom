@@ -153,6 +153,13 @@
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
                 app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_profileFragment_to_contractChangeFragment"
+                app:destination="@id/contractChangeFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/contactFragment"
@@ -215,6 +222,10 @@
             android:id="@+id/notificationFragment"
             android:name="ru.steilsouth.ellcom.ui.NotificationFragment"
             tools:layout="@layout/fragment_notification" />
+        <fragment
+            android:id="@+id/contractChangeFragment"
+            android:name="ru.steilsouth.ellcom.ui.ContractChangeFragment"
+            tools:layout="@layout/fragment_contract_change" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"

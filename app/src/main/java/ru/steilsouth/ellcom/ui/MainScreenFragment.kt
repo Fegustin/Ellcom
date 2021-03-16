@@ -1,20 +1,13 @@
 package ru.steilsouth.ellcom.ui
 
 import android.app.ActivityManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
-import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,19 +15,21 @@ import androidx.navigation.fragment.findNavController
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_main_screen.*
-import ru.steilsouth.ellcom.MainActivity
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.SubContractItem
+import ru.steilsouth.ellcom.database.model.UserData
 import ru.steilsouth.ellcom.service.RadioService
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.subscribeNotification
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
+import ru.steilsouth.ellcom.viewmodal.DataBaseVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
     private val model: MainAndSubVM by activityViewModels()
+    private val modelDB: DataBaseVM by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -145,6 +140,14 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
                     .substringBefore("\"")
 
                 textViewCompany.text = it.data.res.name
+
+                modelDB.insertUser(
+                    UserData(
+                        token = token,
+                        number = it.data.res.contract_num,
+                        name = it.data.res.name
+                    )
+                )
 
                 if (it.data.res.subMobileContract.isNotEmpty()) {
                     activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {

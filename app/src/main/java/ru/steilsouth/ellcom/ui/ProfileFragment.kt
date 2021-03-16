@@ -3,9 +3,7 @@ package ru.steilsouth.ellcom.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +13,7 @@ import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.subscribeNotification
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
+import ru.steilsouth.ellcom.viewmodal.DataBaseVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
 
@@ -22,6 +21,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val model: MainAndSubVM by activityViewModels()
     private val args: ProfileFragmentArgs by navArgs()
+    private val modelDB: DataBaseVM by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +40,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     exit()
                 }
 
-                changePassword.setOnClickListener {
+                buttonChangePassword.setOnClickListener {
                     if (args.isSubContract) {
                         findNavController().navigate(
                             ProfileFragmentDirections.actionProfileFragmentToChangePasswordContractAndInternetFragment(
@@ -62,6 +62,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 buttonEmail.setOnClickListener {
                     findNavController()
                         .navigate(ProfileFragmentDirections.actionProfileFragmentToEmailListFragment())
+                }
+
+                buttonContractChange.setOnClickListener {
+                    findNavController()
+                        .navigate(ProfileFragmentDirections.actionProfileFragmentToContractChangeFragment())
                 }
             }
         }
@@ -99,6 +104,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     ?.edit()
                     ?.clear()
                     ?.apply()
+
+                modelDB.deleteAll()
+
                 findNavController()
                     .navigate(R.id.action_global_authFragment)
             }

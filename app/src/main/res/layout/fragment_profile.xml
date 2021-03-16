@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textViewCompany"
@@ -121,6 +121,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonContractChange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -144,7 +145,7 @@
                 android:background="@android:color/darker_gray" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/changePassword"
+                android:id="@+id/buttonChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -224,7 +225,7 @@
                 android:text="Выход"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                app:icon="@drawable/ic_exit"
+                app:icon="@drawable/ic_door"
                 app:iconTint="@color/dark_blue" />
 
             <View

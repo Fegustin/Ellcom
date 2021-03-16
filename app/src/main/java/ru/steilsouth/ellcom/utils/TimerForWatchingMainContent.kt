@@ -4,7 +4,7 @@ import android.os.CountDownTimer
 import android.view.View
 
 fun timerForWatchingMainContent(progressBar: View, content: View) {
-    object : CountDownTimer(700, 1000) {
+    object : CountDownTimer(400, 1000) {
         override fun onTick(millisUntilFinished: Long) {}
 
         override fun onFinish() {
