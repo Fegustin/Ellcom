@@ -8,6 +8,9 @@ import ru.steilsouth.ellcom.pojo.auth.AuthResult
 import ru.steilsouth.ellcom.pojo.auth.OneTimePasswordBody
 import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.pojo.balance.ContractBalanceBody
+import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsBody
+import ru.steilsouth.ellcom.pojo.bills.list.BillsListBody
+import ru.steilsouth.ellcom.pojo.bills.list.BillsListResult
 import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
@@ -123,12 +126,29 @@ interface ApiService {
         @Field("LEAD_UF_CRM_1436947672") address: String,
         @Field("LEAD_EMAIL") email: String
     ): Response<JsonObject>
+
+    // Cms ellco
+    @Headers(
+        "Content-Type: multipart/form-data",
+        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+    )
+    @POST("acc_hist")
+    suspend fun getBillsList(@Body body: BillsListBody): BillsListResult
+
+    @Headers(
+        "Content-Type: multipart/form-data",
+        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+    )
+    @POST("cr_acc")
+    suspend fun createBills(@Body body: CreateBillsBody): JsonObject
 }
 
 object ApiUtils {
     private const val BASE_URL = "https://bill.ellcom.ru/bgbilling/ellcommobile/ru.ellcom.mobile/"
     private const val REGISTRATION_URL = "https://bitrix24.ellcom.ru/pub/form/"
+    private const val CMS_ELLCO = "https://cms.ellco.ru/api/onec/"
 
     val apiService: ApiService get() = RetrofitClient.getClient(BASE_URL)
     val apiRegistration: ApiService get() = RetrofitClient.getClient(REGISTRATION_URL)
+    val apiCms: ApiService get() = RetrofitClient.getClient(CMS_ELLCO)
 }

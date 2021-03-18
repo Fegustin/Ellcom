@@ -107,10 +107,10 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Почта"
                 }
-                R.id.notificationFragment -> {
+                R.id.billsFragment -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
-                    ""
+                    "История платежей"
                 }
                 else -> {
                     toolbar.visibility = View.VISIBLE

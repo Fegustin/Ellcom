@@ -17,7 +17,7 @@ import ru.steilsouth.ellcom.repository.DataBaseRepository
 
 
 class ContractItem(
-    val token: String,
+    private val token: String,
     private val number: String,
     private val name: String,
     private val context: Context,

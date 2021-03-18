@@ -1,10 +1,9 @@
 package ru.steilsouth.ellcom.pojo.infoprofile
 
-import com.google.gson.annotations.SerializedName
-
 data class RateList(
-    @SerializedName("tariffTitle") val tariffTitle: String,
-    @SerializedName("dateFrom") val dateFrom: String,
-    @SerializedName("dateTo") val dateTo: String,
-    @SerializedName("status") val status: String
+    val tariffTitle: String,
+    val tariffPrice: String,
+    val dateFrom: String,
+    val dateTo: String,
+    val status: String
 )

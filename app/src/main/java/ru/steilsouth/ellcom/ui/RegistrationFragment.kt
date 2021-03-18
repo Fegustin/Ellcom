@@ -15,6 +15,7 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.utils.*
+import ru.steilsouth.ellcom.utils.enam.FilePath
 import ru.steilsouth.ellcom.viewmodal.RegistrationVM
 
 
@@ -92,7 +93,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         buttonRead.setOnClickListener {
             findNavController()
-                .navigate(RegistrationFragmentDirections.actionRegistrationFragmentToReaderPDFFragment())
+                .navigate(RegistrationFragmentDirections.actionGlobalReaderPDFFragment(FilePath.RegistrationAgreement.path))
         }
     }
 

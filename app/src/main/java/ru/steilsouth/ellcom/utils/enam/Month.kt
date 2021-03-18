@@ -1,4 +1,4 @@
-package ru.steilsouth.ellcom.utils
+package ru.steilsouth.ellcom.utils.enam
 
 enum class Month(val rusName: String, val number: String) {
     January("Январь", "01"),

@@ -1,26 +1,26 @@
 package ru.steilsouth.ellcom.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_reader_p_d_f.*
 import ru.steilsouth.ellcom.R
 
 
 class ReaderPDFFragment : Fragment(R.layout.fragment_reader_p_d_f) {
-    private val pdfName = "dogovor.pdf"
+
+    private val args: ReaderPDFFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showPdfFromAssets()
+        showPdfFromAssets(args.filePath)
     }
 
-    private fun showPdfFromAssets() {
-        pdfView.fromAsset(pdfName)
+    private fun showPdfFromAssets(filePath: String) {
+        pdfView.fromAsset(filePath)
             .password(null) // if password protected, then write password
             .defaultPage(0) // set the default page to open
             .onPageError { page, _ ->

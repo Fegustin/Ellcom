@@ -6,9 +6,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -24,7 +22,7 @@ import kotlinx.android.synthetic.main.include_balance.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.BalanceItem
 import ru.steilsouth.ellcom.pojo.balance.BalanceList
-import ru.steilsouth.ellcom.utils.Month
+import ru.steilsouth.ellcom.utils.enam.Month
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.BalanceVM

@@ -36,15 +36,7 @@
     <fragment
         android:id="@+id/registrationFragment"
         android:name="ru.steilsouth.ellcom.ui.RegistrationFragment"
-        tools:layout="@layout/fragment_registration">
-        <action
-            android:id="@+id/action_registrationFragment_to_readerPDFFragment"
-            app:destination="@id/readerPDFFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/fragment_registration"/>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ru.steilsouth.ellcom.ui.ForgotPasswordFragment"
@@ -52,7 +44,11 @@
     <fragment
         android:id="@+id/readerPDFFragment"
         android:name="ru.steilsouth.ellcom.ui.ReaderPDFFragment"
-        tools:layout="@layout/fragment_reader_p_d_f" />
+        tools:layout="@layout/fragment_reader_p_d_f" >
+        <argument
+            android:name="filePath"
+            app:argType="string" />
+    </fragment>
     <navigation
         android:id="@+id/navigationToMainContent"
         app:startDestination="@id/mainScreenFragment">
@@ -209,7 +205,15 @@
         <fragment
             android:id="@+id/topUpAccountFragment"
             android:name="ru.steilsouth.ellcom.ui.TopUpAccountFragment"
-            tools:layout="@layout/fragment_top_up_account" />
+            tools:layout="@layout/fragment_top_up_account" >
+            <action
+                android:id="@+id/action_topUpAccountFragment_to_billsFragment"
+                app:destination="@id/billsFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
+        </fragment>
         <fragment
             android:id="@+id/distributeFundsFragment"
             android:name="ru.steilsouth.ellcom.ui.DistributeFundsFragment"
@@ -226,6 +230,10 @@
             android:id="@+id/contractChangeFragment"
             android:name="ru.steilsouth.ellcom.ui.ContractChangeFragment"
             tools:layout="@layout/fragment_contract_change" />
+        <fragment
+            android:id="@+id/billsFragment"
+            android:name="ru.steilsouth.ellcom.ui.BillsFragment"
+            tools:layout="@layout/fragment_bills" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"
@@ -236,4 +244,11 @@
         app:popExitAnim="@android:anim/slide_out_right"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_readerPDFFragment"
+        app:destination="@id/readerPDFFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right" />
 </navigation>
