@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetResult
 import ru.steilsouth.ellcom.repository.ChangePasswordRepository
 
@@ -19,8 +19,8 @@ class ChangePasswordVM : ViewModel() {
         newPassword: String,
         isContract: Boolean,
         servId: Int
-    ): LiveData<ChangePasswordResult> {
-        val result = MutableLiveData<ChangePasswordResult>()
+    ): LiveData<TotalReturnValue> {
+        val result = MutableLiveData<TotalReturnValue>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 repository.passwordChange(

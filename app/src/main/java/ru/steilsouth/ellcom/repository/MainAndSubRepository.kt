@@ -2,7 +2,7 @@ package ru.steilsouth.ellcom.repository
 
 import android.util.Log
 import ru.steilsouth.ellcom.api.ApiUtils
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoBody
 import ru.steilsouth.ellcom.pojo.infoprofile.InfoResult
 import ru.steilsouth.ellcom.pojo.notification.NotificationListBody
@@ -51,7 +51,7 @@ class MainAndSubRepository {
         token: String,
         mobileToken: String,
         subscribe: Boolean,
-    ): ChangePasswordResult? {
+    ): TotalReturnValue? {
         return try {
             ApiUtils.apiService.subscribeNotification(
                 SubscribeNotificationsBody(
@@ -69,7 +69,7 @@ class MainAndSubRepository {
     suspend fun readNotification(
         token: String,
         notificationsIds: String
-    ): ChangePasswordResult? {
+    ): TotalReturnValue? {
         return try {
             ApiUtils.apiService.readNotification(ReadNotificationBody(token, notificationsIds))
         } catch (e: Throwable) {
@@ -81,7 +81,7 @@ class MainAndSubRepository {
     suspend fun deleteNotification(
         token: String,
         notificationsIds: Int
-    ): ChangePasswordResult? {
+    ): TotalReturnValue? {
         return try {
             ApiUtils.apiService.deleteNotification(DeleteNotificationBody(token, notificationsIds))
         } catch (e: Throwable) {

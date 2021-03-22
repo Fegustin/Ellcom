@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.groupiex.plusAssign
@@ -19,7 +18,6 @@ import ru.steilsouth.ellcom.adapter.decoration.SwipeTouchCallback
 import ru.steilsouth.ellcom.adapter.notification.NotificationContentItem
 import ru.steilsouth.ellcom.adapter.notification.NotificationHeaderItem
 import ru.steilsouth.ellcom.adapter.notification.SwipeToDeleteItem
-import ru.steilsouth.ellcom.pojo.notification.MessageNotification
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 
@@ -71,7 +69,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
                 val listNotificationItem = mutableListOf<NotificationContentItem>()
                 for (i in it.data.res) {
                     listNotificationItem.add(SwipeToDeleteItem(i))
-                    readNotification(token, i.id.toString())
+                    if (notConfirm) readNotification(token, i.id.toString())
                 }
                 if (notConfirm && listNotificationItem.isNotEmpty()) {
                     sectionNew.setHeader(NotificationHeaderItem("Новые уведомления"))
@@ -131,7 +129,11 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
         }
     }
 
-    private fun deleteSection(section: Section, position: Int, adapter: GroupAdapter<GroupieViewHolder>) {
+    private fun deleteSection(
+        section: Section,
+        position: Int,
+        adapter: GroupAdapter<GroupieViewHolder>
+    ) {
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
                 ?.getString("token", "")

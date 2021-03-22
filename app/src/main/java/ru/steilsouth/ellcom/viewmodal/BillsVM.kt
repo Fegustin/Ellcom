@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.bills.createbills.SubMobileContract
 import ru.steilsouth.ellcom.pojo.bills.list.BillsListResult
 import ru.steilsouth.ellcom.repository.BillsRepository
@@ -15,14 +15,21 @@ import ru.steilsouth.ellcom.repository.BillsRepository
 class BillsVM : ViewModel() {
     private val repository = BillsRepository()
 
+    val sum = MutableLiveData<Int>()
+
+    fun setSum(item: Int) {
+        sum.value = item
+    }
+
     fun getBillsList(
+        token: String,
         contactNum: String,
         dateFrom: String,
         dateTo: String
     ): LiveData<BillsListResult> {
         val result = MutableLiveData<BillsListResult>()
         viewModelScope.launch(Dispatchers.IO) {
-            result.postValue(repository.getBillsList(contactNum, dateFrom, dateTo))
+            result.postValue(repository.getBillsList(token, contactNum, dateFrom, dateTo))
         }
         return result
     }
@@ -32,8 +39,8 @@ class BillsVM : ViewModel() {
         contractNum: String,
         accountant: String,
         subMobileContractList: List<SubMobileContract>
-    ): LiveData<JsonObject> {
-        val result = MutableLiveData<JsonObject>()
+    ): LiveData<TotalReturnValue> {
+        val result = MutableLiveData<TotalReturnValue>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 repository.createBills(

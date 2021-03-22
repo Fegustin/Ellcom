@@ -2,9 +2,7 @@ package ru.steilsouth.ellcom.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -15,7 +13,7 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.utils.*
-import ru.steilsouth.ellcom.utils.enam.FilePath
+import ru.steilsouth.ellcom.utils.enam.Path
 import ru.steilsouth.ellcom.viewmodal.RegistrationVM
 
 
@@ -93,7 +91,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         buttonRead.setOnClickListener {
             findNavController()
-                .navigate(RegistrationFragmentDirections.actionGlobalReaderPDFFragment(FilePath.RegistrationAgreement.path))
+                .navigate(RegistrationFragmentDirections.actionGlobalReaderPDFFragment(Path.RegistrationAgreement.path))
         }
     }
 

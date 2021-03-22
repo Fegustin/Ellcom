@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_top_up_account.*
 import ru.steilsouth.ellcom.R
-import ru.steilsouth.ellcom.utils.enam.FilePath
+import ru.steilsouth.ellcom.utils.enam.Path
 import ru.steilsouth.ellcom.utils.isOnline
 
 
@@ -28,7 +28,8 @@ class TopUpAccountFragment : Fragment(R.layout.fragment_top_up_account) {
         }
 
         buttonScore.setOnClickListener {
-
+            findNavController()
+                .navigate(TopUpAccountFragmentDirections.actionTopUpAccountFragmentToCreateBillsFragment())
         }
 
         buttonHistoryPayment.setOnClickListener {
@@ -38,7 +39,7 @@ class TopUpAccountFragment : Fragment(R.layout.fragment_top_up_account) {
 
         buttonRegulation.setOnClickListener {
             findNavController()
-                .navigate(TopUpAccountFragmentDirections.actionGlobalReaderPDFFragment(FilePath.PaymentRules.path))
+                .navigate(TopUpAccountFragmentDirections.actionGlobalReaderPDFFragment(Path.PaymentRules.path))
         }
     }
 

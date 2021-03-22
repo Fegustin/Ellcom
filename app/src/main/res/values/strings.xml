@@ -2,4 +2,5 @@
     <string name="app_name">Ellcom</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="warning_scope">Внимание: при формирование общего счета, в последующем вам придется самостоятельно перераспределить средства между субдоговорами.</string>
 </resources>

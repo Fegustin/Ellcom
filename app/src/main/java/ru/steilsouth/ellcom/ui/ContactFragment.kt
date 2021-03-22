@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.fragment_main_screen.layoutContent
 import kotlinx.android.synthetic.main.fragment_main_screen.progressBar
 import ru.steilsouth.ellcom.R
+import ru.steilsouth.ellcom.utils.enam.Path
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.ContactVM
@@ -28,9 +29,6 @@ class ContactFragment : Fragment(R.layout.fragment_contact), OnMapReadyCallback 
 
     private val model: ContactVM by activityViewModels()
     private lateinit var mMap: GoogleMap
-
-    private val vk = "https://vk.com/ellco"
-    private val inst = "https://www.instagram.com/ellco.ru"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,9 +53,9 @@ class ContactFragment : Fragment(R.layout.fragment_contact), OnMapReadyCallback 
                     copyText(accountantPhone.text.toString())
                 }
 
-                imageButtonVK.setOnClickListener { openURL(vk) }
+                imageButtonVK.setOnClickListener { openURL(Path.VK.path) }
 
-                imageButtonInst.setOnClickListener { openURL(inst) }
+                imageButtonInst.setOnClickListener { openURL(Path.Instagram.path) }
             }
         }
     }

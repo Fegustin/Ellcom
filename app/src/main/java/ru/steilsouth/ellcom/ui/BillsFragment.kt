@@ -32,30 +32,13 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
 
         if (token != null) {
-//            modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) {
-//                val sub = it.data.res.subMobileContract[0]
-//                modelBills.createBills(
-//                    token,
-//                    "Основной13579",
-//                    "бухалтер ттутутуту",
-//                    listOf(
-//                        SubMobileContract(
-//                            "салам ворам",
-//                            sub.title,
-//                            1,
-//                            50,
-//                            sub.rateList[0].tariffTitle,
-//                            "мес"
-//                        )
-//                    )
-//                ).observe(viewLifecycleOwner) {
-//
-//                }
-//            }
-
-
             modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) {
-                modelBills.getBillsList("Основной13579", "01.12.2020", "21.01.2021").observe(viewLifecycleOwner) {
+                modelBills.getBillsList(
+                    "c43f18a2-c6c7-4850-be95-24f3cbaef6b6",
+                    "Основной13579",
+                    "01.03.2021",
+                    "19.03.2021"
+                ).observe(viewLifecycleOwner) {
 
                 }
             }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.email.EmailAddress
 import ru.steilsouth.ellcom.pojo.email.get.EmailAddressResult
 import ru.steilsouth.ellcom.repository.EmailListRepository
@@ -26,8 +26,8 @@ class EmailListVM : ViewModel() {
     fun updateEmail(
         token: String,
         email: MutableList<EmailAddress>
-    ): LiveData<ChangePasswordResult> {
-        val result = MutableLiveData<ChangePasswordResult>()
+    ): LiveData<TotalReturnValue> {
+        val result = MutableLiveData<TotalReturnValue>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(repository.updateEmailList(token, email))
         }

@@ -213,6 +213,13 @@
                 app:exitAnim="@android:anim/slide_out_right"
                 app:popEnterAnim="@android:anim/slide_in_left"
                 app:popExitAnim="@android:anim/slide_out_right" />
+            <action
+                android:id="@+id/action_topUpAccountFragment_to_createBillsFragment"
+                app:destination="@id/createBillsFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right"
+                app:popEnterAnim="@android:anim/slide_in_left"
+                app:popExitAnim="@android:anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/distributeFundsFragment"
@@ -234,6 +241,10 @@
             android:id="@+id/billsFragment"
             android:name="ru.steilsouth.ellcom.ui.BillsFragment"
             tools:layout="@layout/fragment_bills" />
+        <fragment
+            android:id="@+id/createBillsFragment"
+            android:name="ru.steilsouth.ellcom.ui.CreateBillsFragment"
+            tools:layout="@layout/fragment_create_bills" />
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"

@@ -11,7 +11,7 @@ import ru.steilsouth.ellcom.pojo.balance.ContractBalanceBody
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsBody
 import ru.steilsouth.ellcom.pojo.bills.list.BillsListBody
 import ru.steilsouth.ellcom.pojo.bills.list.BillsListResult
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetBody
@@ -65,15 +65,15 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobilePushService/")
-    suspend fun subscribeNotification(@Body body: SubscribeNotificationsBody): ChangePasswordResult
+    suspend fun subscribeNotification(@Body body: SubscribeNotificationsBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobilePushService/")
-    suspend fun readNotification(@Body body: ReadNotificationBody): ChangePasswordResult
+    suspend fun readNotification(@Body body: ReadNotificationBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobilePushService/")
-    suspend fun deleteNotification(@Body body: DeleteNotificationBody): ChangePasswordResult
+    suspend fun deleteNotification(@Body body: DeleteNotificationBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
@@ -85,11 +85,11 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileContractService/")
-    suspend fun passwordChangeContract(@Body bodyContract: ContractChangePasswordBody): ChangePasswordResult
+    suspend fun passwordChangeContract(@Body bodyContract: ContractChangePasswordBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobileInetService/")
-    suspend fun passwordChangeInternet(@Body bodyContract: InternetChangePasswordBody): ChangePasswordResult
+    suspend fun passwordChangeInternet(@Body bodyContract: InternetChangePasswordBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobileInetService/")
@@ -105,7 +105,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileBalanceService/")
-    suspend fun reallocationOfFunds(@Body body: ReallocationFundsBody): ChangePasswordResult
+    suspend fun reallocationOfFunds(@Body body: ReallocationFundsBody): TotalReturnValue
 
     @Headers("Content-Type: application/json")
     @POST("MobileContractParameterService/")
@@ -113,7 +113,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("MobileContractParameterService/")
-    suspend fun updateEmailList(@Body body: UpdateEmailListBody): ChangePasswordResult
+    suspend fun updateEmailList(@Body body: UpdateEmailListBody): TotalReturnValue
 
 
     // Registration
@@ -140,7 +140,7 @@ interface ApiService {
         "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
     )
     @POST("cr_acc")
-    suspend fun createBills(@Body body: CreateBillsBody): JsonObject
+    suspend fun createBills(@Body body: CreateBillsBody): TotalReturnValue
 }
 
 object ApiUtils {

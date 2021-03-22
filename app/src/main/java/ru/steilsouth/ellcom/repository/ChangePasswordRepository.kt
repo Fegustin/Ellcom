@@ -2,7 +2,7 @@ package ru.steilsouth.ellcom.repository
 
 import android.util.Log
 import ru.steilsouth.ellcom.api.ApiUtils
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetBody
@@ -17,7 +17,7 @@ class ChangePasswordRepository {
         newPassword: String,
         isContact: Boolean,
         servId: Int
-    ): ChangePasswordResult? {
+    ): TotalReturnValue? {
         return try {
             if (isContact) {
                 ApiUtils.apiService.passwordChangeContract(

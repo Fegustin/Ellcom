@@ -112,6 +112,11 @@ class MainActivity : AppCompatActivity() {
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "История платежей"
                 }
+                R.id.createBillsFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
+                    "Формирование счета на оплату"
+                }
                 else -> {
                     toolbar.visibility = View.VISIBLE
                     toolbar.setNavigationIcon(R.drawable.ic_arrow)

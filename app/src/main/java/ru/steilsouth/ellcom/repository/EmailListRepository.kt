@@ -2,7 +2,7 @@ package ru.steilsouth.ellcom.repository
 
 import android.util.Log
 import ru.steilsouth.ellcom.api.ApiUtils
-import ru.steilsouth.ellcom.pojo.changepassword.ChangePasswordResult
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.email.EmailAddress
 import ru.steilsouth.ellcom.pojo.email.get.EmailAddressResult
 import ru.steilsouth.ellcom.pojo.email.get.GetEmailListBody
@@ -24,7 +24,7 @@ class EmailListRepository {
     suspend fun updateEmailList(
         token: String,
         emails: MutableList<EmailAddress>
-    ): ChangePasswordResult? {
+    ): TotalReturnValue? {
         return try {
             ApiUtils.apiService.updateEmailList(UpdateEmailListBody(token, emails))
         } catch (e: Throwable) {
