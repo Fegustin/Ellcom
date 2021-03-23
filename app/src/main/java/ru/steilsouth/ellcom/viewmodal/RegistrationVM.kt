@@ -15,14 +15,14 @@ class RegistrationVM : ViewModel() {
 
     fun registration(
         name: String,
-        nameCompany: String,
+        organization: String,
         phone: String,
         address: String,
         email: String
     ): LiveData<Response<JsonObject>> {
         val result = MutableLiveData<Response<JsonObject>>()
         viewModelScope.launch(Dispatchers.IO) {
-            result.postValue(repository.registration(name, nameCompany, phone, address, email))
+            result.postValue(repository.registration(name, organization, phone, address, email))
         }
         return result
     }

@@ -31,6 +31,7 @@ import ru.steilsouth.ellcom.pojo.notification.NotificationListResult
 import ru.steilsouth.ellcom.pojo.notification.delete.DeleteNotificationBody
 import ru.steilsouth.ellcom.pojo.notification.read.ReadNotificationBody
 import ru.steilsouth.ellcom.pojo.notification.subscribe.SubscribeNotificationsBody
+import ru.steilsouth.ellcom.pojo.registration.RegistrationBody
 import ru.steilsouth.ellcom.pojo.session.ActiveSessionBody
 import ru.steilsouth.ellcom.pojo.session.HistorySessionBody
 import ru.steilsouth.ellcom.pojo.session.SessionResult
@@ -116,39 +117,33 @@ interface ApiService {
     suspend fun updateEmailList(@Body body: UpdateEmailListBody): TotalReturnValue
 
 
-    // Registration
-    @POST("47_zayavka_na_podklyuchenie_yur_lits/l2mvkj/")
-    @FormUrlEncoded
-    suspend fun registration(
-        @Field("LEAD_NAME") name: String,
-        @Field("LEAD_COMPANY_TITLE") nameCompany: String,
-        @Field("LEAD_UF_CRM_1487053251") phone: String,
-        @Field("LEAD_UF_CRM_1436947672") address: String,
-        @Field("LEAD_EMAIL") email: String
-    ): Response<JsonObject>
-
     // Cms ellco
     @Headers(
         "Content-Type: multipart/form-data",
         "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
     )
-    @POST("acc_hist")
+    @POST("ellcom/info/become.client.set")
+    suspend fun registration(@Body body: RegistrationBody): Response<JsonObject>
+
+    @Headers(
+        "Content-Type: multipart/form-data",
+        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+    )
+    @POST("onec/acc_hist")
     suspend fun getBillsList(@Body body: BillsListBody): BillsListResult
 
     @Headers(
         "Content-Type: multipart/form-data",
         "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
     )
-    @POST("cr_acc")
+    @POST("onec/cr_acc")
     suspend fun createBills(@Body body: CreateBillsBody): TotalReturnValue
 }
 
 object ApiUtils {
     private const val BASE_URL = "https://bill.ellcom.ru/bgbilling/ellcommobile/ru.ellcom.mobile/"
-    private const val REGISTRATION_URL = "https://bitrix24.ellcom.ru/pub/form/"
-    private const val CMS_ELLCO = "https://cms.ellco.ru/api/onec/"
+    private const val CMS_ELLCO = "https://cms.ellco.ru/api/"
 
     val apiService: ApiService get() = RetrofitClient.getClient(BASE_URL)
-    val apiRegistration: ApiService get() = RetrofitClient.getClient(REGISTRATION_URL)
     val apiCms: ApiService get() = RetrofitClient.getClient(CMS_ELLCO)
 }

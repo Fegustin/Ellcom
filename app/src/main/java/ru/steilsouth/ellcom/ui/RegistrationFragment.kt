@@ -49,11 +49,21 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             var error = 0
 
             if (!checkBoxAgreement.isChecked) {
-                checkBoxAgreement.setTextColor(resources.getColor(R.color.red))
+                checkBoxAgreement.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.red
+                    )
+                )
                 Toast.makeText(activity, "Примите условия соглашения", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else {
-                checkBoxAgreement.setTextColor(resources.getColor(R.color.black))
+                checkBoxAgreement.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
             }
             if (!editTextEmail.text.isNullOrEmpty()) {
                 if (!editTextEmail.validationEmail()) {
@@ -97,13 +107,13 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private fun registration(
         name: String,
-        nameCompany: String = "",
+        organization: String = "",
         phone: String,
         address: String,
         email: String = ""
     ) {
         if (isOnline(requireContext())) {
-            model.registration(name, nameCompany, phone, address, email)
+            model.registration(name, organization, phone, address, email)
                 .observe(viewLifecycleOwner) {
                     if (it.isSuccessful) {
                         if (it.body()?.get("error")?.asBoolean == false) {
