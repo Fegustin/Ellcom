@@ -16,14 +16,13 @@ class BillsVM : ViewModel() {
     private val repository = BillsRepository()
 
     fun getBillsList(
-        token: String,
         contactNum: String,
         dateFrom: String,
         dateTo: String
     ): LiveData<BillsListResult> {
         val result = MutableLiveData<BillsListResult>()
         viewModelScope.launch(Dispatchers.IO) {
-            result.postValue(repository.getBillsList(token, contactNum, dateFrom, dateTo))
+            result.postValue(repository.getBillsList(contactNum, dateFrom, dateTo))
         }
         return result
     }

@@ -37,6 +37,7 @@ import ru.steilsouth.ellcom.pojo.session.HistorySessionBody
 import ru.steilsouth.ellcom.pojo.session.SessionResult
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsBody
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
+import ru.steilsouth.ellcom.utils.enam.Token
 
 interface ApiService {
     //Billing
@@ -120,21 +121,21 @@ interface ApiService {
     // Cms ellco
     @Headers(
         "Content-Type: multipart/form-data",
-        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
     )
     @POST("ellcom/info/become.client.set")
     suspend fun registration(@Body body: RegistrationBody): Response<JsonObject>
 
     @Headers(
         "Content-Type: multipart/form-data",
-        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
     )
     @POST("onec/acc_hist")
     suspend fun getBillsList(@Body body: BillsListBody): BillsListResult
 
     @Headers(
         "Content-Type: multipart/form-data",
-        "Authorization: VjE4o2DzXytrXDHVy5rW1OdGzOpidENK91RP5XTUxkpdgKYbR1QaSw"
+        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
     )
     @POST("onec/cr_acc")
     suspend fun createBills(@Body body: CreateBillsBody): TotalReturnValue
