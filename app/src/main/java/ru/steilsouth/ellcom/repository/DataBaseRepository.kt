@@ -44,7 +44,7 @@ class DataBaseRepository(application: Application) {
         }
     }
 
-    suspend fun deleteAll() {
+    suspend fun deleteUserAll() {
         try {
             db.userDao().deleteAll()
         } catch (e: Throwable) {

@@ -1,4 +1,4 @@
-package ru.steilsouth.ellcom.database
+package ru.steilsouth.ellcom.database.dao
 
 import androidx.room.*
 import ru.steilsouth.ellcom.database.model.UserData

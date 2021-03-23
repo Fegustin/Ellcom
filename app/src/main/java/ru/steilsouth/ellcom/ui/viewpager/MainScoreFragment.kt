@@ -54,7 +54,11 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                         false
                     }
 
-                    sum = costCalculation(progress, 85, textViewSum)
+                    sum = costCalculation(
+                        progress,
+                        infoProfile["price"]?.toDouble()?.toInt() ?: 0,
+                        textViewSum
+                    )
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -89,6 +93,7 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                     )
                 )
             ).observe(viewLifecycleOwner) {
+                if (it == null) return@observe
                 if (it.status == "ok") {
                     Toast.makeText(activity, "Счет сформирован", Toast.LENGTH_SHORT).show()
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
@@ -99,6 +104,7 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
     private fun getAccountant(token: String) {
         if (!isOnline(requireContext())) return
         modelContact.getMobileContact(token).observe(viewLifecycleOwner) {
+            if (it == null) return@observe
             if (it.status == "ok") {
                 infoProfile["accountant"] = it.data.res.accountant
             } else {
@@ -114,9 +120,9 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
     private fun getInfoProfile(token: String) {
         if (!isOnline(requireContext())) return
         modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) {
+            if (it == null) return@observe
             if (it.status == "ok") {
                 infoProfile["contract"] = it.data.res.contract_num
-                infoProfile["balance"] = it.data.res.balance.toString()
                 infoProfile["price"] = it.data.res.rateList[0].tariffPrice
                 infoProfile["type"] =
                     "Абонентская плата по тарифу " + it.data.res.rateList[0].tariffTitle

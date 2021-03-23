@@ -15,12 +15,6 @@ import ru.steilsouth.ellcom.repository.BillsRepository
 class BillsVM : ViewModel() {
     private val repository = BillsRepository()
 
-    val sum = MutableLiveData<Int>()
-
-    fun setSum(item: Int) {
-        sum.value = item
-    }
-
     fun getBillsList(
         token: String,
         contactNum: String,

@@ -29,6 +29,6 @@ class DataBaseVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun deleteAll() {
-        viewModelScope.launch(Dispatchers.IO) { db.deleteAll() }
+        viewModelScope.launch(Dispatchers.IO) { db.deleteUserAll() }
     }
 }

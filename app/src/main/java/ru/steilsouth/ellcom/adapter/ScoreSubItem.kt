@@ -4,21 +4,17 @@ import android.widget.SeekBar
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_score_sub.*
-import kotlinx.android.synthetic.main.item_score_sub.seekBarScore
-import kotlinx.android.synthetic.main.item_score_sub.textViewContactNum
-import kotlinx.android.synthetic.main.item_score_sub.textViewMouth
 import ru.steilsouth.ellcom.R
+import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
 import ru.steilsouth.ellcom.ui.viewpager.costCalculation
-import ru.steilsouth.ellcom.viewmodal.BillsVM
 
 
-class ScopeSubItem(
-    private val contractNum: String,
-    private val modelBills: BillsVM
-) : Item() {
+class ScoreSubItem(val item: SubContractsResult.Data.Result) : Item() {
+    var quantity = 0
+    var price = 0
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.textViewContactNum.text = contractNum
+        viewHolder.textViewContactNum.text = "№${item.title}"
 
         viewHolder.seekBarScore.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -28,8 +24,14 @@ class ScopeSubItem(
                 fromUser: Boolean
             ) {
                 viewHolder.textViewMouth.text = progress.toString() + " мес."
+                val tariffPrice = item.rateList[0].tariffPrice.toDouble().toInt()
 
-//                sum = costCalculation(progress, 0, viewHolder.textViewSum)
+                quantity = progress
+                price = costCalculation(
+                    progress,
+                    tariffPrice,
+                    viewHolder.textViewSum
+                )
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
