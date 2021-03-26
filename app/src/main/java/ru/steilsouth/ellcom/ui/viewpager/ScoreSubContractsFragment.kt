@@ -1,10 +1,10 @@
 package ru.steilsouth.ellcom.ui.viewpager
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.xwray.groupie.GroupAdapter
@@ -16,6 +16,7 @@ import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.ScoreSubItem
 import ru.steilsouth.ellcom.pojo.bills.createbills.SubMobileContract
 import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.utils.saveFilePDF
 import ru.steilsouth.ellcom.viewmodal.BillsVM
 import ru.steilsouth.ellcom.viewmodal.ContactVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
@@ -56,12 +57,31 @@ class ScoreSubContractsFragment : Fragment(R.layout.fragment_score_sub_contracts
         if (!isOnline(requireContext())) return
         val contract = infoProfile["contract"]
         val accountant = infoProfile["accountant"]
-        if (!contract.isNullOrEmpty() && !accountant.isNullOrEmpty() && subContractList.isNotEmpty()) {
+        if (subContractList.isNullOrEmpty()) {
+            Toast.makeText(
+                activity,
+                "Укажите количество месяцев хотя бы на одной договоре",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (!contract.isNullOrEmpty() && !accountant.isNullOrEmpty()) {
             modelBills.createBills(token, contract, accountant, subContractList)
                 .observe(viewLifecycleOwner) {
                     if (it == null) return@observe
                     if (it.status == "ok") {
-                        Toast.makeText(activity, "Счет сформирован", Toast.LENGTH_SHORT).show()
+                        saveFilePDF(it.data, requireContext())
+                        AlertDialog.Builder(requireContext())
+                            .setTitle("Успех")
+                            .setMessage(
+                                "Счет сформирован и сохранен по пути ${
+                                    context?.getExternalFilesDir(
+                                        null
+                                    ).toString().substringAfter("0/")
+                                }/score."
+                            )
+                            .setPositiveButton("OK") { _, _ -> }
+                            .show()
                     } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 }
         } else {

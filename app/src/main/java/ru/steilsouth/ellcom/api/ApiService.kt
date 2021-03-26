@@ -3,15 +3,15 @@ package ru.steilsouth.ellcom.api
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.*
+import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.auth.AuthBody
 import ru.steilsouth.ellcom.pojo.auth.AuthResult
 import ru.steilsouth.ellcom.pojo.auth.OneTimePasswordBody
 import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.pojo.balance.ContractBalanceBody
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsBody
-import ru.steilsouth.ellcom.pojo.bills.list.BillsListBody
+import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsResult
 import ru.steilsouth.ellcom.pojo.bills.list.BillsListResult
-import ru.steilsouth.ellcom.pojo.TotalReturnValue
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.ServiceInternetBody
@@ -37,7 +37,6 @@ import ru.steilsouth.ellcom.pojo.session.HistorySessionBody
 import ru.steilsouth.ellcom.pojo.session.SessionResult
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsBody
 import ru.steilsouth.ellcom.pojo.subcontracts.SubContractsResult
-import ru.steilsouth.ellcom.utils.enam.Token
 
 interface ApiService {
     //Billing
@@ -119,26 +118,28 @@ interface ApiService {
 
 
     // Cms ellco
-    @Headers(
-        "Content-Type: multipart/form-data",
-        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
-    )
+    @Headers("Content-Type: multipart/form-data")
     @POST("ellcom/info/become.client.set")
-    suspend fun registration(@Body body: RegistrationBody): Response<JsonObject>
+    suspend fun registration(
+        @Body body: RegistrationBody,
+        @Header("Authorization") token: String
+    ): Response<JsonObject>
 
-    @Headers(
-        "Content-Type: multipart/form-data",
-        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
-    )
     @POST("onec/acc_hist")
-    suspend fun getBillsList(@Body body: BillsListBody): BillsListResult
+    @FormUrlEncoded
+    suspend fun getBillsList(
+        @Field("contract") contract: String,
+        @Field("dateFrom") dateFrom: String,
+        @Field("dateTo") dateTo: String,
+        @Header("Authorization") token: String
+    ): BillsListResult
 
-    @Headers(
-        "Content-Type: multipart/form-data",
-        "Authorization: ir1nlHXr4t949MG3XE1pabUjhRjzNb6CcBhmrdslGmqlEfIiRVq4g"
-    )
+    @Headers("Content-Type: multipart/form-data")
     @POST("onec/cr_acc")
-    suspend fun createBills(@Body body: CreateBillsBody): TotalReturnValue
+    suspend fun createBills(
+        @Body body: CreateBillsBody,
+        @Header("Authorization") token: String
+    ): CreateBillsResult
 }
 
 object ApiUtils {

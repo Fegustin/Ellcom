@@ -10,6 +10,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_bills.*
 import ru.steilsouth.ellcom.R
+import ru.steilsouth.ellcom.adapter.BillsItem
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.viewmodal.BillsVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
@@ -33,6 +34,10 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
         if (token != null) {
             initRecyclerView(token)
+
+            swipeRefresh.setOnRefreshListener {
+                initRecyclerView(token)
+            }
         }
     }
 
@@ -45,15 +50,26 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             if (infoResult.status == "ok") {
                 modelBills.getBillsList(
                     infoResult.data.res.contract_num,
-                    "01.01.2020",
+                    "01.12.2020",
                     dateFormat()
                 ).observe(viewLifecycleOwner) {
                     if (it == null) return@observe
                     if (it.status == "ok") {
+                        adapter.clear()
+                        for (i in it.data) {
+                            adapter.add(
+                                BillsItem(
+                                    i.acc_records[0].sum.toString(),
+                                    i.acc_records[0].service,
+                                    i.acc_date
+                                )
+                            )
+                        }
                     } else {
                         Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
+                swipeRefresh.isRefreshing = false
             }
         }
     }

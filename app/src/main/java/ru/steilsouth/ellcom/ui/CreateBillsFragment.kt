@@ -3,7 +3,7 @@ package ru.steilsouth.ellcom.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_create_bills.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.ui.viewpager.adapter.FragmentAdapter
@@ -22,6 +22,11 @@ class CreateBillsFragment : Fragment(R.layout.fragment_create_bills) {
                     else -> viewPager.currentItem = 1
                 }
             }
+        }
+
+        buttonHistoryPayment.setOnClickListener {
+            findNavController()
+                .navigate(CreateBillsFragmentDirections.actionCreateBillsFragmentToBillsFragment())
         }
     }
 

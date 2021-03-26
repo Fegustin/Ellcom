@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import retrofit2.Response
 import ru.steilsouth.ellcom.api.ApiUtils
 import ru.steilsouth.ellcom.pojo.registration.RegistrationBody
+import ru.steilsouth.ellcom.utils.enam.Token
 
 class RegistrationRepository {
     private val tag = "Error: class -> RegistrationRepository: "
@@ -24,7 +25,8 @@ class RegistrationRepository {
                     phone,
                     address,
                     email
-                )
+                ),
+                Token.CmsEllco.token
             )
         } catch (e: Throwable) {
             Log.e(tag, e.localizedMessage)

@@ -44,71 +44,101 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardCornerRadius="8dp"
-            app:strokeColor="@android:color/darker_gray"
-            app:strokeWidth="2dp">
+            android:layout_marginTop="25dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/buttonScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="15dp">
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/dark_blue"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/imageViewUbank"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:layout_constraintBottom_toTopOf="@+id/imageViewIoMoney"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewQiwi"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_ubank" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="30dp">
 
-                <ImageView
-                    android:id="@+id/imageViewQiwi"
-                    android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_create_score" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Создать счет"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="@android:color/darker_gray"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:layout_constraintBottom_toTopOf="@+id/imageViewIoMoney"
-                    app:layout_constraintEnd_toStartOf="@+id/imageViewUbank"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_qiwi" />
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp">
 
-                <ImageView
-                    android:id="@+id/imageViewIoMoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_iomoney" />
+                    <ImageView
+                        android:id="@+id/imageViewUbank"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:layout_constraintBottom_toTopOf="@+id/imageViewIoMoney"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewQiwi"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_ubank" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:id="@+id/imageViewQiwi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:layout_constraintBottom_toTopOf="@+id/imageViewIoMoney"
+                        app:layout_constraintEnd_toStartOf="@+id/imageViewUbank"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_qiwi" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/dark_blue"
-            android:text="Создать счет"
-            android:textAllCaps="false"
-            android:textSize="15sp"
-            app:cornerRadius="4dp"
-            app:icon="@drawable/ic_create_score"
-            app:iconGravity="textEnd" />
+                    <ImageView
+                        android:id="@+id/imageViewIoMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:srcCompat="@drawable/ic_iomoney" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </TableRow>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonHistoryPayment"
@@ -139,6 +169,7 @@
             app:iconTint="@null"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
+
     </LinearLayout>
 
 </ScrollView>

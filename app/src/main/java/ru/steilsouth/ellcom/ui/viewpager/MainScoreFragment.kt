@@ -1,5 +1,6 @@
 package ru.steilsouth.ellcom.ui.viewpager
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -12,9 +13,11 @@ import kotlinx.android.synthetic.main.fragment_main_score.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.pojo.bills.createbills.SubMobileContract
 import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.utils.saveFilePDF
 import ru.steilsouth.ellcom.viewmodal.BillsVM
 import ru.steilsouth.ellcom.viewmodal.ContactVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
+import java.util.*
 
 
 class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
@@ -95,7 +98,18 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
             ).observe(viewLifecycleOwner) {
                 if (it == null) return@observe
                 if (it.status == "ok") {
-                    Toast.makeText(activity, "Счет сформирован", Toast.LENGTH_SHORT).show()
+                    saveFilePDF(it.data, requireContext())
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Успех")
+                        .setMessage(
+                            "Счет сформирован и сохранен по пути ${
+                                context?.getExternalFilesDir(
+                                    null
+                                ).toString().substringAfter("0/")
+                            }/score."
+                        )
+                        .setPositiveButton("OK") { _, _ -> }
+                        .show()
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             }
         }

@@ -244,7 +244,11 @@
         <fragment
             android:id="@+id/createBillsFragment"
             android:name="ru.steilsouth.ellcom.ui.CreateBillsFragment"
-            tools:layout="@layout/fragment_create_bills" />
+            tools:layout="@layout/fragment_create_bills" >
+            <action
+                android:id="@+id/action_createBillsFragment_to_billsFragment"
+                app:destination="@id/billsFragment" />
+        </fragment>
     </navigation>
     <action
         android:id="@+id/action_global_authFragment"
