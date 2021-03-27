@@ -49,8 +49,6 @@ dependencies {
 
     // PDF viewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // ---------
 
     // Groupie
@@ -93,6 +91,8 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     // ---------
 
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.media:media:1.2.1"
     implementation "androidx.fragment:fragment-ktx:1.2.5"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

@@ -30,7 +30,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         super.onViewCreated(view, savedInstanceState)
         isOnline(requireContext())
 
-        setFormatPhone()
+        setFormat("+7 ([000]) [000]-[00]-[00]", editTextTel)
 
         registrationLayout.setOnClickListener {
             val inputManager =
@@ -132,11 +132,5 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     }
                 }
         }
-    }
-
-    private fun setFormatPhone() {
-        val listener = MaskedTextChangedListener("+7 ([000]) [000]-[00]-[00]", editTextTel)
-        editTextTel.addTextChangedListener(listener)
-        editTextTel.onFocusChangeListener = listener
     }
 }

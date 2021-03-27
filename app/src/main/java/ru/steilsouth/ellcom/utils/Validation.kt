@@ -15,6 +15,22 @@ fun EditText.validation(): Boolean {
     }
 }
 
+fun EditText.validationDate(): Boolean {
+    val value = text.toString()
+    return if (value.isEmpty()) {
+        backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_warning)
+        false
+    } else if (value.substringBefore(".").toInt() > 31 || value.substringAfter(".")
+            .substringBefore(".").toInt() > 12
+    ) {
+        backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_warning)
+        false
+    } else {
+        backgroundTintList = ContextCompat.getColorStateList(context, R.color.edit_text_neutral)
+        true
+    }
+}
+
 fun EditText.validationReallocation(): Boolean {
     return !text.isNullOrEmpty()
 }
