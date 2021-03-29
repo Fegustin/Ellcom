@@ -72,7 +72,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         modelMainAndSub.infoProfile(token).observe(viewLifecycleOwner) { infoResult ->
             if (infoResult.status == "ok") {
                 modelBills.getBillsList(
-                    "Основной13579",
+                    infoResult.data.res.contract_num,
                     dateFrom,
                     dateTo
                 ).observe(viewLifecycleOwner) {

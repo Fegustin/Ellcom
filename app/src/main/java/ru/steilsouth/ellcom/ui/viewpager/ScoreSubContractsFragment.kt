@@ -16,6 +16,7 @@ import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.ScoreSubItem
 import ru.steilsouth.ellcom.pojo.bills.createbills.SubMobileContract
 import ru.steilsouth.ellcom.utils.isOnline
+import ru.steilsouth.ellcom.utils.openFile
 import ru.steilsouth.ellcom.utils.saveFilePDF
 import ru.steilsouth.ellcom.viewmodal.BillsVM
 import ru.steilsouth.ellcom.viewmodal.ContactVM
@@ -80,7 +81,10 @@ class ScoreSubContractsFragment : Fragment(R.layout.fragment_score_sub_contracts
                                     ).toString().substringAfter("0/")
                                 }/score."
                             )
-                            .setPositiveButton("OK") { _, _ -> }
+                            .setNegativeButton("Закрыть окно") { _, _ -> }
+                            .setPositiveButton("Открыть папку") { _, _ ->
+                                activity?.let { it1 -> openFile(it1) }
+                            }
                             .show()
                     } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 }
