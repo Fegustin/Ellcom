@@ -71,7 +71,8 @@ class ScoreSubContractsFragment : Fragment(R.layout.fragment_score_sub_contracts
                 .observe(viewLifecycleOwner) {
                     if (it == null) return@observe
                     if (it.status == "ok") {
-                        saveFilePDF(it.data, requireContext())
+                        val pdfData = it.data as String
+                        saveFilePDF(pdfData, requireContext())
                         AlertDialog.Builder(requireContext())
                             .setTitle("Успех")
                             .setMessage(

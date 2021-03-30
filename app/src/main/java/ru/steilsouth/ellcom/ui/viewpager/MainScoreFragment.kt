@@ -97,9 +97,9 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                     )
                 )
             ).observe(viewLifecycleOwner) {
-                if (it == null) return@observe
                 if (it.status == "ok") {
-                    saveFilePDF(it.data, requireContext())
+                    val pdfData = it.data as String
+                    saveFilePDF(pdfData, requireContext())
                     AlertDialog.Builder(requireContext())
                         .setTitle("Успех")
                         .setMessage(
