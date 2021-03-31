@@ -86,4 +86,11 @@
         android:textSize="15sp"
         app:cornerRadius="4dp" />
 
+    <ProgressBar
+        android:id="@+id/progressBarScore"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
 </LinearLayout>

@@ -71,13 +71,19 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
             })
 
             buttonCreateScore?.setOnClickListener {
+                progressBarScore.visibility = View.VISIBLE
+                buttonCreateScore?.visibility = View.GONE
                 createAnInvoice(token, seekBarScore.progress, sum)
             }
         }
     }
 
     private fun createAnInvoice(token: String, quantity: Int, sum: Int) {
-        if (!isOnline(requireContext())) return
+        if (!isOnline(requireContext())) {
+            progressBarScore.visibility = View.GONE
+            buttonCreateScore?.visibility = View.VISIBLE
+            return
+        }
         val contract = infoProfile["contract"]
         val accountant = infoProfile["accountant"]
         val type = infoProfile["type"]
@@ -97,17 +103,14 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                     )
                 )
             ).observe(viewLifecycleOwner) {
+                if (it ==  null) return@observe
                 if (it.status == "ok") {
                     val pdfData = it.data as String
-                    saveFilePDF(pdfData, requireContext())
+                    val path = saveFilePDF(pdfData, requireContext())
                     AlertDialog.Builder(requireContext())
                         .setTitle("Успех")
                         .setMessage(
-                            "Счет сформирован и сохранен по пути ${
-                                context?.getExternalFilesDir(
-                                    null
-                                ).toString().substringAfter("0/")
-                            }/score."
+                            "Счет сформирован и сохранен по пути $path"
                         )
                         .setNegativeButton("Закрыть окно") { _, _ -> }
                         .setPositiveButton("Открыть папку") { _, _ ->
@@ -115,6 +118,9 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                         }
                         .show()
                 } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+
+                progressBarScore.visibility = View.GONE
+                buttonCreateScore?.visibility = View.VISIBLE
             }
         }
     }
