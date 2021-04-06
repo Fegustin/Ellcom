@@ -72,14 +72,13 @@ class RadioService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            actionPause -> {
-                mediaPlayer.pause()
-            }
-            actionPlay -> {
-                mediaPlayer.start()
-            }
+            actionPause -> { mediaPlayer.pause() }
+            actionPlay -> { mediaPlayer.start() }
             actionStop -> {
                 stopService(this)
+                val intentStop = Intent("isStop")
+                intentStop.putExtra("isStop", true)
+                sendBroadcast(intentStop)
             }
         }
 

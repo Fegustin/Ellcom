@@ -1,8 +1,11 @@
 package ru.steilsouth.ellcom.ui
 
 import android.app.ActivityManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -33,6 +36,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.registerReceiver(receiver, IntentFilter("isStop"))
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
@@ -88,6 +93,21 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
             imageViewAnim.setImageResource(R.drawable.anim_play_pause)
         } else {
             imageViewAnim.setImageResource(R.drawable.anim_pause_play)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.unregisterReceiver(receiver)
+    }
+
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.extras != null) {
+                if (intent.getBooleanExtra("isStop", false)) {
+                    animationRadioIcon(R.drawable.anim_pause_play)
+                }
+            }
         }
     }
 

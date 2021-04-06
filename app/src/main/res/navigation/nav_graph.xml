@@ -12,24 +12,24 @@
         <action
             android:id="@+id/action_authFragment_to_registrationFragment"
             app:destination="@id/registrationFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_authFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_authFragment_to_navigationToMainContent"
             app:destination="@id/navigationToMainContent"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -59,24 +59,24 @@
             <action
                 android:id="@+id/action_mainScreenFragment_to_subContractListFragment"
                 app:destination="@id/subContractListFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_mainScreenFragment_to_profileFragment2"
                 app:destination="@id/profileFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_mainScreenFragment_to_notificationFragment"
                 app:destination="@id/notificationFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/balanceFragment"
@@ -85,17 +85,17 @@
             <action
                 android:id="@+id/action_balanceFragment_to_topUpAccountFragment"
                 app:destination="@id/topUpAccountFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_balanceFragment_to_distributeFundsFragment"
                 app:destination="@id/distributeFundsFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/profileFragment"
@@ -104,10 +104,10 @@
             <action
                 android:id="@+id/action_profileFragment_to_changePasswordFragment"
                 app:destination="@id/changePasswordFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <argument
                 android:name="isSubContract"
                 app:argType="boolean"
@@ -127,10 +127,10 @@
             <action
                 android:id="@+id/action_profileFragment_to_changePasswordContractAndInternetFragment"
                 app:destination="@id/changePasswordContractAndInternetFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <argument
                 android:name="servId"
                 app:argType="integer"
@@ -138,24 +138,24 @@
             <action
                 android:id="@+id/action_profileFragment_to_sessionFragment2"
                 app:destination="@id/sessionFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_profileFragment_to_emailListFragment"
                 app:destination="@id/emailListFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_profileFragment_to_contractChangeFragment"
                 app:destination="@id/contractChangeFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/contactFragment"
@@ -168,10 +168,10 @@
             <action
                 android:id="@+id/action_subContractListFragment_to_profileFragment2"
                 app:destination="@id/profileFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/changePasswordFragment"
@@ -180,10 +180,10 @@
             <action
                 android:id="@+id/action_changePasswordFragment_to_changePasswordContractAndInternetFragment"
                 app:destination="@id/changePasswordContractAndInternetFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/changePasswordContractAndInternetFragment"
@@ -209,17 +209,17 @@
             <action
                 android:id="@+id/action_topUpAccountFragment_to_billsFragment"
                 app:destination="@id/billsFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
             <action
                 android:id="@+id/action_topUpAccountFragment_to_createBillsFragment"
                 app:destination="@id/createBillsFragment"
-                app:enterAnim="@android:anim/slide_in_left"
-                app:exitAnim="@android:anim/slide_out_right"
-                app:popEnterAnim="@android:anim/slide_in_left"
-                app:popExitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
         <fragment
             android:id="@+id/distributeFundsFragment"
@@ -253,17 +253,17 @@
     <action
         android:id="@+id/action_global_authFragment"
         app:destination="@id/authFragment"
-        app:enterAnim="@android:anim/slide_in_left"
-        app:exitAnim="@android:anim/slide_out_right"
-        app:popEnterAnim="@android:anim/slide_in_left"
-        app:popExitAnim="@android:anim/slide_out_right"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_readerPDFFragment"
         app:destination="@id/readerPDFFragment"
-        app:enterAnim="@android:anim/slide_in_left"
-        app:exitAnim="@android:anim/slide_out_right"
-        app:popEnterAnim="@android:anim/slide_in_left"
-        app:popExitAnim="@android:anim/slide_out_right" />
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 </navigation>
