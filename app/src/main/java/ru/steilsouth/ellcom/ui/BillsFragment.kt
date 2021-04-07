@@ -12,10 +12,9 @@ import kotlinx.android.synthetic.main.fragment_bills.*
 import kotlinx.android.synthetic.main.fragment_bills.view.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.BillsItem
-import ru.steilsouth.ellcom.utils.validationDate
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.setFormat
-import ru.steilsouth.ellcom.utils.validation
+import ru.steilsouth.ellcom.utils.validationDate
 import ru.steilsouth.ellcom.viewmodal.BillsVM
 import ru.steilsouth.ellcom.viewmodal.MainAndSubVM
 import java.util.*
@@ -76,23 +75,34 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     dateFrom,
                     dateTo
                 ).observe(viewLifecycleOwner) {
-                    if (it == null) return@observe
-                    if (it.status == "ok") {
-                        if (it.data.isEmpty()) {
-                            Toast.makeText(activity, "Ничего не найдено", Toast.LENGTH_SHORT).show()
-                        }
-                        adapter.clear()
-                        for (i in it.data) {
-                            adapter.add(
-                                BillsItem(
-                                    i.acc_records[0].sum.toString(),
-                                    i.acc_records[0].service,
-                                    i.acc_date
-                                )
-                            )
+                    if (it.isSuccessful) {
+                        val res = it.body()
+                        if (res != null) {
+                            if (res.status == "ok") {
+                                if (res.data.isEmpty()) {
+                                    Toast.makeText(activity, "Ничего не найдено", Toast.LENGTH_SHORT).show()
+                                }
+                                adapter.clear()
+                                for (i in res.data) {
+                                    adapter.add(
+                                        BillsItem(
+                                            i.acc_records[0].sum.toString(),
+                                            i.acc_records[0].service,
+                                            i.acc_date
+                                        )
+                                    )
+                                }
+                            } else {
+                                Toast.makeText(activity, res?.message, Toast.LENGTH_SHORT).show()
+                            }
                         }
                     } else {
-                        Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            "Что-то пошло не так. Обратитесь в поддержку",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@observe
                     }
                 }
             }

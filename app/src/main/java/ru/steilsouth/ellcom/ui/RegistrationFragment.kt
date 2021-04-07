@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.utils.*
@@ -116,7 +115,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             model.registration(name, organization, phone, address, email)
                 .observe(viewLifecycleOwner) {
                     if (it.isSuccessful) {
-                        if (it.body()?.get("error")?.asBoolean == false) {
+                        if (it?.body()?.get("status")?.asString == "ok") {
                             Toast.makeText(
                                 activity,
                                 "Ваша заявка успешно отправлена",
@@ -125,10 +124,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                         } else {
                             Toast.makeText(
                                 activity,
-                                it.body()?.get("text").toString(),
+                                it.body()?.get("message")?.asString,
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                    } else {
+                        Toast.makeText(activity, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
                     }
                 }
         }

@@ -83,7 +83,7 @@ class ChangePasswordContractAndInternetFragment : Fragment(R.layout.fragment_cha
         if (isOnline(requireContext())) {
             model.passwordChange(token, oldPassword, newPassword, isContract, servId)
                 .observe(viewLifecycleOwner) {
-                    if (it.status != "ok") {
+                    if (it.status == "ok") {
                         Toast.makeText(activity, "Вы успешно сменили пароль", Toast.LENGTH_SHORT)
                             .show()
                         findNavController().navigate(ChangePasswordFragmentDirections.actionGlobalAuthFragment())

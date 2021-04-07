@@ -1,6 +1,7 @@
 package ru.steilsouth.ellcom.repository
 
 import android.util.Log
+import retrofit2.Response
 import ru.steilsouth.ellcom.api.ApiUtils
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsBody
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsResult
@@ -15,7 +16,7 @@ class BillsRepository {
         contact: String,
         dateFrom: String,
         dateTo: String
-    ): BillsListResult? {
+    ): Response<BillsListResult>? {
         return try {
             ApiUtils.apiCms.getBillsList(contact, dateFrom, dateTo, Token.CmsEllco.token)
         } catch (e: Throwable) {
@@ -29,7 +30,7 @@ class BillsRepository {
         contractNum: String,
         accountant: String,
         subMobileContractList: List<SubMobileContract>
-    ): CreateBillsResult? {
+    ): Response<CreateBillsResult>? {
         return try {
             ApiUtils.apiCms.createBills(
                 CreateBillsBody(

@@ -1,6 +1,5 @@
 package ru.steilsouth.ellcom.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,7 +20,6 @@ class SubContractItem(
     private val item: SubContractsResult.Data.Result,
     private val fragment: Fragment
 ) : Item() {
-    @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
         init(viewHolder, item)
@@ -71,10 +69,23 @@ class SubContractItem(
                     item.id
                 )
         }
+
+        setSharedPreferences(item)
+
+        fragment.findNavController().navigate(action)
+    }
+
+    private fun setSharedPreferences(item: SubContractsResult.Data.Result) {
+        val rate = item.rateList[0].tariffTitle
+            .substringAfter("\"")
+            .substringBefore("\"")
+
         context.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.edit()?.apply {
             putBoolean("isSuperContract", false)
+            putString("contractNum", item.title)
+            putString("balance", item.balance.toString())
+            putString("rate", rate)
             apply()
         }
-        fragment.findNavController().navigate(action)
     }
 }

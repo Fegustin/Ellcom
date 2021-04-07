@@ -103,21 +103,34 @@ class MainScoreFragment : Fragment(R.layout.fragment_main_score) {
                     )
                 )
             ).observe(viewLifecycleOwner) {
-                if (it ==  null) return@observe
-                if (it.status == "ok") {
-                    val pdfData = it.data as String
-                    val path = saveFilePDF(pdfData, requireContext())
-                    AlertDialog.Builder(requireContext())
-                        .setTitle("Успех")
-                        .setMessage(
-                            "Счет сформирован и сохранен по пути $path"
-                        )
-                        .setNegativeButton("Закрыть окно") { _, _ -> }
-                        .setPositiveButton("Открыть папку") { _, _ ->
-                            activity?.let { it1 -> openFile(it1) }
-                        }
-                        .show()
-                } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                if (it.isSuccessful) {
+                    val res = it.body()
+                    if (res != null) {
+                        if (res.status == "ok") {
+                            val pdfData = res.data as String
+                            val path = saveFilePDF(pdfData, requireContext())
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("Успех")
+                                .setMessage(
+                                    "Счет сформирован и сохранен по пути $path"
+                                )
+                                .setNegativeButton("Закрыть окно") { _, _ -> }
+                                .setPositiveButton("Открыть папку") { _, _ ->
+                                    activity?.let { it1 -> openFile(it1) }
+                                }
+                                .show()
+                        } else Toast.makeText(activity, res.message, Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Что-то пошло не так. Обратитесь в поддержку",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    progressBarScore.visibility = View.GONE
+                    buttonCreateScore?.visibility = View.VISIBLE
+                    return@observe
+                }
 
                 progressBarScore.visibility = View.GONE
                 buttonCreateScore?.visibility = View.VISIBLE

@@ -119,7 +119,7 @@ interface ApiService {
 
     // Cms ellco
     @Headers("Content-Type: multipart/form-data")
-    @POST("ellcom/info/become.client.set")
+    @POST("connection/request/set.ellcom.client")
     suspend fun registration(
         @Body body: RegistrationBody,
         @Header("Authorization") token: String
@@ -132,14 +132,14 @@ interface ApiService {
         @Field("dateFrom") dateFrom: String,
         @Field("dateTo") dateTo: String,
         @Header("Authorization") token: String
-    ): BillsListResult
+    ): Response<BillsListResult>
 
     @Headers("Content-Type: multipart/form-data")
     @POST("onec/cr_acc")
     suspend fun createBills(
         @Body body: CreateBillsBody,
         @Header("Authorization") token: String
-    ): CreateBillsResult
+    ): Response<CreateBillsResult>
 }
 
 object ApiUtils {

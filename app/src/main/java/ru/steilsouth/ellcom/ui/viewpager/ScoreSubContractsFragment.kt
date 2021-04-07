@@ -70,26 +70,38 @@ class ScoreSubContractsFragment : Fragment(R.layout.fragment_score_sub_contracts
                 "Укажите количество месяцев хотя бы на одной договоре",
                 Toast.LENGTH_SHORT
             ).show()
+            progressBarScoreSub.visibility = View.GONE
+            buttonCreateScore?.visibility = View.VISIBLE
             return
         }
         if (!contract.isNullOrEmpty() && !accountant.isNullOrEmpty()) {
             modelBills.createBills(token, contract, accountant, subContractList)
                 .observe(viewLifecycleOwner) {
-                    if (it == null) return@observe
-                    if (it.status == "ok") {
-                        val pdfData = it.data as String
-                        val path = saveFilePDF(pdfData, requireContext())
-                        AlertDialog.Builder(requireContext())
-                            .setTitle("Успех")
-                            .setMessage(
-                                "Счет сформирован и сохранен по пути $path"
-                            )
-                            .setNegativeButton("Закрыть окно") { _, _ -> }
-                            .setPositiveButton("Открыть папку") { _, _ ->
-                                activity?.let { it1 -> openFile(it1) }
-                            }
-                            .show()
-                    } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                    if (it.isSuccessful) {
+                        val res = it.body()
+                        if (res != null) {
+                            if (res.status == "ok") {
+                                val pdfData = res.data as String
+                                val path = saveFilePDF(pdfData, requireContext())
+                                AlertDialog.Builder(requireContext())
+                                    .setTitle("Успех")
+                                    .setMessage(
+                                        "Счет сформирован и сохранен по пути $path"
+                                    )
+                                    .setNegativeButton("Закрыть окно") { _, _ -> }
+                                    .setPositiveButton("Открыть папку") { _, _ ->
+                                        activity?.let { it1 -> openFile(it1) }
+                                    }
+                                    .show()
+                            } else Toast.makeText(activity, res.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            "Что-то пошло не так. Обратитесь в поддержку",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
                     progressBarScoreSub.visibility = View.GONE
                     buttonCreateScore?.visibility = View.VISIBLE

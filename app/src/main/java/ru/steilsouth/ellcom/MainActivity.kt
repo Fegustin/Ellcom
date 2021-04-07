@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
             textViewTitle.text = when (destination.id) {
                 R.id.authFragment -> {
-                    toolbar.visibility = View.GONE
+                    toolbar.visibility = View.INVISIBLE
                     bottom_nav.visibility = View.GONE
                     ""
                 }

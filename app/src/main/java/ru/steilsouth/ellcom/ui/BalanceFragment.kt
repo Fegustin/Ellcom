@@ -4,8 +4,10 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.*
@@ -22,7 +24,8 @@ import kotlinx.android.synthetic.main.include_balance.*
 import ru.steilsouth.ellcom.R
 import ru.steilsouth.ellcom.adapter.BalanceItem
 import ru.steilsouth.ellcom.pojo.balance.BalanceList
-import ru.steilsouth.ellcom.utils.enam.Month
+import ru.steilsouth.ellcom.utils.getDate
+import ru.steilsouth.ellcom.utils.getMonthNumber
 import ru.steilsouth.ellcom.utils.isOnline
 import ru.steilsouth.ellcom.utils.timerForWatchingMainContent
 import ru.steilsouth.ellcom.viewmodal.BalanceVM
@@ -38,18 +41,23 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
 
     private val subTokenMap = mutableMapOf<String, String>()
 
+    private var isChangeYear = false
+    private var currentIndex = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        timerForWatchingMainContent(progressBar, layoutContent)
 
         val token =
             activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)?.getString("token", "")
         val isSuperContract = activity?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
             ?.getBoolean("isSuperContract", false)
 
+
+        textViewYear.text = getDate("yyyy") + "г."
+
         if (isOnline(requireContext())) {
             if (token != null && isSuperContract != null) {
+
                 clickChangeMonth()
 
                 setContactInSpinner(token, isSuperContract)
@@ -70,6 +78,16 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
                         .navigate(BalanceFragmentDirections.actionBalanceFragmentToDistributeFundsFragment())
                 }
 
+                textViewYear.setOnClickListener {
+                    yearPickerDialog(
+                        token,
+                        isSuperContract
+                    )
+                }
+
+                textViewCurrentMouth.text =
+                    resources.getStringArray(R.array.month)[getDate("MM").toInt() - 1]
+
                 spinnerLogin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: AdapterView<*>?,
@@ -78,10 +96,12 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
                         id: Long
                     ) {
                         val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
+
                         initBalance(
                             token,
                             getMonthNumber(textViewMonth.text.toString()),
-                            isSuperContract
+                            isSuperContract,
+                            textViewYear.text.toString().substringBefore("г")
                         )
                     }
 
@@ -89,31 +109,16 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
                 }
             }
         }
+
+        timerForWatchingMainContent(progressBar, layoutContent)
     }
 
-    private fun initBalance(token: String, month: String, isSuperContract: Boolean) {
+    private fun initBalance(token: String, month: String, isSuperContract: Boolean, year: String) {
         if (isSuperContract) {
             val localToken = subTokenMap[spinnerLogin?.selectedItem.toString().substringAfter("№")]
-            localToken?.let { setBalance(it, month) }
+            localToken?.let { setBalance(it, month, year) }
         } else {
-            setBalance(token, month)
-        }
-    }
-
-    private fun getMonthNumber(month: String): String {
-        return when (month) {
-            Month.January.rusName -> Month.January.number
-            Month.February.rusName -> Month.February.number
-            Month.March.rusName -> Month.March.number
-            Month.April.rusName -> Month.April.number
-            Month.May.rusName -> Month.May.number
-            Month.June.rusName -> Month.June.number
-            Month.July.rusName -> Month.July.number
-            Month.August.rusName -> Month.August.number
-            Month.September.rusName -> Month.September.number
-            Month.October.rusName -> Month.October.number
-            Month.November.rusName -> Month.November.number
-            else -> Month.December.number
+            setBalance(token, month, year)
         }
     }
 
@@ -214,9 +219,8 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
         spinnerLogin.adapter = adapter
     }
 
-    private fun setBalance(token: String, month: String) {
+    private fun setBalance(token: String, month: String, year: String) {
         if (isOnline(requireContext())) {
-            val year = getDate("yyyy")
             val day = getDate("dd")
             modelBalance.getBalance(token, "${year}-${month}-${day}").observe(viewLifecycleOwner) {
                 if (it.status == "ok") {
@@ -269,9 +273,20 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
     }
 
     private fun changeMonth(token: String, isSuperContract: Boolean) {
-        val arrayMonth = resources.getStringArray(R.array.month)
+        var arrayMonth = resources.getStringArray(R.array.month)
 
-        var currentIndex = 0
+        val year = textViewYear.text.toString().substringBefore("г")
+        if (year == getDate("yyyy")) {
+            arrayMonth = arrayMonth.dropLast(12 - getDate("MM").toInt()).toTypedArray()
+            val textViewMonthMain: TextView = textSwitcherMonth.currentView as TextView
+            textViewMonthMain.text = arrayMonth.last()
+            currentIndex = getDate("MM").toInt() - 1
+        } else {
+            val textViewMonthMain: TextView = textSwitcherMonth.currentView as TextView
+            textViewMonthMain.text = arrayMonth.first()
+            currentIndex = 0
+        }
+
         var isFirstTimeClicked = true
 
         imageButtonArrowRight.setOnClickListener {
@@ -279,17 +294,19 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
 
             initAnimTextSwitcher(R.anim.slide_in_right, R.anim.slide_out_left)
 
-            if (isFirstTimeClicked) {
-                isFirstTimeClicked = false
-                currentIndex = 0
-            }
-
             currentIndex++
             if (currentIndex == arrayMonth.size) currentIndex = 0
 
             textSwitcherMonth.setText(arrayMonth[currentIndex])
             val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
-            initBalance(token, getMonthNumber(textViewMonth.text.toString()), isSuperContract)
+            val yearLocal = textViewYear.text.toString().substringBefore("г")
+
+            initBalance(
+                token,
+                getMonthNumber(textViewMonth.text.toString()),
+                isSuperContract,
+                yearLocal
+            )
         }
 
         imageButtonArrowLeft.setOnClickListener {
@@ -297,22 +314,52 @@ class BalanceFragment : Fragment(R.layout.fragment_balance) {
 
             initAnimTextSwitcher(R.anim.slide_in_left, R.anim.slide_out_right)
 
-            if (isFirstTimeClicked) {
-                isFirstTimeClicked = false
-                currentIndex = arrayMonth.size - 1
-            }
-
             if (currentIndex == 0) currentIndex = arrayMonth.size
             currentIndex--
 
             textSwitcherMonth.setText(arrayMonth[currentIndex])
+
             val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
-            initBalance(token, getMonthNumber(textViewMonth.text.toString()), isSuperContract)
+            val yearLocal = textViewYear.text.toString().substringBefore("г")
+
+            initBalance(
+                token,
+                getMonthNumber(textViewMonth.text.toString()),
+                isSuperContract,
+                yearLocal
+            )
         }
     }
 
-    private fun getDate(pattern: String): String {
-        val calendar = Calendar.getInstance().time
-        return SimpleDateFormat(pattern, Locale.getDefault()).format(calendar)
+    private fun yearPickerDialog(token: String, isSuperContract: Boolean) {
+        val builder = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+        val inflater = activity?.layoutInflater
+
+        val cal = Calendar.getInstance()
+        val dialog: View? = inflater?.inflate(R.layout.month_year_picker_dialog, null)
+        val yearPicker = dialog?.findViewById(R.id.pickerYear) as NumberPicker
+        val year: Int = cal.get(Calendar.YEAR)
+        yearPicker.minValue = 1990
+        yearPicker.maxValue = year
+        yearPicker.value = year
+        builder.setView(dialog)
+            .setPositiveButton("Выбрать") { _, _ ->
+                isChangeYear = true
+
+                textViewYear.text = yearPicker.value.toString() + "г."
+                val textViewMonth: TextView = textSwitcherMonth.currentView as TextView
+
+                changeMonth(token, isSuperContract)
+
+                initBalance(
+                    token,
+                    getMonthNumber(textViewMonth.text.toString()),
+                    isSuperContract,
+                    yearPicker.value.toString()
+                )
+            }
+            .setNegativeButton("Закрыть") { _, _ -> }
+        builder.create()
+        builder.show()
     }
 }
