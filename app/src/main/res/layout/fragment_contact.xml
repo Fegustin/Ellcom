@@ -14,31 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mainContract"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:minHeight="250dp"
             app:cardCornerRadius="14dp">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="200dp" />
 
 
         </com.google.android.material.card.MaterialCardView>
@@ -62,34 +60,43 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/textViewAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="РД, г.Махачкала, пр.Имама Шамиля, 2&quot;В&quot;"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_geolocation" />
 
                 <TextView
+                    android:id="@+id/textViewContactPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="+7(8722) 555-022"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_phone" />
 
                 <TextView
+                    android:id="@+id/textViewContactEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="company@ellcom.ru"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_email" />
@@ -122,6 +129,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="Ошибка"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/ic_copy" />
@@ -163,6 +172,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="Ошибка"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/ic_copy" />
@@ -179,6 +190,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center">
 
                     <ImageButton
@@ -187,6 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:backgroundTint="@android:color/transparent"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:src="@drawable/ic_vk" />
 
                     <ImageButton
@@ -195,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:backgroundTint="@android:color/transparent"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:src="@drawable/ic_inst" />
 
                 </TableRow>

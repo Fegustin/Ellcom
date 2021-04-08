@@ -29,8 +29,8 @@
             android:layout_weight="1"
             android:background="@drawable/border_radius"
             android:backgroundTint="@color/edit_text_neutral"
-            android:ems="10"
             android:hint="С дд.мм.гггг"
+            android:imeOptions="actionNext"
             android:inputType="date"
             android:padding="4dp" />
 
@@ -42,8 +42,8 @@
             android:layout_weight="1"
             android:background="@drawable/border_radius"
             android:backgroundTint="@color/edit_text_neutral"
-            android:ems="10"
             android:hint="До дд.мм.гггг"
+            android:imeOptions="actionDone"
             android:inputType="date"
             android:padding="4dp" />
 

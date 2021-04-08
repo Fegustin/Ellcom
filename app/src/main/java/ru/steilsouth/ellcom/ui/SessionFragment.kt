@@ -30,6 +30,8 @@ class SessionFragment : Fragment(R.layout.fragment_session) {
 
     private var textDate = ""
 
+    private var adapterHistory  = GroupAdapter<GroupieViewHolder>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,6 +53,8 @@ class SessionFragment : Fragment(R.layout.fragment_session) {
                             token,
                             spinnerLogin.selectedItem.toString().substringAfter("№")
                         )
+                        textViewDate.text = "_________"
+                        adapterHistory.clear()
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -111,11 +115,11 @@ class SessionFragment : Fragment(R.layout.fragment_session) {
             )
                 .observe(viewLifecycleOwner) {
                     if (it.status == "ok") {
-                        val adapter = GroupAdapter<GroupieViewHolder>()
+                        adapterHistory.clear()
                         for (i in it.data.res) {
-                            adapter.add(SessionItem(i))
+                            adapterHistory.add(SessionItem(i))
                         }
-                        recyclerViewSessionHistory.adapter = adapter
+                        recyclerViewSessionHistory.adapter = adapterHistory
                         recyclerViewSessionHistory.isNestedScrollingEnabled = false
                     } else Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 }
