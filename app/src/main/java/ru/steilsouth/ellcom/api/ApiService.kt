@@ -11,6 +11,7 @@ import ru.steilsouth.ellcom.pojo.balance.BalanceResult
 import ru.steilsouth.ellcom.pojo.balance.ContractBalanceBody
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsBody
 import ru.steilsouth.ellcom.pojo.bills.createbills.CreateBillsResult
+import ru.steilsouth.ellcom.pojo.bills.list.BillsListBody
 import ru.steilsouth.ellcom.pojo.bills.list.BillsListResult
 import ru.steilsouth.ellcom.pojo.changepassword.contract.ContractChangePasswordBody
 import ru.steilsouth.ellcom.pojo.changepassword.inet.InternetChangePasswordBody
@@ -125,12 +126,10 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Response<JsonObject>
 
+    @Headers("Content-Type: multipart/form-data")
     @POST("onec/acc_hist")
-    @FormUrlEncoded
     suspend fun getBillsList(
-        @Field("contract") contract: String,
-        @Field("dateFrom") dateFrom: String,
-        @Field("dateTo") dateTo: String,
+        @Body body: BillsListBody,
         @Header("Authorization") token: String
     ): Response<BillsListResult>
 

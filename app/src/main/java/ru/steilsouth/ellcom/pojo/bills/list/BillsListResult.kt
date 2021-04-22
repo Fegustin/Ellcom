@@ -15,5 +15,5 @@ data class Data(
 
 data class AccRecord(
     val service: String,
-    val sum: Int
+    val sum: Float
 )

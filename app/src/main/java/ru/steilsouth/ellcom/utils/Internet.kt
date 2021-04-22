@@ -3,9 +3,7 @@ package ru.steilsouth.ellcom.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 
 
 fun isOnline(context: Context): Boolean {
