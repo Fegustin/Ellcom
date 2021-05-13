@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Change text color status bar
+        // Изменить цвет текста в строке состояния
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 
         initNavigationComponent()
@@ -34,17 +34,23 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
-
+    
     private fun initNavigationComponent() {
+        // Настройка Navigation component
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration =
             AppBarConfiguration(setOf(R.id.authFragment, R.id.mainScreenFragment))
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottom_nav.setupWithNavController(navController)
+        // ------------
         title = ""
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            // Изменение икони стрелочки назад                                          
+            toolbar.setNavigationIcon(R.drawable.ic_arrow)      
+                                                       
+                                                       
             // На каких страницах будет отображаться нижняя навигация
             when (destination.id) {
                 R.id.mainScreenFragment,
@@ -55,10 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
             // ---------
 
+            // Настройка отображени и текста туллбара
             textViewTitle.text = when (destination.id) {
                 R.id.authFragment -> {
                     toolbar.visibility = View.INVISIBLE
-                    bottom_nav.visibility = View.GONE
                     ""
                 }
                 R.id.mainScreenFragment -> {
@@ -67,17 +73,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.balanceFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Баланс"
                 }
                 R.id.contactFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Контакты"
                 }
                 R.id.profileFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     val contractNum =
                         getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
                             .getString("contractNum", "")
@@ -85,43 +88,37 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.subContractListFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Субдоговора"
                 }
                 R.id.changePasswordFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Смена договора"
                 }
                 R.id.sessionFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Экран сессии"
                 }
                 R.id.emailListFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Почта"
                 }
                 R.id.billsFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "История платежей"
                 }
                 R.id.createBillsFragment -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     "Формирование счета на оплату"
                 }
                 else -> {
                     toolbar.visibility = View.VISIBLE
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow)
                     ""
                 }
             }
         }
     }
 
+    // Проверка на авторизацию. Если не авторизованн то скидывает на страницу авторизации
     private fun hasEntered() {
         val hasEntered =
             getSharedPreferences("SP_INFO", Context.MODE_PRIVATE).getBoolean("hasEntered", false)
