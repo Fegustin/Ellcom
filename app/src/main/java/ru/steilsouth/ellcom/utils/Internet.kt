@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.widget.Toast
 
 
+// Проверка подключение к интернету
 fun isOnline(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
