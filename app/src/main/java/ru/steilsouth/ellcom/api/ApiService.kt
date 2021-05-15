@@ -142,8 +142,8 @@ interface ApiService {
 }
 
 object ApiUtils {
-    private const val BASE_URL = "https://bill.ellcom.ru/bgbilling/ellcommobile/ru.ellcom.mobile/"
-    private const val CMS_ELLCO = "https://cms.ellco.ru/api/"
+    private const val BASE_URL = "Тут что-то было, но теперь нету"
+    private const val CMS_ELLCO = "И тут тоже"
 
     val apiService: ApiService get() = RetrofitClient.getClient(BASE_URL)
     val apiCms: ApiService get() = RetrofitClient.getClient(CMS_ELLCO)
